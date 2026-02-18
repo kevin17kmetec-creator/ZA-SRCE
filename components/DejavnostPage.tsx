@@ -10,9 +10,9 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
   return (
     <div className="pt-20 bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-trust-900 py-16 text-white border-b-4 border-cardio-600">
+      <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-          <div className="inline-block mb-6">
+          <div className="inline-block mb-4">
              <img 
                src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
                alt="Logotip Društva za zdravje srca" 
@@ -23,7 +23,7 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
             Dejavnost društva
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl">
+          <p className="text-xl text-gray-200 max-w-3xl">
             Naše poslanstvo uresničujemo s širokim naborom strokovnih aktivnosti in preventivnih programov.
           </p>
         </div>

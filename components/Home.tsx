@@ -1,8 +1,8 @@
+
 import React from 'react';
 import Hero from './Hero';
 import About from './About';
 import Programs from './Programs';
-import News from './News';
 import ContactMap from './ContactMap';
 import { PageType } from '../types';
 
@@ -21,7 +21,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <Hero onNavigate={onNavigate} />
       <About />
       <Programs />
-      <News />
       
       {/* Membership Banner - Teaser on Home Page */}
       <section id="membership-teaser" className="bg-gradient-to-r from-cardio-600 to-cardio-700 py-16 relative overflow-hidden">

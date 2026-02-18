@@ -15,7 +15,8 @@ import FundacijaPage from './components/FundacijaPage';
 import PublikacijePage from './components/PublikacijePage'; 
 import ObjaveVecerPage from './components/ObjaveVecerPage';
 import MinuteZaSrcePage from './components/MinuteZaSrcePage';
-import GalerijaPage from './components/GalerijaPage'; // New Component
+import GalerijaPage from './components/GalerijaPage';
+import NewsPage from './components/NewsPage'; // New Component
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
 import { PageType } from './types';
@@ -103,6 +104,7 @@ function App() {
         {currentView === 'objave-vecer' && <ObjaveVecerPage onNavigate={handleNavigate} />}
         {currentView === 'minute-za-srce' && <MinuteZaSrcePage onNavigate={handleNavigate} />}
         {currentView === 'galerija' && <GalerijaPage onNavigate={handleNavigate} />}
+        {currentView === 'novice-page' && <NewsPage onNavigate={handleNavigate} />}
 
       </main>
       

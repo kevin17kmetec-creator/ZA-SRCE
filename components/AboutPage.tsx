@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Clock, Activity, Mic2, Heart, Users, Phone } from 'lucide-react';
 import { PageType } from '../types';
@@ -8,15 +7,12 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
-  // Removed internal useEffect for scrolling as App.tsx handles it now based on sectionId
-
   return (
     <div className="pt-20 bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-trust-900 py-16 text-white">
+      <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-block mb-4">
-             {/* Updated image link to use lh3.googleusercontent.com for better reliability */}
              <img 
                src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
                alt="Logotip Društva za zdravje srca" 
@@ -27,7 +23,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
             O društvu
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
             Društvo za zdravje srca in ožilja za Maribor in Podravje deluje v javnem interesu že več kot 20 let.
           </p>
         </div>

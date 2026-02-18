@@ -34,6 +34,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
       onNavigate('minute-za-srce');
     } else if (href === '/galerija') {
       onNavigate('galerija');
+    } else if (href === '/novice') {
+      onNavigate('novice-page');
     } else if (href === '/') {
       onNavigate('home');
     } else if (href.includes('#')) {
@@ -51,9 +53,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
     if (href === '/publikacije' && currentView === 'publikacije') return true;
     if (href === '/minute-za-srce' && currentView === 'minute-za-srce') return true;
     if (href === '/galerija' && currentView === 'galerija') return true;
+    if (href === '/novice' && currentView === 'novice-page') return true;
     if (href === '/' && currentView === 'home') return true;
-    // For anchors on home page, we consider them active if we are on home
-    if (href.includes('#') && currentView === 'home') return false; 
     return false;
   };
 

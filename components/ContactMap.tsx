@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
@@ -9,54 +10,12 @@ const ContactMap: React.FC = () => {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-100">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             
-            {/* Contact Info & Form */}
+            {/* Left Side: Form and Info */}
             <div className="p-8 sm:p-12 lg:p-16">
               <h2 className="text-3xl font-extrabold text-trust-900 mb-8">Stopite v stik z nami</h2>
               
-              <div className="space-y-6 mb-10">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <MapPin className="h-6 w-6 text-cardio-600" />
-                  </div>
-                  <div className="ml-4 text-base text-gray-600">
-                    <p className="font-medium text-trust-900">Naslov</p>
-                    <p>{CONTACT_INFO.address}</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Phone className="h-6 w-6 text-cardio-600" />
-                  </div>
-                  <div className="ml-4 text-base text-gray-600">
-                    <p className="font-medium text-trust-900">Telefon</p>
-                    <p>{CONTACT_INFO.phone}</p>
-                    {CONTACT_INFO.fax && <p className="text-sm text-gray-500 mt-1">Fax: {CONTACT_INFO.fax}</p>}
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Mail className="h-6 w-6 text-cardio-600" />
-                  </div>
-                  <div className="ml-4 text-base text-gray-600">
-                    <p className="font-medium text-trust-900">E-pošta</p>
-                    <p>{CONTACT_INFO.email}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Clock className="h-6 w-6 text-cardio-600" />
-                  </div>
-                  <div className="ml-4 text-base text-gray-600">
-                    <p className="font-medium text-trust-900">Uradne ure</p>
-                    <p>{CONTACT_INFO.hours}</p>
-                  </div>
-                </div>
-              </div>
-
-              <form className="grid grid-cols-1 gap-y-6" onSubmit={(e) => {
+              {/* Contact Form - Now at the top */}
+              <form className="grid grid-cols-1 gap-y-6 mb-12" onSubmit={(e) => {
                   e.preventDefault();
                   // In a real app, this would send an email via backend
                   window.location.href = `mailto:${CONTACT_INFO.email}?subject=Sporočilo s spletne strani`;
@@ -99,15 +58,59 @@ const ContactMap: React.FC = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-full text-white bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500 transition-colors"
+                    className="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-bold text-white bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500 transition-colors"
                   >
                     Pošlji sporočilo (Email)
                   </button>
                 </div>
               </form>
+
+              {/* Society Contact Info - Now at the bottom */}
+              <div className="space-y-6 pt-10 border-t border-stone-100">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <MapPin className="h-6 w-6 text-cardio-600" />
+                  </div>
+                  <div className="ml-4 text-base text-gray-600">
+                    <p className="font-medium text-trust-900">Naslov</p>
+                    <p>{CONTACT_INFO.address}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <Phone className="h-6 w-6 text-cardio-600" />
+                  </div>
+                  <div className="ml-4 text-base text-gray-600">
+                    <p className="font-medium text-trust-900">Telefon</p>
+                    <p>{CONTACT_INFO.phone}</p>
+                    {CONTACT_INFO.fax && <p className="text-sm text-gray-500 mt-1">Fax: {CONTACT_INFO.fax}</p>}
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <Mail className="h-6 w-6 text-cardio-600" />
+                  </div>
+                  <div className="ml-4 text-base text-gray-600">
+                    <p className="font-medium text-trust-900">E-pošta</p>
+                    <p>{CONTACT_INFO.email}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <Clock className="h-6 w-6 text-cardio-600" />
+                  </div>
+                  <div className="ml-4 text-base text-gray-600">
+                    <p className="font-medium text-trust-900">Uradne ure</p>
+                    <p>{CONTACT_INFO.hours}</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Embed Google Map - Corrected to Pobreška cesta 8 */}
+            {/* Embed Google Map */}
             <div className="relative w-full h-96 lg:h-auto min-h-[400px] bg-gray-100">
                <iframe 
                  src="https://maps.google.com/maps?q=Pobre%C5%A1ka%20cesta%208,%202000%20Maribor&t=&z=16&ie=UTF8&iwloc=&output=embed" 

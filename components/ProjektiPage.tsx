@@ -10,15 +10,20 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
   return (
     <div className="pt-20 bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-trust-900 py-16 text-white border-b-4 border-cardio-600">
+      <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-           <div className="bg-white/10 p-4 rounded-full inline-block mb-6">
-            <ClipboardList className="h-12 w-12 text-cardio-500" />
+          <div className="inline-block mb-4">
+             <img 
+               src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
+               alt="Logotip Društva za zdravje srca" 
+               className="h-32 w-auto mx-auto object-contain drop-shadow-lg"
+               referrerPolicy="no-referrer"
+             />
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
             Naši projekti (2022–2026)
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
             Pregled ključnih projektov, s katerimi uresničujemo naše poslanstvo v obdobju 2022–2026.
           </p>
         </div>
