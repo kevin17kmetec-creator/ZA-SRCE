@@ -16,7 +16,8 @@ import PublikacijePage from './components/PublikacijePage';
 import ObjaveVecerPage from './components/ObjaveVecerPage';
 import MinuteZaSrcePage from './components/MinuteZaSrcePage';
 import GalerijaPage from './components/GalerijaPage';
-import NewsPage from './components/NewsPage'; // New Component
+import NewsPage from './components/NewsPage';
+import NewsArticlePage from './components/NewsArticlePage'; // New Component
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
 import { PageType } from './types';
@@ -24,19 +25,26 @@ import { PageType } from './types';
 function App() {
   // 1. State Management for Navigation
   const [currentView, setCurrentView] = useState<PageType>('home');
+  const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
   
   // State to track navigation source
   const [posvetovalnicaSource, setPosvetovalnicaSource] = useState<'o-drustvu' | 'ugodnosti'>('o-drustvu');
   const [glezenjskiSource, setGlezenjskiSource] = useState<'o-drustvu' | 'dejavnost'>('o-drustvu');
 
   // 2. Navigation Handler
-  const handleNavigate = (view: PageType, sectionId?: string) => {
+  const handleNavigate = (view: PageType, param?: string | number) => {
     setCurrentView(view);
     
+    if (view === 'novica-details' && typeof param === 'number') {
+      setSelectedArticleId(param);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+
     // Logic to handle scrolling after state update
     setTimeout(() => {
-       if (sectionId) {
-         const element = document.getElementById(sectionId);
+       if (typeof param === 'string') {
+         const element = document.getElementById(param);
          if (element) {
            element.scrollIntoView({ behavior: 'smooth' });
          }
@@ -105,6 +113,13 @@ function App() {
         {currentView === 'minute-za-srce' && <MinuteZaSrcePage onNavigate={handleNavigate} />}
         {currentView === 'galerija' && <GalerijaPage onNavigate={handleNavigate} />}
         {currentView === 'novice-page' && <NewsPage onNavigate={handleNavigate} />}
+        
+        {currentView === 'novica-details' && selectedArticleId && (
+          <NewsArticlePage 
+            articleId={selectedArticleId} 
+            onNavigate={handleNavigate} 
+          />
+        )}
 
       </main>
       
