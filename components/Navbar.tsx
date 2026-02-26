@@ -82,65 +82,49 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-            {NAVIGATION_ITEMS.map((item) => (
-              <a 
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className={`font-medium text-base px-3 py-2 rounded-md transition-colors whitespace-nowrap ${
-                  isActive(item.href)
-                    ? 'text-white bg-white/20' 
-                    : 'text-gray-100 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-            
-            <button 
-              onClick={(e) => handleNavClick(e, '/clanstvo')}
-              className="bg-white text-[#4a0404] hover:bg-gray-100 px-5 py-2.5 rounded-full font-bold shadow-md transition-all transform hover:scale-105 whitespace-nowrap cursor-pointer text-sm"
-            >
-              Včlanite se
-            </button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex items-center lg:hidden">
+          {/* Mobile menu button (Always visible now) */}
+          <div className="flex items-center">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-100 hover:text-white hover:bg-white/10 focus:outline-none transition-colors"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-100 hover:text-white hover:bg-white/10 focus:outline-none transition-colors cursor-pointer"
             >
+              <span className="sr-only">Odpri meni</span>
               {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu Panel */}
+      {/* Menu Panel (Dropdown) */}
       {isOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto shadow-xl">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto shadow-xl absolute w-full left-0 top-20 z-40">
+          <div className="px-4 pt-4 pb-6 space-y-2 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             {NAVIGATION_ITEMS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className={`block px-3 py-3 rounded-md text-base font-medium hover:text-[#4a0404] hover:bg-red-50 ${
+                onClick={(e) => {
+                  handleNavClick(e, item.href);
+                  setIsOpen(false);
+                }}
+                className={`block px-4 py-3 rounded-lg text-lg font-medium hover:text-[#4a0404] hover:bg-red-50 transition-colors ${
                    isActive(item.href) ? 'text-[#4a0404] bg-red-50' : 'text-gray-700'
                 }`}
               >
                 {item.label}
               </a>
             ))}
-            <button
-              onClick={(e) => handleNavClick(e, '/clanstvo')}
-              className="block w-full text-center mt-4 bg-[#4a0404] text-white px-3 py-3 rounded-md text-base font-medium hover:bg-[#3a0303] whitespace-nowrap"
-            >
-              Postani član
-            </button>
+            <div className="pt-4 mt-4 border-t border-gray-100">
+              <button
+                onClick={(e) => {
+                  handleNavClick(e, '/clanstvo');
+                  setIsOpen(false);
+                }}
+                className="block w-full text-center bg-[#4a0404] text-white px-4 py-4 rounded-lg text-lg font-bold hover:bg-[#3a0303] transition-colors shadow-md cursor-pointer"
+              >
+                Postani član
+              </button>
+            </div>
           </div>
         </div>
       )}
