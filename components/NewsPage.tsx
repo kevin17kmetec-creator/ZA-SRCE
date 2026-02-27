@@ -99,7 +99,7 @@ const NewsPage: React.FC<NewsPageProps> = ({ onNavigate }) => {
                     <h2 className="text-xl md:text-2xl font-bold text-trust-900 leading-tight mb-4 group-hover:text-cardio-600 transition-colors">
                       {item.title}
                     </h2>
-                    <p className="text-gray-600 text-base leading-relaxed mb-6">
+                    <p className="text-gray-600 text-base leading-relaxed mb-6 line-clamp-4">
                       {item.summary}
                     </p>
                   </div>

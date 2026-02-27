@@ -13,7 +13,7 @@ const GalerijaPage: React.FC<GalerijaPageProps> = ({ onNavigate }) => {
       caption: "Rekreacija in pohodi v naravi"
     },
     {
-      src: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      src: "https://www.telegraph.co.uk/content/dam/money/2025/04/30/TELEMMGLPICT000420323875_17460181981600_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQf0Rf_Wk3V23H2268P_XkPxc.jpeg?imwidth=1920",
       caption: "Preventivne meritve krvnega tlaka"
     },
     {
@@ -57,6 +57,7 @@ const GalerijaPage: React.FC<GalerijaPageProps> = ({ onNavigate }) => {
                   src={img.src} 
                   alt={img.caption} 
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                    <p className="text-white font-medium p-6 text-lg">{img.caption}</p>

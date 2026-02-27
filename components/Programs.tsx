@@ -1,6 +1,7 @@
 import React from 'react';
 import { PROGRAMS } from '../constants';
-import { Activity, Heart, Users, ArrowRight } from 'lucide-react';
+import { Activity, Heart, Users, ArrowRight, Calendar, Clock } from 'lucide-react';
+import { PageType } from '../types';
 
 const iconMap: Record<string, React.ReactNode> = {
   Activity: <Activity className="h-8 w-8 text-white" />,
@@ -8,7 +9,11 @@ const iconMap: Record<string, React.ReactNode> = {
   Users: <Users className="h-8 w-8 text-white" />,
 };
 
-const Programs: React.FC = () => {
+interface ProgramsProps {
+  onNavigate?: (view: PageType, sectionId?: string) => void;
+}
+
+const Programs: React.FC<ProgramsProps> = ({ onNavigate }) => {
   return (
     <section id="programs" className="py-16 bg-stone-50 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +27,7 @@ const Programs: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 mb-16">
           {PROGRAMS.map((program, index) => (
             <div 
               key={index} 
@@ -38,16 +43,21 @@ const Programs: React.FC = () => {
                 </p>
               </div>
               <div className="bg-stone-50 px-8 py-4 border-t border-stone-100 rounded-b-2xl">
-                <a 
-                  href="#contact" 
-                  className="text-cardio-600 font-medium hover:text-cardio-700 inline-flex items-center cursor-pointer"
+                <button 
+                  className="text-cardio-600 font-medium hover:text-cardio-700 inline-flex items-center cursor-pointer bg-transparent border-none p-0"
                   onClick={(e) => {
                     e.preventDefault();
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    if (program.action === 'Urnik meritev') {
+                      onNavigate?.('urnik-meritev');
+                    } else if (program.action === 'Koledar vadb') {
+                      onNavigate?.('koledar-vadb');
+                    } else {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }
                   }}
                 >
                   {program.action} <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-                </a>
+                </button>
               </div>
             </div>
           ))}

@@ -93,9 +93,9 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
           </div>
 
           {/* Article Body */}
-          <div className="prose prose-lg prose-stone max-w-none text-gray-700 leading-relaxed mb-12">
-            {article.summary.split('\n').map((paragraph, idx) => (
-              <p key={idx} className="mb-6 last:mb-0">
+          <div className="max-w-none text-gray-700 text-base leading-relaxed mb-8">
+            {(article.content || article.summary).split('\n').filter(p => p.trim().length > 0).map((paragraph, idx) => (
+              <p key={idx} className="mb-4 last:mb-0">
                 {paragraph}
               </p>
             ))}

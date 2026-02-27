@@ -44,9 +44,10 @@ const About: React.FC = () => {
           </div>
           <div className="rounded-2xl overflow-hidden shadow-xl">
              <img 
-               src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+               src="https://www.telegraph.co.uk/content/dam/money/2025/04/30/TELEMMGLPICT000420323875_17460181981600_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQf0Rf_Wk3V23H2268P_XkPxc.jpeg?imwidth=1920" 
                alt="Ekipa društva pri delu" 
                className="w-full h-full object-cover"
+               referrerPolicy="no-referrer"
              />
           </div>
         </div>

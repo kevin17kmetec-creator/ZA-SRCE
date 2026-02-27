@@ -20,7 +20,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     <>
       <Hero onNavigate={onNavigate} />
       <About />
-      <Programs />
+      <Programs onNavigate={onNavigate} />
       
       {/* Membership Banner - Teaser on Home Page */}
       <section id="membership-teaser" className="bg-gradient-to-r from-cardio-600 to-cardio-700 py-16 relative overflow-hidden">

@@ -79,33 +79,47 @@ export const fetchNewsFromSheet = async (): Promise<NewsArticle[]> => {
                 category = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1);
               }
 
-              // Extract images from columns G (6) to K (10)
-              // Also check column F (5) if it has data
-              const potentialImageCols = [5, 6, 7, 8, 9, 10]; 
-              const images: string[] = [];
+              // Extract images
+              // Column F (index 5) is strictly for the Hero image
+              // Columns G-K (indices 6-10) are for additional gallery images
+              
+              const heroColIdx = 5;
+              const galleryColIndices = [6, 7, 8, 9, 10];
+              
+              let heroImage = 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+              const galleryImages: string[] = [];
 
-              potentialImageCols.forEach(colIdx => {
+              // Process Hero Image (Column F)
+              if (row[heroColIdx] && row[heroColIdx].trim()) {
+                const directLink = convertDriveLinkToDirectLink(row[heroColIdx].trim());
+                if (directLink) {
+                  heroImage = directLink;
+                }
+              }
+
+              // Process Gallery Images (Columns G+)
+              galleryColIndices.forEach(colIdx => {
                 if (row[colIdx] && row[colIdx].trim()) {
                   const directLink = convertDriveLinkToDirectLink(row[colIdx].trim());
                   if (directLink) {
-                    images.push(directLink);
+                    galleryImages.push(directLink);
                   }
                 }
               });
 
-              // Default image if none found
-              const mainImage = images.length > 0 
-                ? images[0] 
-                : 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+              // The 'images' array should start with the hero image, followed by gallery images.
+              // This ensures compatibility with NewsArticlePage which uses images.slice(1) for the gallery.
+              const allImages = [heroImage, ...galleryImages];
 
               return {
                 id: 1000 + index, // Start IDs from 1000 to avoid collision
                 title: row[titleIdx] || 'Brez naslova',
                 summary: row[contentIdx] || '',
+                content: row[contentIdx] || '', // Use content from sheet as full content
                 date: row[dateIdx] || new Date().toLocaleDateString('sl-SI'),
                 category: category,
-                image: mainImage,
-                images: images
+                image: heroImage,
+                images: allImages
               };
             });
 
