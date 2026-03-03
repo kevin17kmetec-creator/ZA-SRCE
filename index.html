@@ -34,8 +34,18 @@
               'flow': 'flow 10s linear infinite',
               'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
               'float': 'float 6s ease-in-out infinite',
+              'marquee': 'marquee 25s linear infinite',
+              'marquee-seamless': 'marquee-seamless 120s linear infinite',
             },
             keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(100%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              },
+              'marquee-seamless': {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
+              },
               'heartbeat-real': {
                 '0%, 100%': { transform: 'scale(0.95)' },
                 '10%': { transform: 'scale(1.12)' },

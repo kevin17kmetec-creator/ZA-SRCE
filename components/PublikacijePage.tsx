@@ -9,7 +9,7 @@ interface PublikacijePageProps {
 const PublikacijePage: React.FC<PublikacijePageProps> = ({ onNavigate }) => {
 
   return (
-    <div className="pt-20 bg-stone-50 min-h-screen">
+    <div className="bg-stone-50 min-h-screen">
       {/* Header */}
       <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -71,7 +71,7 @@ const PublikacijePage: React.FC<PublikacijePageProps> = ({ onNavigate }) => {
                  </div>
                </div>
                <div>
-                 <h3 className="text-xl font-bold text-trust-900 mb-2">Publikacije Zveze koronarnih društev in klubov Slovenije</h3>
+                 <h3 className="text-xl font-bold text-trust-900 mb-2">Publikacije Zveze Slovenskega društva ZA SRCE Slovenije</h3>
                  <a 
                    href="https://zasrce.si/rubrika/publikacije/" 
                    target="_blank" 

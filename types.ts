@@ -31,3 +31,11 @@ export interface ChatMessage {
   text: string;
   timestamp: Date;
 }
+
+export interface Measurement {
+  date: string;
+  time: string;
+  location: string;
+  type: string;
+  comment?: string;
+}

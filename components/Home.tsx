@@ -4,6 +4,7 @@ import Hero from './Hero';
 import About from './About';
 import Programs from './Programs';
 import ContactMap from './ContactMap';
+import NewsCarousel from './NewsCarousel';
 import { PageType } from '../types';
 
 interface HomeProps {
@@ -19,6 +20,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <>
       <Hero onNavigate={onNavigate} />
+      <NewsCarousel onNavigate={onNavigate} />
       <About />
       <Programs onNavigate={onNavigate} />
       

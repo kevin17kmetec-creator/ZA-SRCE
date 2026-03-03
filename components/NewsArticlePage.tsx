@@ -30,7 +30,7 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-20 flex justify-center items-center bg-stone-50">
+      <div className="min-h-screen flex justify-center items-center bg-stone-50">
         <Loader2 className="h-12 w-12 text-cardio-600 animate-spin" />
       </div>
     );
@@ -38,7 +38,7 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
 
   if (!article) {
     return (
-      <div className="min-h-screen pt-20 flex flex-col justify-center items-center bg-stone-50">
+      <div className="min-h-screen flex flex-col justify-center items-center bg-stone-50">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Novica ni bila najdena</h2>
         <button 
           onClick={() => onNavigate('novice-page')}
@@ -52,7 +52,7 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
   }
 
   return (
-    <div className="pt-20 bg-stone-50 min-h-screen flex flex-col">
+    <div className="bg-stone-50 min-h-screen flex flex-col">
       {/* Hero Image */}
       <div className="w-full h-64 md:h-96 relative">
         <img 

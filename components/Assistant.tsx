@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, HeartPulse, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import { ChatMessage } from '../types';
 import { generateHealthResponse } from '../services/geminiService';
 
-const Assistant: React.FC = () => {
+interface AssistantProps {
+  onNavigate: (view: PageType, param?: string | number) => void;
+}
+
+const Assistant: React.FC<AssistantProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -19,12 +24,29 @@ const Assistant: React.FC = () => {
 
   const toggleChat = () => setIsOpen(!isOpen);
 
+  const handleLinkClick = (href: string) => {
+    if (href.startsWith('nav:')) {
+      const pageId = href.replace('nav:', '') as PageType;
+      onNavigate(pageId);
+      setIsOpen(false); // Close chat on navigation
+      return true;
+    }
+    return false;
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (isOpen) {
+      const lastMessage = messages[messages.length - 1];
+      // Only scroll to bottom if the last message is from the user OR if it's the initial welcome message
+      // This prevents auto-scrolling when the bot replies, allowing the user to read from the top
+      if (lastMessage?.role === 'user' || messages.length <= 1) {
+        scrollToBottom();
+      }
+    }
   }, [messages, isOpen]);
 
   const handleSend = async (e?: React.FormEvent) => {
@@ -91,13 +113,45 @@ const Assistant: React.FC = () => {
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
+                  className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
                     msg.role === 'user'
                       ? 'bg-cardio-600 text-white rounded-br-none'
                       : 'bg-white text-gray-800 border border-gray-200 rounded-bl-none'
                   }`}
                 >
-                  <p className="leading-relaxed">{msg.text}</p>
+                  {msg.role === 'user' ? (
+                    <p className="leading-relaxed">{msg.text}</p>
+                  ) : (
+                    <div className="markdown-body">
+                      <ReactMarkdown
+                        components={{
+                          ul: ({node, ...props}) => <ul className="list-disc pl-4 mb-2 space-y-1" {...props} />,
+                          ol: ({node, ...props}) => <ol className="list-decimal pl-4 mb-2 space-y-1" {...props} />,
+                          li: ({node, ...props}) => <li className="pl-1" {...props} />,
+                          p: ({node, ...props}) => <p className="mb-2 last:mb-0 leading-relaxed" {...props} />,
+                          strong: ({node, ...props}) => <strong className="font-bold text-cardio-700" {...props} />,
+                          a: ({node, href, ...props}) => {
+                            const isNav = href?.startsWith('nav:');
+                            return (
+                              <a 
+                                href={href} 
+                                onClick={(e) => {
+                                  if (isNav && href) {
+                                    e.preventDefault();
+                                    handleLinkClick(href);
+                                  }
+                                }}
+                                className="text-cardio-600 font-bold underline hover:text-cardio-800 transition-colors cursor-pointer"
+                                {...props} 
+                              />
+                            );
+                          }
+                        }}
+                      >
+                        {msg.text}
+                      </ReactMarkdown>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

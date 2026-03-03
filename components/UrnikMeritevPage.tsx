@@ -1,35 +1,32 @@
-import React from 'react';
-import { ArrowLeft, Calendar, MapPin, Clock } from 'lucide-react';
-import { PageType } from '../types';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, Calendar, MapPin, Clock, Loader2 } from 'lucide-react';
+import { PageType, Measurement } from '../types';
+import { getCombinedMeasurements } from '../services/measurementService';
 
 interface UrnikMeritevPageProps {
   onNavigate: (view: PageType) => void;
 }
 
 const UrnikMeritevPage: React.FC<UrnikMeritevPageProps> = ({ onNavigate }) => {
-  const measurements = [
-    {
-      date: '3. Februar (Torek)',
-      time: '07:30 - 10:30',
-      location: 'DU Tabor, Gorkega ul. 48, MB',
-      type: 'Meritve krvnega pritiska, sladkorja, holesterola, trigliceridov in EKG',
-    },
-    {
-      date: '4. Februar (Sreda)',
-      time: '07:30 - 09:30',
-      location: 'MČ Pobrežje, Kosovelova ul. 11, MB',
-      type: 'Meritve krvnega pritiska, sladkorja, holesterola, trigliceridov in EKG',
-    },
-    {
-      date: '9. Februar (Ponedeljek)',
-      time: '08:00 - 10:00',
-      location: 'Sedež društva, Pobreška c. 8, MB',
-      type: 'Meritve krvnega pritiska, sladkorja, holesterola, trigliceridov in EKG',
-    },
-  ];
+  const [measurements, setMeasurements] = useState<Measurement[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadMeasurements = async () => {
+      try {
+        const data = await getCombinedMeasurements();
+        setMeasurements(data);
+      } catch (error) {
+        console.error('Failed to load measurements:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMeasurements();
+  }, []);
 
   return (
-    <div className="pt-20 bg-stone-50 min-h-screen flex flex-col">
+    <div className="bg-stone-50 min-h-screen flex flex-col">
       {/* Header */}
       <div className="bg-[#4a0404] py-12 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -57,55 +54,67 @@ const UrnikMeritevPage: React.FC<UrnikMeritevPageProps> = ({ onNavigate }) => {
 
       {/* Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-stone-100">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Datum
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Ura
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Lokacija
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Vrsta meritve
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {measurements.map((item, index) => (
-                  <tr key={index} className="hover:bg-stone-50 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm font-medium text-gray-900">
-                        <Calendar className="h-4 w-4 mr-2 text-cardio-600" />
-                        {item.date}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                        {item.time}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <MapPin className="h-4 w-4 mr-2 text-gray-400" />
-                        {item.location}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {item.type}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="h-10 w-10 text-cardio-600 animate-spin" />
           </div>
-        </div>
+        ) : (
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-stone-100">
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Datum
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Ura
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Lokacija
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Vrsta meritve
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Komentar
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {measurements.map((item, index) => (
+                    <tr key={index} className="hover:bg-stone-50 transition-colors">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center text-sm font-medium text-gray-900">
+                          <Calendar className="h-4 w-4 mr-2 text-cardio-600" />
+                          {item.date}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center text-sm text-gray-500">
+                          <Clock className="h-4 w-4 mr-2 text-gray-400" />
+                          {item.time}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center text-sm text-gray-500">
+                          <MapPin className="h-4 w-4 mr-2 text-gray-400" />
+                          {item.location}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500">
+                        {item.type}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-cardio-600 italic">
+                        {item.comment}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
         
         <div className="mt-8 bg-cardio-50 border-l-4 border-cardio-500 p-4 rounded-r-lg">
           <div className="flex">

@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar'; // New
 import Home from './components/Home';
 import MembershipPage from './components/MembershipPage';
 import AboutPage from './components/AboutPage';
@@ -20,6 +21,7 @@ import NewsPage from './components/NewsPage';
 import NewsArticlePage from './components/NewsArticlePage';
 import UrnikMeritevPage from './components/UrnikMeritevPage'; // New
 import KoledarVadbPage from './components/KoledarVadbPage'; // New
+import MeasurementTicker from './components/MeasurementTicker'; // New
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
 import { PageType } from './types';
@@ -136,8 +138,10 @@ function App() {
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-trust-900 flex flex-col">
       <Navbar currentView={currentView} onNavigate={handleNavigate} />
+      <Sidebar currentView={currentView} onNavigate={handleNavigate} />
+      <MeasurementTicker />
       
-      <main className="flex-grow">
+      <main className="flex-grow mt-32 ml-64">
         {currentView === 'home' && <Home onNavigate={handleNavigate} />}
         {currentView === 'clanstvo' && <MembershipPage onNavigate={handleNavigate} />}
         
@@ -205,8 +209,10 @@ function App() {
 
       </main>
       
-      <Footer onNavigate={handleNavigate} />
-      <Assistant />
+      <div className="ml-64">
+        <Footer onNavigate={handleNavigate} />
+      </div>
+      <Assistant onNavigate={handleNavigate} />
     </div>
   );
 }

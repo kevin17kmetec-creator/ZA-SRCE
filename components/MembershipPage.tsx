@@ -51,7 +51,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="pt-20 bg-stone-50 min-h-screen">
+    <div className="bg-stone-50 min-h-screen">
       {/* Header - Standardized with Logo and Brand Red */}
       <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -174,8 +174,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
                       className="text-cardio-600 hover:text-cardio-800 font-medium underline cursor-pointer"
                     >
                       digitalnega obrazca
-                    </a>{' '}
-                    spodaj. Pošiljanje je varno in hitro.
+                    </a>. Pošiljanje je varno in hitro.
                   </p>
                   <p className="mt-2 text-sm text-gray-500">
                     Alternativno lahko obrazec natisnete in pošljete po pošti:

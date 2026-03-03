@@ -60,7 +60,7 @@ const ContactMap: React.FC = () => {
                     type="submit"
                     className="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-bold text-white bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500 transition-colors"
                   >
-                    Pošlji sporočilo (Email)
+                    Pošlji sporočilo
                   </button>
                 </div>
               </form>

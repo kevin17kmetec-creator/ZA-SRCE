@@ -1,13 +1,29 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { PageType } from '../types';
+import { PageType, Measurement } from '../types';
+import { getCombinedMeasurements } from '../services/measurementService';
 
 interface HeroProps {
   onNavigate: (view: PageType, sectionId?: string) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+  const [nextMeasurement, setNextMeasurement] = useState<Measurement | null>(null);
+
+  useEffect(() => {
+    const loadMeasurements = async () => {
+      const data = await getCombinedMeasurements();
+      if (data && data.length > 0) {
+        setNextMeasurement(data[0]);
+      }
+    };
+    loadMeasurements();
+  }, []);
+
+  const measurementText = nextMeasurement 
+    ? `Naslednja meritev: ${nextMeasurement.date}, ${nextMeasurement.location.split(',')[0]}`
+    : 'Naslednja meritev: Preverite urnik';
 
   const scrollToSection = (id: string) => {
     onNavigate('home', id);
@@ -36,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="relative overflow-hidden mt-20 bg-white min-h-[800px] flex items-center justify-center">
+    <div className="relative overflow-hidden bg-white min-h-[800px] flex items-center justify-center">
       
       {/* Background Layer: High-Density Vascular Animation */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
@@ -90,7 +106,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <div className="text-center lg:text-left py-12">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 border border-red-100 text-cardio-700 mb-10 shadow-sm animate-bounce-slow">
               <span className="flex h-3 w-3 rounded-full bg-cardio-500 mr-3 animate-pulse"></span>
-              <span className="text-sm font-bold tracking-tight">Naslednja meritev: 20. Oktober, Glavni trg</span>
+              <span className="text-sm font-bold tracking-tight">{measurementText}</span>
             </div>
             
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-trust-900 tracking-tighter leading-[0.95] mb-8">

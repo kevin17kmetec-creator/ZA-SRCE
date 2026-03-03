@@ -13,7 +13,7 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
   const embedUrl = `https://drive.google.com/embeddedfolderview?id=${driveFolderId}#grid`;
 
   return (
-    <div className="pt-20 bg-stone-50 min-h-screen flex flex-col">
+    <div className="bg-stone-50 min-h-screen flex flex-col">
       {/* Header */}
       <div className="bg-trust-900 py-8 text-white shadow-md z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

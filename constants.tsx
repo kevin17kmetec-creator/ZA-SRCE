@@ -96,6 +96,27 @@ export const PROGRAMS: ProgramService[] = [
   }
 ];
 
+export const MEASUREMENTS = [
+  {
+    date: '3. Februar (Torek)',
+    time: '07:30 - 10:30',
+    location: 'DU Tabor, Gorkega ul. 48, MB',
+    type: 'Meritve krvnega pritiska, sladkorja, holesterola, trigliceridov in EKG',
+  },
+  {
+    date: '4. Februar (Sreda)',
+    time: '07:30 - 09:30',
+    location: 'MČ Pobrežje, Kosovelova ul. 11, MB',
+    type: 'Meritve krvnega pritiska, sladkorja, holesterola, trigliceridov in EKG',
+  },
+  {
+    date: '9. Februar (Ponedeljek)',
+    time: '08:00 - 10:00',
+    location: 'Sedež društva, Pobreška c. 8, MB',
+    type: 'Meritve krvnega pritiska, sladkorja, holesterola, trigliceridov in EKG',
+  },
+];
+
 export const CONTACT_INFO = {
   address: "Pobreška cesta 8, 2000 Maribor",
   phone: "02 228 22 63",

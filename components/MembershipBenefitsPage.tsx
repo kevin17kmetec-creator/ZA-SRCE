@@ -8,7 +8,7 @@ interface MembershipBenefitsPageProps {
 
 const MembershipBenefitsPage: React.FC<MembershipBenefitsPageProps> = ({ onNavigate }) => {
   return (
-    <div className="pt-20 bg-stone-50 min-h-screen">
+    <div className="bg-stone-50 min-h-screen">
       {/* Header */}
       <div className="bg-gradient-to-r from-cardio-700 to-trust-900 py-16 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
