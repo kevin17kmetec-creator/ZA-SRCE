@@ -40,8 +40,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
 
   return (
     <nav className="bg-[#4a0404] shadow-md fixed w-full z-50 top-0 border-b border-[#3a0303]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+      <div className="px-4 sm:px-6 lg:px-12">
+        <div className="flex justify-start h-20">
           
           {/* Logo Section */}
           <div 
