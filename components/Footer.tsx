@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-trust-900 text-white">
       <div className="max-w-7xl mx-auto py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center mb-4">
                <Heart className="h-6 w-6 text-cardio-500 fill-current mr-2" />
@@ -54,6 +54,16 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li><a href="/projekti" onClick={(e) => handleLinkClick(e, '/projekti')} className="text-base text-gray-400 hover:text-white transition-colors">Projekti</a></li>
               <li><a href="/fundacija" onClick={(e) => handleLinkClick(e, '/fundacija')} className="text-base text-gray-400 hover:text-white transition-colors">Fundacija</a></li>
               <li><a href="/publikacije" onClick={(e) => handleLinkClick(e, '/publikacije')} className="text-base text-gray-400 hover:text-white transition-colors">Publikacije</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase mb-4">Pravno</h3>
+            <ul className="space-y-3">
+              <li><button onClick={() => onNavigate('privacy-policy')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Politika zasebnosti</button></li>
+              <li><button onClick={() => onNavigate('terms-conditions')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Splošni pogoji</button></li>
+              <li><button onClick={() => onNavigate('legal-notice')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Pravno obvestilo</button></li>
+              <li><button onClick={() => onNavigate('accessibility')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Dostopnost</button></li>
             </ul>
           </div>
 

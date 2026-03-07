@@ -25,6 +25,11 @@ import MeasurementTicker from './components/MeasurementTicker'; // New
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
 import BackToTop from './components/BackToTop'; // New
+import CookieBanner from './components/CookieBanner'; // New
+import PrivacyPolicy from './components/PrivacyPolicy'; // New
+import TermsAndConditions from './components/TermsAndConditions'; // New
+import LegalNotice from './components/LegalNotice'; // New
+import AccessibilityStatement from './components/AccessibilityStatement'; // New
 import { PageType } from './types';
 
 function App() {
@@ -58,6 +63,10 @@ function App() {
       case 'novica-details': return `/novica/${param}`;
       case 'urnik-meritev': return '/urnik-meritev';
       case 'koledar-vadb': return '/koledar-vadb';
+      case 'privacy-policy': return '/privacy-policy';
+      case 'terms-conditions': return '/terms-conditions';
+      case 'legal-notice': return '/legal-notice';
+      case 'accessibility': return '/accessibility';
       default: return '/';
     }
   };
@@ -82,6 +91,10 @@ function App() {
     if (pathname === '/novice') return { view: 'novice-page' };
     if (pathname === '/urnik-meritev') return { view: 'urnik-meritev' };
     if (pathname === '/koledar-vadb') return { view: 'koledar-vadb' };
+    if (pathname === '/privacy-policy') return { view: 'privacy-policy' };
+    if (pathname === '/terms-conditions') return { view: 'terms-conditions' };
+    if (pathname === '/legal-notice') return { view: 'legal-notice' };
+    if (pathname === '/accessibility') return { view: 'accessibility' };
     
     // Check for novica details
     const novicaMatch = pathname.match(/^\/novica\/(\d+)$/);
@@ -207,6 +220,11 @@ function App() {
 
         {currentView === 'urnik-meritev' && <UrnikMeritevPage onNavigate={handleNavigate} />}
         {currentView === 'koledar-vadb' && <KoledarVadbPage onNavigate={handleNavigate} />}
+        
+        {currentView === 'privacy-policy' && <PrivacyPolicy />}
+        {currentView === 'terms-conditions' && <TermsAndConditions />}
+        {currentView === 'legal-notice' && <LegalNotice />}
+        {currentView === 'accessibility' && <AccessibilityStatement />}
 
       </main>
       
@@ -215,6 +233,7 @@ function App() {
       </div>
       <Assistant onNavigate={handleNavigate} />
       <BackToTop />
+      <CookieBanner onNavigate={handleNavigate} />
     </div>
   );
 }
