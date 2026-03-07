@@ -52,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="relative overflow-hidden bg-white min-h-[500px] md:min-h-[600px] flex items-start md:items-center justify-center">
+    <div className="relative overflow-hidden bg-white min-h-[500px] md:min-h-[500px] flex items-start md:items-center justify-center">
       
       {/* Background Layer: High-Density Vascular Animation */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
@@ -103,8 +103,8 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         <div className="grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
           
           {/* Content Side */}
-          <div className="text-center lg:text-left pt-6 pb-6 lg:py-8">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 border border-red-100 text-cardio-700 mb-8 lg:mb-6 shadow-sm animate-bounce-slow">
+          <div className="text-center lg:text-left pt-6 pb-6 lg:pt-4 lg:pb-2">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 border border-red-100 text-cardio-700 mb-8 lg:mb-4 shadow-sm animate-bounce-slow">
               <span className="flex h-3 w-3 rounded-full bg-cardio-500 mr-3 animate-pulse"></span>
               <span className="text-sm font-bold tracking-tight">{measurementText}</span>
             </div>
@@ -123,7 +123,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               Pridružite se Društvu za zdravje srca in ožilja za Maribor in Podravje. Skupaj skrbimo za preventivo in spodbujamo aktiven življenjski slog.
             </p>
 
-            <div className="mt-8 lg:mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4 lg:gap-6">
+            <div className="mt-8 lg:mt-6 flex flex-col sm:flex-row justify-center lg:justify-start gap-4 lg:gap-6">
               <button
                 onClick={() => onNavigate('clanstvo')}
                 className="group relative flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-white bg-cardio-600 hover:bg-cardio-700 transition-all shadow-2xl hover:shadow-cardio-500/40 transform hover:-translate-y-1 overflow-hidden cursor-pointer"
@@ -147,14 +147,14 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           {/* Fixed Anatomical Heart - Centered and Non-Clipping */}
           <div className="relative flex justify-center items-center min-h-[300px] md:min-h-[350px]">
             {/* Pulsing Atmosphere - Background Glow */}
-            <div className="absolute w-[400px] h-[400px] bg-cardio-100/40 rounded-full animate-pulse-glow z-0"></div>
+            <div className="absolute w-[450px] h-[450px] bg-cardio-100/40 rounded-full animate-pulse-glow z-0"></div>
             
             {/* The Heart Vessel Container - Added padding to prevent clipping during scale up */}
-            <div className="relative z-10 w-full max-w-sm aspect-square flex items-center justify-center p-8">
+            <div className="relative z-10 w-full max-w-md aspect-square flex items-center justify-center p-4">
               
               {/* Organic Animated Heart SVG - Resized to 240x280 to provide safety margin */}
               <div className="animate-heartbeat-real drop-shadow-[0_40px_80px_rgba(220,38,38,0.5)] transform-gpu">
-                <svg width="200" height="240" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
+                <svg width="280" height="336" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
                   <defs>
                     <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#f87171" />
