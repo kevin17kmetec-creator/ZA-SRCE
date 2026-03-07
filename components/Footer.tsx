@@ -34,9 +34,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   return (
     <footer className="bg-trust-900 text-white">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
+      <div className="max-w-7xl mx-auto py-8 lg:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+          <div className="col-span-2 md:col-span-2">
             <div className="flex items-center mb-4">
                <Heart className="h-6 w-6 text-cardio-500 fill-current mr-2" />
                <span className="font-bold text-xl">Društvo za zdravje srca</span>
@@ -57,7 +57,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </div>
 
-          <div>
+          <div className="text-right md:text-left">
             <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase mb-4">Kontakt</h3>
             <ul className="space-y-3 text-sm text-gray-400">
               <li>{CONTACT_INFO.address.split(',')[0]}</li>
@@ -66,7 +66,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               {CONTACT_INFO.fax && <li>Fax: {CONTACT_INFO.fax}</li>}
               <li>{CONTACT_INFO.email}</li>
             </ul>
-            <div className="flex space-x-4 mt-6">
+            <div className="flex justify-end md:justify-start space-x-4 mt-6">
               <a 
                 href="https://www.facebook.com/profile.php?id=61575200512915" 
                 target="_blank" 

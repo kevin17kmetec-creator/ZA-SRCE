@@ -100,7 +100,7 @@ const NewsCarousel: React.FC<NewsCarouselProps> = ({ onNavigate }) => {
   }
 
   return (
-    <section className="py-12 bg-stone-50 border-b border-stone-200">
+    <section className="py-8 lg:py-8 bg-stone-50 border-b border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-trust-900">Zadnje novice</h2>

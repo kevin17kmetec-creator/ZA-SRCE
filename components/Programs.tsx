@@ -15,9 +15,9 @@ interface ProgramsProps {
 
 const Programs: React.FC<ProgramsProps> = ({ onNavigate }) => {
   return (
-    <section id="programs" className="py-16 bg-stone-50 scroll-mt-20">
+    <section id="programs" className="py-10 lg:py-16 bg-stone-50 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-6 lg:mb-12">
           <h2 className="text-base text-cardio-600 font-semibold tracking-wide uppercase">Kaj počnemo</h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-trust-900 sm:text-4xl">
             Programi za vaše zdravje
@@ -27,7 +27,7 @@ const Programs: React.FC<ProgramsProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 mb-16">
+        <div className="grid grid-cols-1 gap-6 lg:gap-8 md:grid-cols-3 mb-8 lg:mb-16">
           {PROGRAMS.map((program, index) => (
             <div 
               key={index} 

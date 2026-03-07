@@ -24,6 +24,7 @@ import KoledarVadbPage from './components/KoledarVadbPage'; // New
 import MeasurementTicker from './components/MeasurementTicker'; // New
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
+import BackToTop from './components/BackToTop'; // New
 import { PageType } from './types';
 
 function App() {
@@ -141,7 +142,7 @@ function App() {
       <Sidebar currentView={currentView} onNavigate={handleNavigate} />
       <MeasurementTicker />
       
-      <main className="flex-grow mt-32 ml-64">
+      <main className="flex-grow mt-28 md:mt-32 md:ml-64">
         {currentView === 'home' && <Home onNavigate={handleNavigate} />}
         {currentView === 'clanstvo' && <MembershipPage onNavigate={handleNavigate} />}
         
@@ -209,10 +210,11 @@ function App() {
 
       </main>
       
-      <div className="ml-64">
+      <div className="md:ml-64">
         <Footer onNavigate={handleNavigate} />
       </div>
       <Assistant onNavigate={handleNavigate} />
+      <BackToTop />
     </div>
   );
 }

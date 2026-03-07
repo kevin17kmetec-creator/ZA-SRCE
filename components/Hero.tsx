@@ -52,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="relative overflow-hidden bg-white min-h-[800px] flex items-center justify-center">
+    <div className="relative overflow-hidden bg-white min-h-[500px] md:min-h-[600px] flex items-start md:items-center justify-center">
       
       {/* Background Layer: High-Density Vascular Animation */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
@@ -100,44 +100,44 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-4 lg:gap-12 items-center">
           
           {/* Content Side */}
-          <div className="text-center lg:text-left py-12">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 border border-red-100 text-cardio-700 mb-10 shadow-sm animate-bounce-slow">
+          <div className="text-center lg:text-left pt-6 pb-6 lg:py-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-red-50 border border-red-100 text-cardio-700 mb-8 lg:mb-6 shadow-sm animate-bounce-slow">
               <span className="flex h-3 w-3 rounded-full bg-cardio-500 mr-3 animate-pulse"></span>
               <span className="text-sm font-bold tracking-tight">{measurementText}</span>
             </div>
             
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black text-trust-900 tracking-tighter leading-[0.95] mb-8">
+            <h1 className="text-5xl sm:text-7xl lg:text-7xl font-black text-trust-900 tracking-tighter leading-[0.95] mb-6 lg:mb-4">
               Vaše srce je<br />
               <span className="text-cardio-600 relative">
                 naša skrb.
-                <svg className="absolute -bottom-4 left-0 w-full h-4 text-cardio-100 opacity-60" viewBox="0 0 400 20" fill="none">
+                <svg className="absolute -bottom-4 left-0 w-1/2 md:w-full h-4 text-cardio-100 opacity-60" viewBox="0 0 400 20" fill="none">
                   <path d="M0 10C50 0 150 20 200 10C250 0 350 20 400 10" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
                 </svg>
               </span>
             </h1>
 
-            <p className="mt-6 text-xl text-gray-500 sm:text-2xl max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+            <p className="mt-4 lg:mt-4 text-lg lg:text-xl text-gray-500 sm:text-2xl max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
               Pridružite se Društvu za zdravje srca in ožilja za Maribor in Podravje. Skupaj skrbimo za preventivo in spodbujamo aktiven življenjski slog.
             </p>
 
-            <div className="mt-12 flex flex-col sm:flex-row justify-center lg:justify-start gap-6">
+            <div className="mt-8 lg:mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-4 lg:gap-6">
               <button
                 onClick={() => onNavigate('clanstvo')}
-                className="group relative flex items-center justify-center px-12 py-5 text-xl font-bold rounded-full text-white bg-cardio-600 hover:bg-cardio-700 transition-all shadow-2xl hover:shadow-cardio-500/40 transform hover:-translate-y-1 overflow-hidden cursor-pointer"
+                className="group relative flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-white bg-cardio-600 hover:bg-cardio-700 transition-all shadow-2xl hover:shadow-cardio-500/40 transform hover:-translate-y-1 overflow-hidden cursor-pointer"
               >
                 <span className="relative z-10 flex items-center">
                   Včlanite se
-                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                  <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-2 transition-transform" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-cardio-700 to-cardio-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </button>
               
               <button
                 onClick={() => scrollToSection('programs')}
-                className="flex items-center justify-center px-12 py-5 text-xl font-bold rounded-full text-trust-900 bg-white border-2 border-stone-100 hover:border-cardio-200 hover:text-cardio-600 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 cursor-pointer"
+                className="flex items-center justify-center px-8 py-4 text-lg font-bold rounded-full text-trust-900 bg-white border-2 border-stone-100 hover:border-cardio-200 hover:text-cardio-600 transition-all shadow-xl hover:shadow-2xl transform hover:-translate-y-1 cursor-pointer"
               >
                 Naši programi
               </button>
@@ -145,16 +145,16 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           </div>
 
           {/* Fixed Anatomical Heart - Centered and Non-Clipping */}
-          <div className="relative flex justify-center items-center min-h-[450px]">
+          <div className="relative flex justify-center items-center min-h-[300px] md:min-h-[350px]">
             {/* Pulsing Atmosphere - Background Glow */}
-            <div className="absolute w-[500px] h-[500px] bg-cardio-100/40 rounded-full animate-pulse-glow z-0"></div>
+            <div className="absolute w-[400px] h-[400px] bg-cardio-100/40 rounded-full animate-pulse-glow z-0"></div>
             
             {/* The Heart Vessel Container - Added padding to prevent clipping during scale up */}
-            <div className="relative z-10 w-full max-w-sm aspect-square flex items-center justify-center p-12">
+            <div className="relative z-10 w-full max-w-sm aspect-square flex items-center justify-center p-8">
               
               {/* Organic Animated Heart SVG - Resized to 240x280 to provide safety margin */}
               <div className="animate-heartbeat-real drop-shadow-[0_40px_80px_rgba(220,38,38,0.5)] transform-gpu">
-                <svg width="240" height="280" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
+                <svg width="200" height="240" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
                   <defs>
                     <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#f87171" />

@@ -25,7 +25,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <Programs onNavigate={onNavigate} />
       
       {/* Membership Banner - Teaser on Home Page */}
-      <section id="membership-teaser" className="bg-gradient-to-r from-cardio-600 to-cardio-700 py-16 relative overflow-hidden">
+      <section id="membership-teaser" className="bg-gradient-to-r from-cardio-600 to-cardio-700 py-10 lg:py-16 relative overflow-hidden">
           {/* Decorative pattern */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <aside className="flex flex-col w-64 h-[calc(100vh-5rem)] fixed left-0 top-20 bg-[#4a0404] text-white overflow-y-auto z-40 shadow-xl border-r border-[#3a0303]">
+    <aside className="hidden md:flex flex-col w-64 h-[calc(100vh-5rem)] fixed left-0 top-20 bg-[#4a0404] text-white overflow-y-auto z-40 shadow-xl border-r border-[#3a0303]">
       {/* Navigation Links */}
       <nav className="flex-1 py-6 px-3 space-y-1">
         {NAVIGATION_ITEMS.map((item) => (

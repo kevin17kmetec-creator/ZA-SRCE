@@ -14,6 +14,18 @@ const MeasurementTicker: React.FC = () => {
     loadMeasurements();
   }, []);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   if (measurements.length === 0) return null;
 
   // We duplicate the content to ensure seamless looping
@@ -39,13 +51,15 @@ const MeasurementTicker: React.FC = () => {
   );
 
   return (
-    <div className="fixed top-20 left-64 w-[calc(100%-16rem)] z-30 bg-white/95 backdrop-blur-sm text-gray-800 overflow-hidden h-12 flex items-center shadow-sm border-b border-cardio-100">
+    <div className="fixed top-16 md:top-20 left-0 md:left-64 right-0 z-[60] bg-white backdrop-blur-md text-gray-800 overflow-hidden h-10 md:h-12 flex items-center shadow-md border-b border-cardio-100 touch-pan-y">
       {/* Container for the sliding content */}
-      <div className="flex animate-marquee-seamless hover:[animation-play-state:paused] w-max will-change-transform">
+      <div 
+        className="flex animate-marquee-seamless hover:[animation-play-state:paused] active:[animation-play-state:paused] focus:[animation-play-state:paused] w-max will-change-transform"
+        style={{ animationDuration: isMobile ? '40s' : '40s' }}
+        onTouchStart={(e) => e.currentTarget.style.animationPlayState = 'paused'}
+        onTouchEnd={(e) => e.currentTarget.style.animationPlayState = 'running'}
+      >
         {/* Render content twice for seamless loop */}
-        {renderContent()}
-        {renderContent()}
-        {/* Render a third time just in case the screen is extremely wide, though 2 usually suffices for -50% logic if content > screen width */}
         {renderContent()}
         {renderContent()}
       </div>

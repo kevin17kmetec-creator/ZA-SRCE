@@ -1,6 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import { PageType } from '../types';
+import { NAVIGATION_ITEMS } from '../constants';
 
 interface NavbarProps {
   currentView: PageType;
@@ -8,9 +10,11 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
+    setIsMobileMenuOpen(false);
 
     if (href === '/clanstvo') {
       onNavigate('clanstvo');
@@ -39,30 +43,58 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <nav className="bg-[#4a0404] shadow-md fixed w-full z-50 top-0 border-b border-[#3a0303]">
+    <nav className="bg-[#4a0404] shadow-md fixed w-full z-[70] top-0 border-b border-[#3a0303]">
       <div className="px-4 sm:px-6 lg:px-12">
-        <div className="flex justify-start h-20">
+        <div className="flex justify-between items-center h-16 md:h-20">
           
           {/* Logo Section */}
           <div 
             className="flex items-center flex-shrink-0 cursor-pointer" 
             onClick={(e) => handleNavClick(e, '/')}
           >
-            <div className="mr-3 bg-white/10 p-1 rounded-lg">
+            <div className="mr-2 md:mr-3 bg-white/10 p-1 rounded-lg">
                <img 
                  src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
                  alt="ZA SRCE" 
-                 className="h-10 w-auto object-contain"
+                 className="h-14 w-14 md:h-12 md:w-auto object-contain"
                  referrerPolicy="no-referrer"
                />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl md:text-2xl text-white leading-tight whitespace-nowrap">Društvo za srce</span>
-              <span className="text-xs md:text-sm text-gray-200 uppercase tracking-wider whitespace-nowrap">Maribor in Podravje</span>
+              <span className="font-bold text-base md:text-2xl text-white leading-tight whitespace-nowrap">Društvo za srce</span>
+              <span className="text-[10px] md:text-sm text-gray-200 uppercase tracking-wider whitespace-nowrap">Maribor in Podravje</span>
             </div>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-white p-2"
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-[#5c0505] border-t border-[#3a0303] absolute w-full">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {NAVIGATION_ITEMS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#4a0404]"
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

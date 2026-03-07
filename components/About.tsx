@@ -3,11 +3,11 @@ import { Target, Users, History, FileCheck } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-10 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 lg:mb-16">
           <h2 className="text-base text-cardio-600 font-semibold tracking-wide uppercase">O Društvu</h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-trust-900 sm:text-4xl">
             Srce Podravja že 20 let
@@ -18,7 +18,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Mission Section */}
-        <div id="mission" className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20 scroll-mt-28">
+        <div id="mission" className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center mb-10 lg:mb-20 scroll-mt-28">
           <div>
             <div className="inline-flex items-center justify-center p-3 bg-cardio-100 rounded-lg text-cardio-600 mb-4">
               <Target className="h-6 w-6" />
@@ -53,7 +53,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Team Section */}
-        <div id="team" className="bg-stone-50 rounded-3xl p-8 md:p-12 mb-20 scroll-mt-28">
+        <div id="team" className="bg-stone-50 rounded-3xl p-6 md:p-12 mb-10 lg:mb-20 scroll-mt-28">
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center p-3 bg-white rounded-lg text-cardio-600 shadow-sm mb-4">
               <Users className="h-6 w-6" />
