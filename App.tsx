@@ -238,7 +238,7 @@ function App() {
       <div className="md:ml-64">
         <Footer onNavigate={handleNavigate} />
       </div>
-      <Assistant onNavigate={handleNavigate} />
+      <Assistant onNavigate={handleNavigate} currentView={currentView} />
       <BackToTop />
       <CookieBanner onNavigate={handleNavigate} />
     </div>

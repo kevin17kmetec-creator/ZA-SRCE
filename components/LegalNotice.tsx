@@ -31,9 +31,9 @@ const LegalNotice: React.FC = () => {
 
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Davčna in matična številka</h2>
         <p>
-          <strong>Matična številka:</strong> 11999999 (Primer)<br />
-          <strong>Davčna številka:</strong> SI12345678 (Primer - Nismo zavezanci za DDV)<br />
-          <strong>Transakcijski račun:</strong> SI56 0451 5000 1234 567 (Nova KBM d.d.)
+          <strong>Matična številka:</strong> 1436791000<br />
+          <strong>Davčna številka:</strong> 70088039<br />
+          <strong>Transakcijski račun:</strong> SI56 0417 3000 0592 185 (OTP banka d.d.)
         </p>
 
         <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Odgovornost za vsebino</h2>

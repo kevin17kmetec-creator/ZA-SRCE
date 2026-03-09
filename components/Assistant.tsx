@@ -6,9 +6,10 @@ import { generateHealthResponse } from '../services/geminiService';
 
 interface AssistantProps {
   onNavigate: (view: PageType, param?: string | number) => void;
+  currentView?: PageType;
 }
 
-const Assistant: React.FC<AssistantProps> = ({ onNavigate }) => {
+const Assistant: React.FC<AssistantProps> = ({ onNavigate, currentView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -77,13 +78,19 @@ const Assistant: React.FC<AssistantProps> = ({ onNavigate }) => {
     setIsLoading(false);
   };
 
+  const isVideoPlayer = currentView === 'video-player';
+
   return (
     <>
       {/* Floating Action Button */}
       <button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 ${
+        className={`fixed z-50 p-4 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 ${
           isOpen ? 'bg-gray-200 text-gray-600 rotate-90' : 'bg-cardio-600 text-white'
+        } ${
+          isVideoPlayer 
+            ? 'bottom-6 left-6 md:left-auto md:right-6' 
+            : 'bottom-6 right-6'
         }`}
         aria-label="Toggle Health Assistant"
       >
@@ -92,7 +99,9 @@ const Assistant: React.FC<AssistantProps> = ({ onNavigate }) => {
 
       {/* Chat Interface */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-full max-w-sm sm:w-96 bg-white rounded-2xl shadow-2xl z-50 flex flex-col border border-gray-100 overflow-hidden" style={{ maxHeight: 'calc(100vh - 120px)', height: '500px' }}>
+        <div className={`fixed bottom-24 w-full max-w-sm sm:w-96 bg-white rounded-2xl shadow-2xl z-50 flex flex-col border border-gray-100 overflow-hidden ${
+          isVideoPlayer ? 'left-6 md:left-auto md:right-6' : 'right-6'
+        }`} style={{ maxHeight: 'calc(100vh - 120px)', height: '500px' }}>
           
           {/* Header */}
           <div className="bg-cardio-600 p-4 flex items-center shadow-sm">

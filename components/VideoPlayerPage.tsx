@@ -31,31 +31,33 @@ const VideoPlayerPage: React.FC<VideoPlayerPageProps> = ({ onNavigate, videoUrl,
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 py-6 md:py-12">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-stone-200">
-          <div className="p-6 border-b border-stone-100 bg-stone-50 flex justify-between items-center">
-            <h2 className="text-xl font-bold text-trust-900">{currentTitle}</h2>
+          <div className="p-4 md:p-6 border-b border-stone-100 bg-stone-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <h2 className="text-lg md:text-xl font-bold text-trust-900">{currentTitle}</h2>
             <a 
               href={videoUrl || "https://365.rtvslo.si/arhiv/omizje/174860854"} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-cardio-600 hover:text-cardio-700 flex items-center text-sm font-medium"
+              className="text-cardio-600 hover:text-cardio-700 flex items-center text-xs md:text-sm font-medium"
             >
               Odpri v RTV 365 <ExternalLink className="ml-1 h-4 w-4" />
             </a>
           </div>
           
-          <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+          <div className="relative w-full bg-black overflow-hidden h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px]">
             <iframe 
               src={currentUrl}
-              className="absolute top-0 left-0 w-full h-full border-0"
+              className="absolute top-0 left-0 w-full border-0"
+              style={{ height: 'calc(100% + 80px)' }}
               allowFullScreen
               title={currentTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allow="autoplay; fullscreen; picture-in-picture"
+              scrolling="no"
             ></iframe>
           </div>
           
-          <div className="p-6 bg-stone-50 text-stone-600 text-sm italic">
+          <div className="p-4 md:p-6 bg-stone-50 text-stone-600 text-xs md:text-sm italic">
             Vir: RTV Slovenija, TV Maribor
           </div>
         </div>
