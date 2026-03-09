@@ -15,9 +15,9 @@ const PublikacijePage: React.FC<PublikacijePageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-block mb-4">
              <img 
-               src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
+               src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
                alt="Logotip Društva za zdravje srca" 
-               className="h-32 w-auto mx-auto object-contain drop-shadow-lg"
+               className="h-16 md:h-24 w-auto mx-auto object-contain drop-shadow-lg"
                referrerPolicy="no-referrer"
              />
           </div>
@@ -53,7 +53,7 @@ const PublikacijePage: React.FC<PublikacijePageProps> = ({ onNavigate }) => {
                       className="inline-flex items-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500 transition-colors cursor-pointer"
                     >
                       <BookOpen className="h-4 w-4 mr-2" />
-                      Objave v Večeru (PDF)
+                      Objava v Večeru
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </button>
                     <p className="text-xs text-gray-500 mt-2 ml-1">

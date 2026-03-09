@@ -1,5 +1,5 @@
 
-export type PageType = 'home' | 'clanstvo' | 'o-drustvu' | 'posvetovalnica' | 'glezenjski-indeks' | 'ugodnosti' | 'dejavnost' | 'aritmije' | 'cenik' | 'projekti' | 'fundacija' | 'publikacije' | 'objave-vecer' | 'minute-za-srce' | 'galerija' | 'novice-page' | 'novica-details' | 'urnik-meritev' | 'koledar-vadb' | 'privacy-policy' | 'terms-conditions' | 'legal-notice' | 'accessibility';
+export type PageType = 'home' | 'clanstvo' | 'o-drustvu' | 'posvetovalnica' | 'glezenjski-indeks' | 'ugodnosti' | 'dejavnost' | 'aritmije' | 'cenik' | 'projekti' | 'fundacija' | 'publikacije' | 'objave-vecer' | 'minute-za-srce' | 'galerija' | 'novice-page' | 'novica-details' | 'urnik-meritev' | 'koledar-vadb' | 'privacy-policy' | 'terms-conditions' | 'legal-notice' | 'accessibility' | 'video-player' | 'kontakt';
 
 export interface NavItem {
   label: string;

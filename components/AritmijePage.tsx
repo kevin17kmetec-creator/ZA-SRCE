@@ -10,23 +10,22 @@ const AritmijePage: React.FC<AritmijePageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-r from-trust-900 to-cardio-900 py-16 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <button 
-            onClick={() => onNavigate('dejavnost')}
-            className="flex items-center text-gray-300 hover:text-white mb-6 transition-colors font-medium cursor-pointer"
-          >
-            <ArrowLeft className="h-5 w-5 mr-2" />
-            Nazaj na Dejavnost
-          </button>
-          <div className="flex items-center mb-4">
-             <div className="bg-white/10 p-3 rounded-full mr-4">
-                <HeartPulse className="h-10 w-10 text-cardio-500" />
-             </div>
-             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-               Z enokanalnim EKG monitorjem iščemo aritmije
-             </h1>
+      <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-block mb-4">
+             <img 
+               src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
+               alt="Logotip Društva za zdravje srca" 
+               className="h-16 md:h-24 w-auto mx-auto object-contain drop-shadow-lg"
+               referrerPolicy="no-referrer"
+             />
           </div>
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl mb-4">
+            Z enokanalnim EKG monitorjem iščemo aritmije
+          </h1>
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+            Odkrivanje motenj srčnega ritma na terenu in stalnih merilnih mestih.
+          </p>
         </div>
       </div>
 
@@ -60,9 +59,9 @@ const AritmijePage: React.FC<AritmijePageProps> = ({ onNavigate }) => {
             </div>
           </div>
           
-          {/* Decorative hearts footer image representation */}
-          <div className="h-48 bg-cover bg-center" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1516616370751-86d6bd8b0651?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")' }}>
-             <div className="w-full h-full bg-gradient-to-t from-[#7f1d1d] to-transparent opacity-90"></div>
+          {/* Decorative footer image */}
+          <div className="h-64 bg-cover bg-center" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/d/1j4s0ryRSul4UqoAgg1n5B3M9PchndONC")' }}>
+             <div className="w-full h-full bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
 
         </div>

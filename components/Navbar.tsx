@@ -34,6 +34,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
       onNavigate('galerija');
     } else if (href === '/novice') {
       onNavigate('novice-page');
+    } else if (href === '/kontakt') {
+      onNavigate('kontakt');
     } else if (href === '/') {
       onNavigate('home');
     } else if (href.includes('#')) {
@@ -54,9 +56,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           >
             <div className="mr-2 md:mr-3 bg-white/10 p-1 rounded-lg">
                <img 
-                 src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
+                 src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
                  alt="ZA SRCE" 
-                 className="h-14 w-14 md:h-12 md:w-auto object-contain"
+                 className="h-8 w-auto md:h-12 md:w-auto object-contain"
                  referrerPolicy="no-referrer"
                />
             </div>

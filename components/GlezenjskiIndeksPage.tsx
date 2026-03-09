@@ -63,19 +63,24 @@ const GlezenjskiIndeksPage: React.FC<GlezenjskiIndeksPageProps> = ({ onNavigate,
               </p>
             </div>
 
-            {/* Image Placeholder */}
+            {/* Image Section */}
             <div className="mt-8">
-              <div className="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-xl bg-gray-200 border-2 border-dashed border-gray-300 flex items-center justify-center relative group">
+              <div className="aspect-w-16 aspect-h-9 w-full overflow-hidden rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center relative group shadow-inner min-h-[300px]">
                 <img 
-                  src="https://picsum.photos/1200/800?grayscale" 
+                  src="https://lh3.googleusercontent.com/d/1DPhtiLaMWRUV1USeg6BHOdIz5BZzV90V" 
                   alt="Predaja aparata za merjenje gleženjskega indeksa" 
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    // Fallback if the direct link fails
+                    const target = e.target as HTMLImageElement;
+                    if (!target.src.includes('export=download')) {
+                      target.src = "https://drive.google.com/uc?export=download&id=1DPhtiLaMWRUV1USeg6BHOdIz5BZzV90V";
+                    }
+                  }}
                 />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/20 text-white font-medium text-lg drop-shadow-md">
-                   Slika: Predaja aparata (Placeholder)
-                </div>
               </div>
-              <p className="text-sm text-gray-500 mt-2 text-center italic">
+              <p className="text-sm text-gray-500 mt-3 text-center italic font-medium">
                 Slika: Predaja aparata za določanje pretoka v spodnjih okončinah.
               </p>
             </div>

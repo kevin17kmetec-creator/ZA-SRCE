@@ -14,9 +14,9 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
           <div className="inline-block mb-4">
              <img 
-               src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
+               src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
                alt="Logotip Društva za zdravje srca" 
-               className="h-32 w-auto mx-auto object-contain drop-shadow-lg"
+               className="h-16 md:h-24 w-auto mx-auto object-contain drop-shadow-lg"
                referrerPolicy="no-referrer"
              />
           </div>

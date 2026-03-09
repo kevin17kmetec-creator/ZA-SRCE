@@ -14,18 +14,6 @@ const MeasurementTicker: React.FC = () => {
     loadMeasurements();
   }, []);
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   if (measurements.length === 0) return null;
 
   // We duplicate the content to ensure seamless looping
@@ -54,10 +42,12 @@ const MeasurementTicker: React.FC = () => {
     <div className="fixed top-16 md:top-20 left-0 md:left-64 right-0 z-[60] bg-white backdrop-blur-md text-gray-800 overflow-hidden h-10 md:h-12 flex items-center shadow-md border-b border-cardio-100 touch-pan-y">
       {/* Container for the sliding content */}
       <div 
-        className="flex animate-marquee-seamless hover:[animation-play-state:paused] active:[animation-play-state:paused] focus:[animation-play-state:paused] w-max will-change-transform"
-        style={{ animationDuration: isMobile ? '40s' : '40s' }}
-        onTouchStart={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-        onTouchEnd={(e) => e.currentTarget.style.animationPlayState = 'running'}
+        className="flex animate-marquee-seamless hover:[animation-play-state:paused] active:[animation-play-state:paused] w-max will-change-transform"
+        style={{ 
+          animationDuration: '80s',
+          backfaceVisibility: 'hidden',
+          perspective: '1000px'
+        }}
       >
         {/* Render content twice for seamless loop */}
         {renderContent()}

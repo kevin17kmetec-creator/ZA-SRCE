@@ -35,16 +35,16 @@
               'bounce-slow': 'bounce-slow 3s ease-in-out infinite',
               'float': 'float 6s ease-in-out infinite',
               'marquee': 'marquee 25s linear infinite',
-              'marquee-seamless': 'marquee-seamless 120s linear infinite',
+              'marquee-seamless': 'marquee-seamless 60s linear infinite',
             },
             keyframes: {
               marquee: {
-                '0%': { transform: 'translateX(100%)' },
-                '100%': { transform: 'translateX(-100%)' },
+                '0%': { transform: 'translate3d(100%, 0, 0)' },
+                '100%': { transform: 'translate3d(-100%, 0, 0)' },
               },
               'marquee-seamless': {
-                '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(-50%)' },
+                '0%': { transform: 'translate3d(0, 0, 0)' },
+                '100%': { transform: 'translate3d(-50%, 0, 0)' },
               },
               'heartbeat-real': {
                 '0%, 100%': { transform: 'scale(0.95)' },

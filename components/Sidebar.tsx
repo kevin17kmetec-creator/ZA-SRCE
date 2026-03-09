@@ -29,6 +29,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
       onNavigate('galerija');
     } else if (href === '/novice') {
       onNavigate('novice-page');
+    } else if (href === '/kontakt') {
+      onNavigate('kontakt');
     } else if (href === '/') {
       onNavigate('home');
     } else if (href.includes('#')) {
@@ -47,6 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
     if (href === '/minute-za-srce' && currentView === 'minute-za-srce') return true;
     if (href === '/galerija' && currentView === 'galerija') return true;
     if (href === '/novice' && currentView === 'novice-page') return true;
+    if (href === '/kontakt' && currentView === 'kontakt') return true;
     if (href === '/' && currentView === 'home') return true;
     return false;
   };

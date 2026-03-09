@@ -57,9 +57,9 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-block mb-4">
              <img 
-               src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
+               src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
                alt="Logotip Društva za zdravje srca" 
-               className="h-32 w-auto mx-auto object-contain drop-shadow-lg"
+               className="h-16 md:h-24 w-auto mx-auto object-contain drop-shadow-lg"
                referrerPolicy="no-referrer"
              />
           </div>
@@ -180,13 +180,13 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
                     Alternativno lahko obrazec natisnete in pošljete po pošti:
                   </p>
                   <a 
-                    href="http://www.zasrce-mb.si/obrazec-pristopnaizjava.doc"
+                    href="https://docs.google.com/document/d/1luT3NyoAwurETlnE82A3iLH2jUkFNAMZ/export?format=docx"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center mt-2 text-sm font-medium text-cardio-600 hover:text-cardio-700"
                   >
                     <Download className="mr-1 h-4 w-4" />
-                    Prenesi pristopno izjavo (DOC)
+                    Prenesi pristopno izjavo (DOCX)
                   </a>
                 </div>
               </div>

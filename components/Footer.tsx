@@ -38,7 +38,14 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center mb-4">
-               <Heart className="h-6 w-6 text-cardio-500 fill-current mr-2" />
+               <div className="bg-white/10 p-1 rounded-lg mr-3">
+                 <img 
+                   src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
+                   alt="Logo" 
+                   className="h-10 w-auto object-contain"
+                   referrerPolicy="no-referrer"
+                 />
+               </div>
                <span className="font-bold text-xl">Društvo za zdravje srca</span>
             </div>
             <p className="text-gray-400 text-sm max-w-sm">

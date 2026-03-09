@@ -14,9 +14,9 @@ const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-block mb-4">
              <img 
-               src="https://lh3.googleusercontent.com/d/1mazUXuPKrHZMBIF3As1wQEU6E7OV2rAz" 
+               src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
                alt="Logotip Društva za zdravje srca" 
-               className="h-32 w-auto mx-auto object-contain drop-shadow-lg"
+               className="h-16 md:h-24 w-auto mx-auto object-contain drop-shadow-lg"
                referrerPolicy="no-referrer"
              />
           </div>
@@ -56,14 +56,12 @@ const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
                     <p className="text-gray-600 text-sm mb-3">
                        Na TV Maribor, RTV Slovenija (Omizje: 20 let Društva za zdravje srca in ožilja za Maribor in Podravje)
                     </p>
-                    <a 
-                       href="https://365.rtvslo.si/arhiv/omizje/174860854" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline"
+                    <button 
+                       onClick={() => onNavigate('video-player')}
+                       className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline cursor-pointer"
                     >
-                      Poglej posnetek na RTV 365 <ArrowRight className="ml-1 h-3 w-3" />
-                    </a>
+                       Ogled videoposnetka <ArrowRight className="ml-1 h-3 w-3" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -112,7 +110,7 @@ const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
                        rel="noopener noreferrer"
                        className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline"
                     >
-                      Prenesi PDF <ArrowRight className="ml-1 h-3 w-3" />
+                      Preberi več <ArrowRight className="ml-1 h-3 w-3" />
                     </a>
                   </div>
                 </div>

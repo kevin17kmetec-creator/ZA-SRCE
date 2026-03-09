@@ -15,7 +15,7 @@ export const NAVIGATION_ITEMS: NavItem[] = [
   { label: 'Minute za srce', href: '/minute-za-srce' },
   { label: 'Galerija', href: '/galerija' },
   { label: 'Novice', href: '/novice' },
-  { label: 'Kontakt', href: '/#contact' },
+  { label: 'Kontakt', href: '/kontakt' },
 ];
 
 export const LATEST_NEWS: NewsArticle[] = [

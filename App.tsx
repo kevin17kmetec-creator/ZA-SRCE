@@ -16,6 +16,7 @@ import FundacijaPage from './components/FundacijaPage';
 import PublikacijePage from './components/PublikacijePage'; 
 import ObjaveVecerPage from './components/ObjaveVecerPage';
 import MinuteZaSrcePage from './components/MinuteZaSrcePage';
+import VideoPlayerPage from './components/VideoPlayerPage';
 import GalerijaPage from './components/GalerijaPage';
 import NewsPage from './components/NewsPage';
 import NewsArticlePage from './components/NewsArticlePage';
@@ -30,6 +31,7 @@ import PrivacyPolicy from './components/PrivacyPolicy'; // New
 import TermsAndConditions from './components/TermsAndConditions'; // New
 import LegalNotice from './components/LegalNotice'; // New
 import AccessibilityStatement from './components/AccessibilityStatement'; // New
+import ContactPage from './components/ContactPage';
 import { PageType } from './types';
 
 function App() {
@@ -58,6 +60,7 @@ function App() {
       case 'publikacije': return '/publikacije';
       case 'objave-vecer': return '/objave-vecer';
       case 'minute-za-srce': return '/minute-za-srce';
+      case 'video-player': return '/video-predvajalnik';
       case 'galerija': return '/galerija';
       case 'novice-page': return '/novice';
       case 'novica-details': return `/novica/${param}`;
@@ -67,6 +70,7 @@ function App() {
       case 'terms-conditions': return '/terms-conditions';
       case 'legal-notice': return '/legal-notice';
       case 'accessibility': return '/accessibility';
+      case 'kontakt': return '/kontakt';
       default: return '/';
     }
   };
@@ -87,6 +91,7 @@ function App() {
     if (pathname === '/publikacije') return { view: 'publikacije' };
     if (pathname === '/objave-vecer') return { view: 'objave-vecer' };
     if (pathname === '/minute-za-srce') return { view: 'minute-za-srce' };
+    if (pathname === '/video-predvajalnik') return { view: 'video-player' };
     if (pathname === '/galerija') return { view: 'galerija' };
     if (pathname === '/novice') return { view: 'novice-page' };
     if (pathname === '/urnik-meritev') return { view: 'urnik-meritev' };
@@ -95,6 +100,7 @@ function App() {
     if (pathname === '/terms-conditions') return { view: 'terms-conditions' };
     if (pathname === '/legal-notice') return { view: 'legal-notice' };
     if (pathname === '/accessibility') return { view: 'accessibility' };
+    if (pathname === '/kontakt') return { view: 'kontakt' };
     
     // Check for novica details
     const novicaMatch = pathname.match(/^\/novica\/(\d+)$/);
@@ -208,6 +214,7 @@ function App() {
         {currentView === 'publikacije' && <PublikacijePage onNavigate={handleNavigate} />}
         {currentView === 'objave-vecer' && <ObjaveVecerPage onNavigate={handleNavigate} />}
         {currentView === 'minute-za-srce' && <MinuteZaSrcePage onNavigate={handleNavigate} />}
+        {currentView === 'video-player' && <VideoPlayerPage onNavigate={handleNavigate} />}
         {currentView === 'galerija' && <GalerijaPage onNavigate={handleNavigate} />}
         {currentView === 'novice-page' && <NewsPage onNavigate={handleNavigate} />}
         
@@ -225,7 +232,7 @@ function App() {
         {currentView === 'terms-conditions' && <TermsAndConditions />}
         {currentView === 'legal-notice' && <LegalNotice />}
         {currentView === 'accessibility' && <AccessibilityStatement />}
-
+        {currentView === 'kontakt' && <ContactPage onNavigate={handleNavigate} />}
       </main>
       
       <div className="md:ml-64">
