@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, HeartPulse, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import { ChatMessage } from '../types';
+import { ChatMessage, PageType } from '../types';
 import { generateHealthResponse } from '../services/geminiService';
 
 interface AssistantProps {

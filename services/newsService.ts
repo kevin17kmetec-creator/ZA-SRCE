@@ -27,6 +27,37 @@ const convertDriveLinkToDirectLink = (url: string): string | null => {
   return url; // Return original if not a drive link (e.g. unsplash)
 };
 
+const isGoogleDocLink = (text: string): boolean => {
+  if (!text) return false;
+  return text.includes('docs.google.com/document/d/');
+};
+
+const fetchGoogleDocContent = async (url: string): Promise<string> => {
+  const docIdRegex = /\/document\/d\/([-\w]{25,})/;
+  const match = url.match(docIdRegex);
+  if (!match || !match[1]) return url;
+
+  const docId = match[1];
+  // We try to fetch the text version of the document
+  const exportUrl = `https://docs.google.com/document/d/${docId}/export?format=txt`;
+  
+  try {
+    const response = await fetch(exportUrl);
+    if (response.ok) {
+      const text = await response.text();
+      // Basic cleanup of the text if needed
+      return text.trim();
+    }
+    
+    // If direct fetch fails (CORS), we might have to just return the link or a message
+    console.warn('Direct fetch of Google Doc failed, likely CORS. Status:', response.status);
+  } catch (e) {
+    console.error("Error fetching Google Doc content:", e);
+  }
+  
+  return `Vsebina je na voljo na povezavi: ${url}`;
+};
+
 export const fetchNewsFromSheet = async (): Promise<NewsArticle[]> => {
   try {
     const response = await fetch(SHEET_CSV_URL);
@@ -36,7 +67,7 @@ export const fetchNewsFromSheet = async (): Promise<NewsArticle[]> => {
       Papa.parse(csvText, {
         header: false, // We'll find the header manually
         skipEmptyLines: true,
-        complete: (results) => {
+        complete: async (results) => {
           const rows = results.data as string[][];
           
           // Find the header row index (looking for 'Naslov' and 'Vsebina')
@@ -59,63 +90,50 @@ export const fetchNewsFromSheet = async (): Promise<NewsArticle[]> => {
           const contentIdx = headers.findIndex(h => h.toLowerCase() === 'vsebina');
           const categoryIdx = headers.findIndex(h => h.toLowerCase() === 'kategorija');
           const dateIdx = headers.findIndex(h => h.toLowerCase() === 'datum');
-          // We assume images start from column G (index 6) to K (index 10)
-          // But let's be dynamic based on the 'Slike' header if possible, or fixed indices if headers are missing for G-K
-          const slikeHeaderIdx = headers.findIndex(h => h.toLowerCase() === 'slike');
           
-          // If 'Slike' header exists, we start looking from there. Otherwise default to index 5 (F) or 6 (G).
-          // The user said images start at G (index 6).
-          // Let's look at a range of columns for images.
-          
-          const newArticles: NewsArticle[] = dataRows
+          const newArticlesPromises = dataRows
             .filter(row => row.length > 1 && row[titleIdx]) // Filter empty rows or rows without title
-            .map((row, index) => {
+            .map(async (row, index) => {
               // Map category to valid types, default to 'Novice'
               let category: NewsArticle['category'] = 'Novice';
               const rawCategory = row[categoryIdx]?.trim();
               
               if (rawCategory) {
-                // Capitalize first letter, keep the rest as is
                 category = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1);
               }
 
               // Extract images
-              // Column F (index 5) is strictly for the Hero image
-              // Columns G-K (indices 6-10) are for additional gallery images
-              
               const heroColIdx = 5;
               const galleryColIndices = [6, 7, 8, 9, 10];
               
               let heroImage = 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
               const galleryImages: string[] = [];
 
-              // Process Hero Image (Column F)
               if (row[heroColIdx] && row[heroColIdx].trim()) {
                 const directLink = convertDriveLinkToDirectLink(row[heroColIdx].trim());
-                if (directLink) {
-                  heroImage = directLink;
-                }
+                if (directLink) heroImage = directLink;
               }
 
-              // Process Gallery Images (Columns G+)
               galleryColIndices.forEach(colIdx => {
                 if (row[colIdx] && row[colIdx].trim()) {
                   const directLink = convertDriveLinkToDirectLink(row[colIdx].trim());
-                  if (directLink) {
-                    galleryImages.push(directLink);
-                  }
+                  if (directLink) galleryImages.push(directLink);
                 }
               });
 
-              // The 'images' array should start with the hero image, followed by gallery images.
-              // This ensures compatibility with NewsArticlePage which uses images.slice(1) for the gallery.
               const allImages = [heroImage, ...galleryImages];
 
+              // Handle Google Doc content
+              let content = row[contentIdx] || '';
+              if (isGoogleDocLink(content)) {
+                content = await fetchGoogleDocContent(content.trim());
+              }
+
               return {
-                id: 1000 + index, // Start IDs from 1000 to avoid collision
+                id: 1000 + index,
                 title: row[titleIdx] || 'Brez naslova',
-                summary: row[contentIdx] || '',
-                content: row[contentIdx] || '', // Use content from sheet as full content
+                summary: content.length > 200 ? content.substring(0, 200) + '...' : content,
+                content: content,
                 date: row[dateIdx] || new Date().toLocaleDateString('sl-SI'),
                 category: category,
                 image: heroImage,
@@ -123,6 +141,7 @@ export const fetchNewsFromSheet = async (): Promise<NewsArticle[]> => {
               };
             });
 
+          const newArticles = await Promise.all(newArticlesPromises);
           resolve(newArticles);
         },
         error: (error: Error) => {
