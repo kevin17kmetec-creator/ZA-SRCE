@@ -35,7 +35,7 @@ const GlezenjskiIndeksPage: React.FC<GlezenjskiIndeksPageProps> = ({ onNavigate,
              <div className="bg-white/10 p-3 rounded-full mr-4">
                 <Activity className="h-10 w-10 text-cardio-500" />
              </div>
-             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+             <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                Meritve gleženjskega indeksa (GI)
              </h1>
           </div>

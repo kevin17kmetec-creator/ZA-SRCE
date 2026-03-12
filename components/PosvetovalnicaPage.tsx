@@ -37,7 +37,7 @@ const PosvetovalnicaPage: React.FC<PosvetovalnicaPageProps> = ({ onNavigate, sou
              <div className="bg-white/10 p-3 rounded-full mr-4">
                 <Heart className="h-10 w-10 text-cardio-500 fill-current" />
              </div>
-             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+             <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                Posvetovalnica ZA SRCE
              </h1>
           </div>

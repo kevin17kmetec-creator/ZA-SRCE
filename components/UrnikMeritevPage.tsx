@@ -30,7 +30,7 @@ const UrnikMeritevPage: React.FC<UrnikMeritevPageProps> = ({ onNavigate }) => {
       {/* Header */}
       <div className="bg-[#4a0404] py-12 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl mb-4">
+          <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl mb-4">
             Urnik meritev
           </h1>
           <p className="text-lg text-gray-200 max-w-3xl mx-auto">

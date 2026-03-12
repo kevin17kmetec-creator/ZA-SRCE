@@ -10,17 +10,9 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4a0404] py-16 text-white border-b-4 border-cardio-600">
+      <div className="bg-[#4a0404] py-8 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-block mb-4">
-             <img 
-               src="https://lh3.googleusercontent.com/d/11rKJiQHB8HSHQcpf88ejOyx41HoAznhk" 
-               alt="Logotip Društva za zdravje srca" 
-               className="h-16 md:h-24 w-auto mx-auto object-contain drop-shadow-lg"
-               referrerPolicy="no-referrer"
-             />
-          </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-4">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl mb-4">
             Naši projekti (2022–2026)
           </h1>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">

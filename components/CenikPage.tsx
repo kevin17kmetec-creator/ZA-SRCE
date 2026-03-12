@@ -24,7 +24,7 @@ const CenikPage: React.FC<CenikPageProps> = ({ onNavigate }) => {
                 <FileText className="h-10 w-10 text-cardio-500" />
              </div>
              <div>
-               <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+               <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
                  Cenik storitev
                </h1>
                <p className="text-gray-400 text-sm mt-1">Velja od 01.04.2023</p>
