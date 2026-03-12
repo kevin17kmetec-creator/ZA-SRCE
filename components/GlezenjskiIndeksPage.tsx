@@ -71,6 +71,8 @@ const GlezenjskiIndeksPage: React.FC<GlezenjskiIndeksPageProps> = ({ onNavigate,
                   alt="Predaja aparata za merjenje gleženjskega indeksa" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     // Fallback if the direct link fails
                     const target = e.target as HTMLImageElement;

@@ -63,6 +63,8 @@ const News: React.FC<NewsProps> = ({ onNavigate }) => {
                     src={item.image} 
                     alt={item.title} 
                     referrerPolicy="no-referrer"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-4 left-4">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/90 text-cardio-700 shadow-sm backdrop-blur-sm">

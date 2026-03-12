@@ -44,6 +44,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                    alt="Logo" 
                    className="h-10 w-auto object-contain"
                    referrerPolicy="no-referrer"
+                   loading="lazy"
+                   decoding="async"
                  />
                </div>
                <span className="font-bold text-xl">Društvo za zdravje srca</span>

@@ -60,6 +60,8 @@ const GalerijaPage: React.FC<GalerijaPageProps> = ({ onNavigate }) => {
                   alt={img.caption} 
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-6">
                    <p className="text-white font-medium text-lg">{img.caption}</p>
@@ -106,6 +108,8 @@ const GalerijaPage: React.FC<GalerijaPageProps> = ({ onNavigate }) => {
                 alt={selectedImage.caption} 
                 className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
               />
               <div className="mt-6 text-center">
                 <h3 className="text-white text-2xl font-bold">{selectedImage.caption}</h3>

@@ -60,6 +60,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                  alt="ZA SRCE" 
                  className="h-8 w-auto md:h-12 md:w-auto object-contain"
                  referrerPolicy="no-referrer"
+                 decoding="async"
                />
             </div>
             <div className="flex flex-col">

@@ -60,6 +60,8 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
           alt={article.title} 
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
+          loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
@@ -123,6 +125,8 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
                         alt={`Slika ${imageIndex + 2} - ${article.title}`} 
                         className="rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 w-full h-auto object-cover"
                         referrerPolicy="no-referrer"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   );
@@ -146,6 +150,8 @@ const NewsArticlePage: React.FC<NewsArticlePageProps> = ({ articleId, onNavigate
                           alt={`Dodatna slika ${imageIndex + idx + 2}`} 
                           className="rounded-2xl shadow-lg w-full h-auto object-cover"
                           referrerPolicy="no-referrer"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     ))}

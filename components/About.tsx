@@ -48,6 +48,8 @@ const About: React.FC = () => {
                alt="Ekipa društva pri delu" 
                className="w-full h-full object-cover"
                referrerPolicy="no-referrer"
+               loading="lazy"
+               decoding="async"
              />
           </div>
         </div>

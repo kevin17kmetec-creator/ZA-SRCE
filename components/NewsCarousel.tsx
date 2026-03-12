@@ -135,6 +135,8 @@ const NewsCarousel: React.FC<NewsCarouselProps> = ({ onNavigate }) => {
                   alt={item.title} 
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-cardio-700 shadow-sm">
                   {item.category}
