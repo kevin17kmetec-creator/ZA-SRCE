@@ -53,7 +53,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-stone-50 min-h-screen">
       {/* Header - Standardized with Logo and Brand Red */}
-      <div className="bg-[#4a0404] py-8 text-white border-b-4 border-cardio-600">
+      <div className="bg-[#6b2121] py-8 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl mb-4">
             Postanite član društva
@@ -67,7 +67,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
           {onNavigate && (
             <button
               onClick={() => onNavigate('ugodnosti')}
-              className="inline-flex items-center px-8 py-3 bg-white text-[#4a0404] rounded-full font-bold shadow-lg hover:bg-stone-50 hover:scale-105 transition-all cursor-pointer ring-4 ring-white/20"
+              className="inline-flex items-center px-8 py-3 bg-white text-[#6b2121] rounded-full font-bold shadow-lg hover:bg-stone-50 hover:scale-105 transition-all cursor-pointer ring-4 ring-white/20"
             >
               <Gift className="w-5 h-5 mr-2" />
               Kaj prinaša članstvo v društvu?

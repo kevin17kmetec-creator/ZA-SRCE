@@ -10,18 +10,42 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 
 interface ObjaveVecerPageProps {
   onNavigate: (view: PageType) => void;
+  publicationUrl?: string | null;
 }
 
-const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
-  // Nova URL povezava do PDF datoteke
-  const pdfUrl = "https://zxwy5mkhvcay6fpb.public.blob.vercel-storage.com/Mariborski%20sr%C4%8Dni%20utrip.pdf";
+const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicationUrl }) => {
+  const defaultUrl = "https://zxwy5mkhvcay6fpb.public.blob.vercel-storage.com/Mariborski%20sr%C4%8Dni%20utrip.pdf";
+  const pdfUrl = publicationUrl || defaultUrl;
   
-  // Dinamično pridobivanje imena iz URL-ja
-  const urlParts = pdfUrl.split('/');
-  const rawFilename = urlParts[urlParts.length - 1];
-  const decodedFilename = decodeURIComponent(rawFilename);
-  // Odstranimo končnico (vse od pike dalje)
-  const title = decodedFilename.split('.')[0];
+  // Decide what to render based on URL
+  const isGoogleDriveLink = pdfUrl.includes('drive.google.com') || pdfUrl.includes('docs.google.com');
+  const isDirectPdf = pdfUrl.toLowerCase().split('?')[0].endsWith('.pdf') && !isGoogleDriveLink;
+
+  const getEmbedUrl = (url: string) => {
+    try {
+      const urlObj = new URL(url);
+      if (urlObj.hostname === 'drive.google.com') {
+        const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (match) {
+          return `https://drive.google.com/file/d/${match[1]}/preview`;
+        }
+      }
+    } catch (e) {
+      // Ignore
+    }
+    return url;
+  };
+
+  const embedUrl = getEmbedUrl(pdfUrl);
+
+  const getTitle = () => {
+    if (isGoogleDriveLink) return "Dokument";
+    const urlParts = pdfUrl.split('/');
+    const rawFilename = urlParts[urlParts.length - 1];
+    return decodeURIComponent(rawFilename).split('.')[0];
+  };
+
+  const title = getTitle();
 
   const [numPages, setNumPages] = useState<number | null>(null);
   const [scale, setScale] = useState<number>(1.2);
@@ -89,9 +113,11 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="flex items-center gap-1 md:gap-2 whitespace-nowrap">
+               {isDirectPdf && (
                <span className="text-xs md:text-sm font-medium text-gray-400 mr-2">
                  {numPages ? `1 publikacija (${numPages} strani)` : 'Nalaganje...'}
                </span>
+               )}
             </div>
           </div>
         </div>
@@ -111,7 +137,8 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
                   <h2 className="font-bold text-stone-800 text-lg">{title}</h2>
                </div>
                
-               {/* Orodna vrstica za Zoom in informacije */}
+               {/* Orodna vrstica za Zoom in informacije (samo za direktne PDFje) */}
+               {isDirectPdf && (
                <div className="flex items-center gap-4">
                  <div className="flex items-center bg-stone-100 rounded-lg p-1 border border-stone-200">
                     <button onClick={handleZoomOut} className="p-1.5 hover:bg-white rounded-md transition-all shadow-sm" title="Zmanjšaj">
@@ -130,18 +157,20 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
                     <span>Pomikajte se navzdol po dokumentu</span>
                  </div>
                </div>
+               )}
             </div>
 
-            {/* Notranje območje s PDF-jem (Custom viewer) */}
+            {/* Notranje območje */}
             <div 
               ref={containerRef}
-              className={`flex-grow overflow-auto bg-[#323639] p-4 md:p-8 ${scale > 1.0 ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-auto'}`}
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeave}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
+              className={`flex-grow overflow-auto bg-[#323639] ${isDirectPdf ? 'p-4 md:p-8' : ''} ${scale > 1.0 && isDirectPdf ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-auto'}`}
+              onMouseDown={isDirectPdf ? handleMouseDown : undefined}
+              onMouseLeave={isDirectPdf ? handleMouseLeave : undefined}
+              onMouseUp={isDirectPdf ? handleMouseUp : undefined}
+              onMouseMove={isDirectPdf ? handleMouseMove : undefined}
             >
-               <Document
+              {isDirectPdf ? (
+                <Document
                   file={pdfUrl}
                   onLoadSuccess={onDocumentLoadSuccess}
                   className="flex flex-col gap-8"
@@ -154,9 +183,10 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
                   error={
                     <div className="flex flex-col items-center justify-center h-64 text-red-400">
                       <p>Napaka pri nalaganju PDF dokumenta.</p>
+                      <a href={pdfUrl} target="_blank" rel="noreferrer" className="text-white mt-4 underline">Odpri v novem zavihku</a>
                     </div>
                   }
-               >
+                >
                   {numPages && Array.from(new Array(numPages), (el, index) => (
                     <div key={`page_${index + 1}`} className="shadow-2xl bg-white mx-auto w-max">
                       <Page 
@@ -172,7 +202,15 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate }) => {
                       />
                     </div>
                   ))}
-               </Document>
+                </Document>
+              ) : (
+                <iframe 
+                   src={embedUrl}
+                   className="w-full h-full min-h-[80vh] border-0"
+                   allow="autoplay"
+                   title={title}
+                />
+              )}
             </div>
          </div>
 

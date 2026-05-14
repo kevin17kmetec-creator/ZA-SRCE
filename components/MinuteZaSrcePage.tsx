@@ -10,7 +10,7 @@ const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4a0404] py-8 text-white border-b-4 border-cardio-600">
+      <div className="bg-[#6b2121] py-8 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl mb-4">
             Minute za srce

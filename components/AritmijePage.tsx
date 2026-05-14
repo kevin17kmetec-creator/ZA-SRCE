@@ -10,7 +10,7 @@ const AritmijePage: React.FC<AritmijePageProps> = ({ onNavigate }) => {
   return (
     <div className="bg-stone-50 min-h-screen">
       {/* Header */}
-      <div className="bg-[#4a0404] py-8 text-white border-b-4 border-cardio-600">
+      <div className="bg-[#6b2121] py-8 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl mb-4">
             Z enokanalnim EKG monitorjem iščemo aritmije
@@ -25,7 +25,7 @@ const AritmijePage: React.FC<AritmijePageProps> = ({ onNavigate }) => {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-stone-100">
           
           {/* Main Content Section - Dark Red Background Style as requested */}
-          <div className="bg-gradient-to-b from-[#4a0404] to-[#7f1d1d] p-8 md:p-12 text-white">
+          <div className="bg-gradient-to-b from-[#6b2121] to-[#7f1d1d] p-8 md:p-12 text-white">
             <h2 className="text-2xl font-bold mb-6 text-cardio-100 border-b border-cardio-800 pb-4">
               Z enokanalnim EKG monitorjem iščemo aritmije
             </h2>

@@ -16,7 +16,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
 
-    if (href === '/clanstvo') {
+    if (href === '/urnik-meritev') {
+      onNavigate('urnik-meritev');
+    } else if (href === '/clanstvo') {
       onNavigate('clanstvo');
     } else if (href === '/o-drustvu') {
       onNavigate('o-drustvu');
@@ -45,7 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <nav className="bg-[#4a0404] shadow-md fixed w-full z-[70] top-0 border-b border-[#3a0303]">
+    <nav className="bg-[#6b2121] shadow-md fixed w-full z-[70] top-0 border-b border-[#4f1717]">
       <div className="px-4 sm:px-6 lg:px-12">
         <div className="flex justify-between items-center h-16 md:h-20">
           
@@ -83,18 +85,32 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#5c0505] border-t border-[#3a0303] absolute w-full">
+        <div className="md:hidden bg-[#6b2121] border-t border-[#4f1717] absolute w-full shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {NAVIGATION_ITEMS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-[#4a0404]"
+                className="block px-3 py-2 rounded-md text-base font-semibold text-white hover:bg-white/10"
               >
                 {item.label}
               </a>
             ))}
+            <div className="mt-4 px-2 space-y-2 pb-2">
+              <button
+                onClick={(e) => handleNavClick(e, '/urnik-meritev')}
+                className="w-full bg-white text-[#6b2121] font-bold py-3 px-4 rounded-lg shadow hover:bg-gray-100 transition-colors"
+              >
+                Urnik meritev
+              </button>
+              <button
+                onClick={(e) => handleNavClick(e, '/clanstvo')}
+                className="w-full bg-white text-[#6b2121] font-bold py-3 px-4 rounded-lg shadow hover:bg-gray-100 transition-colors"
+              >
+                Postani član
+              </button>
+            </div>
           </div>
         </div>
       )}

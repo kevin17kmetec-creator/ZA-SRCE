@@ -11,7 +11,9 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
   const handleNavClick = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
 
-    if (href === '/clanstvo') {
+    if (href === '/urnik-meritev') {
+      onNavigate('urnik-meritev');
+    } else if (href === '/clanstvo') {
       onNavigate('clanstvo');
     } else if (href === '/o-drustvu') {
       onNavigate('o-drustvu');
@@ -55,17 +57,17 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <aside className="hidden md:flex flex-col w-64 h-[calc(100vh-5rem)] fixed left-0 top-20 bg-[#4a0404] text-white overflow-y-auto z-40 shadow-xl border-r border-[#3a0303]">
+    <aside className="hidden md:flex flex-col w-64 h-[calc(100vh-5rem)] fixed left-0 top-20 bg-[#6b2121] text-white overflow-y-auto z-40 shadow-xl border-r border-[#4f1717]">
       {/* Navigation Links */}
-      <nav className="flex-1 py-6 px-3 space-y-1">
+      <nav className="flex-1 py-3 px-3 space-y-0.5">
         {NAVIGATION_ITEMS.map((item) => (
           <a
             key={item.label}
             href={item.href}
             onClick={(e) => handleNavClick(e, item.href)}
-            className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+            className={`block px-4 py-2 rounded-lg text-[1.05rem] font-bold transition-all duration-200 ${
                 isActive(item.href) 
-                ? 'bg-white text-[#4a0404] shadow-md translate-x-1' 
+                ? 'bg-white text-[#6b2121] shadow-md translate-x-1' 
                 : 'text-gray-100 hover:bg-white/10 hover:translate-x-1'
             }`}
           >
@@ -74,15 +76,21 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
         ))}
       </nav>
 
-      {/* CTA Button */}
-      <div className="p-4 border-t border-[#5c0505]">
+      {/* CTA Buttons */}
+      <div className="p-4 border-t border-white/10 space-y-2">
+        <button
+            onClick={(e) => handleNavClick(e, '/urnik-meritev')}
+            className="w-full bg-white text-[#6b2121] font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-100 transition-colors transform hover:scale-[1.02] active:scale-95"
+        >
+            Urnik meritev
+        </button>
         <button
             onClick={(e) => handleNavClick(e, '/clanstvo')}
-            className="w-full bg-white text-[#4a0404] font-bold py-3 px-4 rounded-lg shadow-lg hover:bg-gray-100 transition-colors transform hover:scale-[1.02] active:scale-95"
+            className="w-full bg-white text-[#6b2121] font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-100 transition-colors transform hover:scale-[1.02] active:scale-95"
         >
             Postani član
         </button>
-        <p className="text-center text-[10px] text-gray-400 mt-3">
+        <p className="text-center text-[10px] text-zinc-300 mt-2">
             © {new Date().getFullYear()} Društvo za srce
         </p>
       </div>

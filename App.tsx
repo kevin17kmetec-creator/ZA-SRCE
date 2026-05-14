@@ -38,6 +38,7 @@ function App() {
   // 1. State Management for Navigation
   const [currentView, setCurrentView] = useState<PageType>('home');
   const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
+  const [selectedPublicationUrl, setSelectedPublicationUrl] = useState<string | null>(null);
   
   // State to track navigation source
   const [posvetovalnicaSource, setPosvetovalnicaSource] = useState<'o-drustvu' | 'ugodnosti'>('o-drustvu');
@@ -58,7 +59,7 @@ function App() {
       case 'projekti': return '/projekti';
       case 'fundacija': return '/fundacija';
       case 'publikacije': return '/publikacije';
-      case 'objave-vecer': return '/objave-vecer';
+      case 'objave-vecer': return param ? `/publikacija/${param}` : '/publikacija';
       case 'minute-za-srce': return '/minute-za-srce';
       case 'video-player': return '/video-predvajalnik';
       case 'galerija': return '/galerija';
@@ -89,7 +90,6 @@ function App() {
     if (pathname === '/projekti') return { view: 'projekti' };
     if (pathname === '/fundacija') return { view: 'fundacija' };
     if (pathname === '/publikacije') return { view: 'publikacije' };
-    if (pathname === '/objave-vecer') return { view: 'objave-vecer' };
     if (pathname === '/minute-za-srce') return { view: 'minute-za-srce' };
     if (pathname === '/video-predvajalnik') return { view: 'video-player' };
     if (pathname === '/galerija') return { view: 'galerija' };
@@ -108,15 +108,25 @@ function App() {
       return { view: 'novica-details', id: parseInt(novicaMatch[1], 10) };
     }
 
+    const pubMatch = pathname.match(/^\/publikacija\/(.+)$/);
+    if (pubMatch) {
+      return { view: 'objave-vecer', targetUrl: decodeURIComponent(pubMatch[1]) };
+    }
+
+    if (pathname === '/publikacija' || pathname === '/objave-vecer') {
+       return { view: 'objave-vecer' };
+    }
+
     return { view: 'home' };
   };
 
   // Initialize state from URL on mount and handle popstate
   useEffect(() => {
     const handlePopState = () => {
-      const { view, id } = getViewFromUrl(window.location.pathname);
+      const { view, id, targetUrl } = getViewFromUrl(window.location.pathname) as { view: PageType, id?: number, targetUrl?: string };
       setCurrentView(view);
       if (id) setSelectedArticleId(id);
+      if (targetUrl) setSelectedPublicationUrl(targetUrl);
     };
 
     // Set initial state
@@ -140,6 +150,10 @@ function App() {
       setSelectedArticleId(param);
       window.scrollTo({ top: 0, behavior: 'auto' });
       return;
+    }
+    
+    if (view === 'objave-vecer' && typeof param === 'string') {
+      setSelectedPublicationUrl(decodeURIComponent(param));
     }
 
     // Logic to handle scrolling after state update
@@ -212,7 +226,7 @@ function App() {
         {currentView === 'projekti' && <ProjektiPage onNavigate={handleNavigate} />}
         {currentView === 'fundacija' && <FundacijaPage onNavigate={handleNavigate} />}
         {currentView === 'publikacije' && <PublikacijePage onNavigate={handleNavigate} />}
-        {currentView === 'objave-vecer' && <ObjaveVecerPage onNavigate={handleNavigate} />}
+        {currentView === 'objave-vecer' && <ObjaveVecerPage onNavigate={handleNavigate} publicationUrl={selectedPublicationUrl} />}
         {currentView === 'minute-za-srce' && <MinuteZaSrcePage onNavigate={handleNavigate} />}
         {currentView === 'video-player' && <VideoPlayerPage onNavigate={handleNavigate} />}
         {currentView === 'galerija' && <GalerijaPage onNavigate={handleNavigate} />}
