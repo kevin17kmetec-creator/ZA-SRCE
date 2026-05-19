@@ -4,6 +4,38 @@ import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
 
 const ContactMap: React.FC = () => {
+  const [formStatus, setFormStatus] = React.useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      formType: 'contact',
+      name: formData.get('full-name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    };
+
+    try {
+      const response = await fetch('./poslji_podatke.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      
+      if (response.ok) {
+        setFormStatus('success');
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setFormStatus('error');
+      }
+    } catch (error) {
+      setFormStatus('error');
+    }
+  };
+
   return (
     <section id="contact" className="bg-stone-50 py-10 lg:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,10 +49,7 @@ const ContactMap: React.FC = () => {
                   <h2 className="text-3xl font-extrabold text-trust-900 mb-8">Stopite v stik z nami</h2>
                   
                   {/* Contact Form */}
-                  <form className="grid grid-cols-1 gap-y-6" onSubmit={(e) => {
-                      e.preventDefault();
-                      window.location.href = `mailto:${CONTACT_INFO.email}?subject=Sporočilo s spletne strani`;
-                    }}>
+                  <form className="grid grid-cols-1 gap-y-6" onSubmit={handleSubmit}>
                     <div>
                       <label htmlFor="full-name" className="sr-only">Ime in Priimek</label>
                       <input

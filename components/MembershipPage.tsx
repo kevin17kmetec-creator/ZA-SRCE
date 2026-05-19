@@ -31,7 +31,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
     setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.agreed) {
@@ -41,13 +41,34 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
 
     setFormStatus('submitting');
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Form Data Submitted:", formData);
-      // Here you would typically integrate EmailJS or Formspree
-      setFormStatus('success');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1500);
+    try {
+      const response = await fetch('./poslji_podatke.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'membership',
+          ime: formData.name.split(' ')[0] || '',
+          priimek: formData.name.split(' ').slice(1).join(' ') || '',
+          datumRojstva: formData.birthDate,
+          naslov: formData.address,
+          posta: '',
+          kraj: '',
+          email: formData.email,
+          telefon: formData.phone
+        })
+      });
+      
+      if (response.ok) {
+        setFormStatus('success');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert("Pojavila se je napaka pri pošiljanju. Poskusite znova.");
+        setFormStatus('idle');
+      }
+    } catch (error) {
+      alert("Pojavila se je napaka pri pošiljanju. Preverite povezavo in poskusite znova.");
+      setFormStatus('idle');
+    }
   };
 
   return (

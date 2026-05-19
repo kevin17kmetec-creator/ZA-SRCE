@@ -1,5 +1,5 @@
 
-export type PageType = 'home' | 'clanstvo' | 'o-drustvu' | 'posvetovalnica' | 'glezenjski-indeks' | 'ugodnosti' | 'dejavnost' | 'aritmije' | 'cenik' | 'projekti' | 'fundacija' | 'publikacije' | 'objave-vecer' | 'minute-za-srce' | 'galerija' | 'novice-page' | 'novica-details' | 'urnik-meritev' | 'koledar-vadb' | 'privacy-policy' | 'terms-conditions' | 'legal-notice' | 'accessibility' | 'video-player' | 'kontakt';
+export type PageType = 'home' | 'clanstvo' | 'o-drustvu' | 'posvetovalnica' | 'glezenjski-indeks' | 'ugodnosti' | 'dejavnost' | 'aritmije' | 'cenik' | 'projekti' | 'fundacija' | 'publikacije' | 'objave-vecer' | 'minute-za-srce' | 'galerija' | 'novice-page' | 'novica-details' | 'urnik-meritev' | 'predavanja_urnik' | 'koledar-vadb' | 'privacy-policy' | 'terms-conditions' | 'legal-notice' | 'accessibility' | 'video-player' | 'kontakt';
 
 export interface NavItem {
   label: string;
@@ -37,5 +37,14 @@ export interface Measurement {
   time: string;
   location: string;
   type: string;
+  comment?: string;
+}
+
+export interface Lecture {
+  date: string;
+  time: string;
+  location: string;
+  topic: string;
+  lecturer: string;
   comment?: string;
 }

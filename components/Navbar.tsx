@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Facebook } from 'lucide-react';
 import { PageType } from '../types';
 import { NAVIGATION_ITEMS } from '../constants';
 
@@ -18,6 +18,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
 
     if (href === '/urnik-meritev') {
       onNavigate('urnik-meritev');
+    } else if (href === '/predavanja') {
+      onNavigate('predavanja_urnik');
     } else if (href === '/clanstvo') {
       onNavigate('clanstvo');
     } else if (href === '/o-drustvu') {
@@ -71,14 +73,27 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             </div>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-white p-2"
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+          {/* Right Section */}
+          <div className="flex items-center space-x-4">
+             <a 
+                href="https://www.facebook.com/profile.php?id=61575200512915" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-white hover:text-gray-200 transition-colors hidden sm:block p-2"
+                title="Sledite nam na Facebooku"
+              >
+                <Facebook className="h-6 w-6" />
+             </a>
+             
+             {/* Mobile Menu Toggle */}
+             <div className="md:hidden">
+               <button
+                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                 className="text-white p-2"
+               >
+                 {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+               </button>
+             </div>
           </div>
         </div>
       </div>
@@ -98,11 +113,26 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               </a>
             ))}
             <div className="mt-4 px-2 space-y-2 pb-2">
+              <a 
+                href="https://www.facebook.com/profile.php?id=61575200512915" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center justify-center w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow hover:bg-blue-700 transition-colors mb-2"
+              >
+                <Facebook className="h-5 w-5 mr-2" />
+                Obiščite naš Facebook
+              </a>
               <button
                 onClick={(e) => handleNavClick(e, '/urnik-meritev')}
                 className="w-full bg-white text-[#6b2121] font-bold py-3 px-4 rounded-lg shadow hover:bg-gray-100 transition-colors"
               >
                 Urnik meritev
+              </button>
+              <button
+                onClick={(e) => handleNavClick(e, '/predavanja')}
+                className="w-full bg-white text-[#6b2121] font-bold py-3 px-4 rounded-lg shadow hover:bg-gray-100 transition-colors"
+              >
+                Predavanja
               </button>
               <button
                 onClick={(e) => handleNavClick(e, '/clanstvo')}

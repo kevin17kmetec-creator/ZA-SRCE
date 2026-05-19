@@ -21,6 +21,7 @@ import GalerijaPage from './components/GalerijaPage';
 import NewsPage from './components/NewsPage';
 import NewsArticlePage from './components/NewsArticlePage';
 import UrnikMeritevPage from './components/UrnikMeritevPage'; // New
+import PredavanjaPage from './components/PredavanjaPage'; // New
 import KoledarVadbPage from './components/KoledarVadbPage'; // New
 import MeasurementTicker from './components/MeasurementTicker'; // New
 import Footer from './components/Footer';
@@ -66,6 +67,7 @@ function App() {
       case 'novice-page': return '/novice';
       case 'novica-details': return `/novica/${param}`;
       case 'urnik-meritev': return '/urnik-meritev';
+      case 'predavanja_urnik': return '/predavanja';
       case 'koledar-vadb': return '/koledar-vadb';
       case 'privacy-policy': return '/privacy-policy';
       case 'terms-conditions': return '/terms-conditions';
@@ -95,6 +97,7 @@ function App() {
     if (pathname === '/galerija') return { view: 'galerija' };
     if (pathname === '/novice') return { view: 'novice-page' };
     if (pathname === '/urnik-meritev') return { view: 'urnik-meritev' };
+    if (pathname === '/predavanja') return { view: 'predavanja_urnik' };
     if (pathname === '/koledar-vadb') return { view: 'koledar-vadb' };
     if (pathname === '/privacy-policy') return { view: 'privacy-policy' };
     if (pathname === '/terms-conditions') return { view: 'terms-conditions' };
@@ -240,6 +243,7 @@ function App() {
         )}
 
         {currentView === 'urnik-meritev' && <UrnikMeritevPage onNavigate={handleNavigate} />}
+        {currentView === 'predavanja_urnik' && <PredavanjaPage onNavigate={handleNavigate} />}
         {currentView === 'koledar-vadb' && <KoledarVadbPage onNavigate={handleNavigate} />}
         
         {currentView === 'privacy-policy' && <PrivacyPolicy />}

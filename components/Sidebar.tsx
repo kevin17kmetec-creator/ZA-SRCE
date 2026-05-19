@@ -13,6 +13,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
 
     if (href === '/urnik-meritev') {
       onNavigate('urnik-meritev');
+    } else if (href === '/predavanja') {
+      onNavigate('predavanja_urnik');
     } else if (href === '/clanstvo') {
       onNavigate('clanstvo');
     } else if (href === '/o-drustvu') {
@@ -83,6 +85,12 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, onNavigate }) => {
             className="w-full bg-white text-[#6b2121] font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-100 transition-colors transform hover:scale-[1.02] active:scale-95"
         >
             Urnik meritev
+        </button>
+        <button
+            onClick={(e) => handleNavClick(e, '/predavanja')}
+            className="w-full bg-white text-[#6b2121] font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-100 transition-colors transform hover:scale-[1.02] active:scale-95"
+        >
+            Predavanja
         </button>
         <button
             onClick={(e) => handleNavClick(e, '/clanstvo')}
