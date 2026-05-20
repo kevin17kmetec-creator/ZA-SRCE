@@ -14,7 +14,8 @@ const convertDriveLinkToDirectLink = (url: string): string | null => {
   const idRegex = /[-\w]{25,}/;
   const match = url.match(idRegex);
   if (match && match[0]) {
-    return `https://drive.google.com/uc?export=view&id=${match[0]}`;
+    // Standard direct link format for Google Drive images
+    return `https://lh3.googleusercontent.com/d/${match[0]}`;
   }
   return url;
 };

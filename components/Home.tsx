@@ -3,6 +3,7 @@ import React from 'react';
 import Hero from './Hero';
 import About from './About';
 import Programs from './Programs';
+import SponsorsBanner from './SponsorsBanner';
 import ContactMap from './ContactMap';
 import NewsCarousel from './NewsCarousel';
 import { PageType } from '../types';
@@ -23,6 +24,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <NewsCarousel onNavigate={onNavigate} />
       <About />
       <Programs onNavigate={onNavigate} />
+      <SponsorsBanner />
       
       {/* Membership Banner - Teaser on Home Page */}
       <section id="membership-teaser" className="bg-gradient-to-r from-cardio-600 to-cardio-700 py-10 lg:py-16 relative overflow-hidden">

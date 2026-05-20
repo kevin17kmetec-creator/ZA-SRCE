@@ -53,6 +53,29 @@ const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="space-y-6">
+              {/* Item 1: Interview (Permanent Top) */}
+              <div className="group block bg-stone-50 rounded-xl p-6 border border-stone-200 hover:border-cardio-300 hover:shadow-md transition-all">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">
+                    <Video className="h-6 w-6 text-cardio-600" />
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-bold text-trust-900 mb-2 group-hover:text-cardio-600 transition-colors">
+                      Intervju prim. Mirko Bombek, dr. med., in doc. dr. Franjo Naji, dr. med.
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-3">
+                       Na TV Maribor, RTV Slovenija (Omizje: 20 let Društva za zdravje srca in ožilja za Maribor in Podravje)
+                    </p>
+                    <button 
+                       onClick={() => onNavigate('video-player')}
+                       className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline cursor-pointer"
+                    >
+                       Ogled videoposnetka <ArrowRight className="ml-1 h-3 w-3" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               {loading ? (
                 <div className="flex justify-center items-center py-20">
                   <Loader2 className="h-10 w-10 text-cardio-600 animate-spin" />
