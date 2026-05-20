@@ -1,18 +1,16 @@
 import Papa from 'papaparse';
 import { Lecture } from '../types';
 
-// URL do tabele Predavanja
-const LECTURES_SHEET_URL = 'https://docs.google.com/spreadsheets/d/18qxZe-tBsfro4piom_iYK-yYZgVWsGq5GZ7Q2VdX44I/gviz/tq?tqx=out:csv&sheet=Predavanja';
+const LECTURES_SHEET_URL_BASE = 'https://docs.google.com/spreadsheets/d/18qxZe-tBsfro4piom_iYK-yYZgVWsGq5GZ7Q2VdX44I/gviz/tq?tqx=out:csv&sheet=';
 
 const STATIC_LECTURES: Lecture[] = []; // Privzeti statični podatki zaenkrat
 
-export const fetchLecturesFromSheet = async (): Promise<Lecture[]> => {
-  if (LECTURES_SHEET_URL.includes('TUKAJ_BO_VASA_POVEZAVA_DO_TABELE')) {
-     return STATIC_LECTURES;
-  }
+export const fetchLecturesFromSheet = async (location: 'Maribor' | 'Ljubljana'): Promise<Lecture[]> => {
+  const sheetName = location === 'Maribor' ? 'Predavanja Maribor' : 'Predavanja Ljubljana';
+  const url = `${LECTURES_SHEET_URL_BASE}${encodeURIComponent(sheetName)}`;
 
   try {
-    const response = await fetch(LECTURES_SHEET_URL);
+    const response = await fetch(url);
     const csvText = await response.text();
 
     return new Promise((resolve) => {
@@ -29,7 +27,7 @@ export const fetchLecturesFromSheet = async (): Promise<Lecture[]> => {
           );
 
           if (headerRowIndex === -1) {
-            console.error('Could not find header row in lectures CSV');
+            console.error('Could not find header row in lectures CSV for', location);
             resolve([]);
             return;
           }
@@ -69,8 +67,8 @@ export const fetchLecturesFromSheet = async (): Promise<Lecture[]> => {
   }
 };
 
-export const getCombinedLectures = async (): Promise<Lecture[]> => {
-  const sheetLectures = await fetchLecturesFromSheet();
+export const getCombinedLectures = async (location: 'Maribor' | 'Ljubljana'): Promise<Lecture[]> => {
+  const sheetLectures = await fetchLecturesFromSheet(location);
   if (sheetLectures.length > 0) {
     return sheetLectures;
   }

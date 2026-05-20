@@ -10,11 +10,13 @@ interface PredavanjaPageProps {
 const PredavanjaPage: React.FC<PredavanjaPageProps> = ({ onNavigate }) => {
   const [lectures, setLectures] = useState<Lecture[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCity, setSelectedCity] = useState<'Maribor' | 'Ljubljana'>('Maribor');
 
   useEffect(() => {
     const loadLectures = async () => {
+      setLoading(true);
       try {
-        const data = await getCombinedLectures();
+        const data = await getCombinedLectures(selectedCity);
         setLectures(data);
       } catch (error) {
         console.error('Failed to load lectures:', error);
@@ -23,7 +25,7 @@ const PredavanjaPage: React.FC<PredavanjaPageProps> = ({ onNavigate }) => {
       }
     };
     loadLectures();
-  }, []);
+  }, [selectedCity]);
 
   return (
     <div className="bg-stone-50 min-h-screen flex flex-col">
@@ -54,6 +56,31 @@ const PredavanjaPage: React.FC<PredavanjaPageProps> = ({ onNavigate }) => {
 
       {/* Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
+        
+        {/* City Toggle Buttons */}
+        <div className="flex justify-center mb-8 space-x-4">
+          <button
+            onClick={() => setSelectedCity('Maribor')}
+            className={`px-6 py-3 rounded-full font-bold transition-all shadow-md ${
+              selectedCity === 'Maribor' 
+                ? 'bg-[#6b2121] text-white' 
+                : 'bg-white text-gray-700 hover:bg-stone-100'
+            }`}
+          >
+            Predavanja v Mariboru
+          </button>
+          <button
+            onClick={() => setSelectedCity('Ljubljana')}
+            className={`px-6 py-3 rounded-full font-bold transition-all shadow-md ${
+              selectedCity === 'Ljubljana' 
+                ? 'bg-[#6b2121] text-white' 
+                : 'bg-white text-gray-700 hover:bg-stone-100'
+            }`}
+          >
+            Predavanja v Ljubljani
+          </button>
+        </div>
+
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="h-10 w-10 text-cardio-600 animate-spin" />

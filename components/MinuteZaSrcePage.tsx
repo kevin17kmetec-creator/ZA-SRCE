@@ -1,12 +1,31 @@
-import React from 'react';
-import { Activity, Tv, FileText, ArrowRight, Video } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Activity, Tv, FileText, ArrowRight, Video, Loader2 } from 'lucide-react';
 import { PageType } from '../types';
+import { fetchMinuteZaSrceFromSheet, MinuteItem } from '../services/minuteZaSrceService';
 
 interface MinuteZaSrcePageProps {
   onNavigate: (view: PageType) => void;
 }
 
 const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
+  const [items, setItems] = useState<MinuteItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchMinuteZaSrceFromSheet();
+        setItems(data);
+      } catch (error) {
+        console.error('Failed to load Minute za srce:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
   return (
     <div className="bg-stone-50 min-h-screen">
       {/* Header */}
@@ -34,80 +53,58 @@ const MinuteZaSrcePage: React.FC<MinuteZaSrcePageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="space-y-6">
-
-              {/* Item 1: Interview */}
-              <div className="group block bg-stone-50 rounded-xl p-6 border border-stone-200 hover:border-cardio-300 hover:shadow-md transition-all">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Video className="h-6 w-6 text-cardio-600" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-bold text-trust-900 mb-2 group-hover:text-cardio-600 transition-colors">
-                      Intervju prim. Mirko Bombek, dr. med., in doc. dr. Franjo Naji, dr. med.
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-3">
-                       Na TV Maribor, RTV Slovenija (Omizje: 20 let Društva za zdravje srca in ožilja za Maribor in Podravje)
-                    </p>
-                    <button 
-                       onClick={() => onNavigate('video-player')}
-                       className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline cursor-pointer"
-                    >
-                       Ogled videoposnetka <ArrowRight className="ml-1 h-3 w-3" />
-                    </button>
-                  </div>
+              {loading ? (
+                <div className="flex justify-center items-center py-20">
+                  <Loader2 className="h-10 w-10 text-cardio-600 animate-spin" />
                 </div>
-              </div>
-
-              {/* Item 2: Arterijska bolezen */}
-              <div className="group bg-stone-50 rounded-xl p-6 border border-stone-200 hover:border-cardio-300 hover:shadow-md transition-all">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <FileText className="h-6 w-6 text-trust-600" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-bold text-trust-900 mb-2 group-hover:text-cardio-600 transition-colors">
-                      Kaj je arterijska bolezen nog?
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-3">
-                      Strokovni prispevek o simptomih, vzrokih in zdravljenju periferne arterijske bolezni.
-                    </p>
-                    <a 
-                       href="https://www.ezdravje.com/srce-in-zilje/druge-bolezni-srca-in-zilja/arterijska-bolezen-nog/?s=vse&utm_source=301" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline"
-                    >
-                      Preberi več <ArrowRight className="ml-1 h-3 w-3" />
-                    </a>
-                  </div>
+              ) : items.length > 0 ? (
+                items.map((item, index) => {
+                  const isVideo = item.link.includes('video') || item.link.includes('youtube');
+                  
+                  return (
+                    <div key={index} className="group bg-stone-50 rounded-xl p-6 border border-stone-200 hover:border-cardio-300 hover:shadow-md transition-all">
+                      <div className="flex items-start">
+                        <div className="flex-shrink-0 mt-1">
+                          {isVideo ? (
+                             <Video className="h-6 w-6 text-cardio-600" />
+                          ) : (
+                             <FileText className="h-6 w-6 text-trust-600" />
+                          )}
+                        </div>
+                        <div className="ml-4">
+                          <h3 className="text-lg font-bold text-trust-900 mb-2 group-hover:text-cardio-600 transition-colors">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm mb-3 whitespace-pre-wrap">
+                            {item.subtitle}
+                          </p>
+                          {item.link === 'video-player' ? (
+                             <button 
+                               onClick={() => onNavigate('video-player')}
+                               className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline cursor-pointer"
+                             >
+                               Ogled videoposnetka <ArrowRight className="ml-1 h-3 w-3" />
+                             </button>
+                          ) : item.link ? (
+                             <a 
+                               href={item.link} 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline"
+                             >
+                               Preberi več <ArrowRight className="ml-1 h-3 w-3" />
+                             </a>
+                          ) : null}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="text-center text-gray-500 py-10">
+                  Trenutno ni objav.
                 </div>
-              </div>
-
-              {/* Item 3: Bolečine v nogah */}
-              <div className="group bg-stone-50 rounded-xl p-6 border border-stone-200 hover:border-cardio-300 hover:shadow-md transition-all">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <FileText className="h-6 w-6 text-trust-600" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-bold text-trust-900 mb-2 group-hover:text-cardio-600 transition-colors">
-                      So bolečine v nogah lahko nevarne?
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-3">
-                      Kako prepoznati nevarno bolečino in kdaj obiskati zdravnika.
-                    </p>
-                    <a 
-                       href="http://www.zasrce-mb.si/So-bolecine-v-nogah-lahko-nevarne.pdf" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="text-cardio-600 font-medium text-sm inline-flex items-center hover:underline"
-                    >
-                      Preberi več <ArrowRight className="ml-1 h-3 w-3" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
+              )}
             </div>
 
           </div>
