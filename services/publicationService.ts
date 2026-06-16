@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-const PUB_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1567hj4eoson2Uz4EK8c1SGMad4TTfyRu_x4hQWrXUTc/export?format=csv';
+const PUB_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1_ze7I-Qns-PX7mGpL9CS_pSFh6CJYDOq/export?format=csv';
 
 export interface Publication {
   title: string;

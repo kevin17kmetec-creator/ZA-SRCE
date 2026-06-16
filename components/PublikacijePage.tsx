@@ -4,7 +4,7 @@ import { PageType } from '../types';
 import { fetchPublicationsFromSheet, Publication } from '../services/publicationService';
 
 interface PublikacijePageProps {
-  onNavigate: (view: PageType) => void;
+  onNavigate: (view: PageType, param?: string | number) => void;
 }
 
 const PublikacijePage: React.FC<PublikacijePageProps> = ({ onNavigate }) => {
@@ -99,12 +99,7 @@ const PublikacijePage: React.FC<PublikacijePageProps> = ({ onNavigate }) => {
                </div>
             </div>
 
-            {/* Additional Info */}
-            <div className="bg-stone-50 p-6 rounded-xl border-l-4 border-trust-800">
-              <p className="text-gray-700 leading-relaxed text-lg">
-                Ob jubilejni izdaji revije <span className="font-semibold text-trust-900">Mariborski srčni utrip</span> ob 20-letnici društva je izšla tudi posebna priloga Večera <span className="font-semibold">FOKUS</span>, nekaj prispevkov pa je bilo objavljeno tudi v reviji Seniorji.
-              </p>
-            </div>
+
 
           </div>
         </div>

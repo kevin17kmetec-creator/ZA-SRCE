@@ -2,7 +2,7 @@
 // poslji_podatke.php
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *'); // Ali navedite točno vašo domeno
+header('Access-Control-Allow-Origin: *'); 
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -44,7 +44,8 @@ if ($formType === 'membership') {
     $message .= "Email: $email\n";
     $message .= "Telefon: $telefon\n";
     
-    $headers = "From: webmaster@vasa-domena.si\r\n"; // Spremenite v pošiljatelja z vaše domene
+    $headers = "From: info@zasrce-mb.si\r\n"; 
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
     if ($email) {
         $headers .= "Reply-To: $email\r\n";
     }
@@ -69,8 +70,11 @@ if ($formType === 'membership') {
     $message .= "Telefon: $phone\n\n";
     $message .= "Sporočilo:\n$msg\n";
 
-    $headers = "From: webmaster@vasa-domena.si\r\n"; // Spremenite
-    $headers .= "Reply-To: $email\r\n";
+    $headers = "From: info@zasrce-mb.si\r\n"; 
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    if ($email) {
+        $headers .= "Reply-To: $email\r\n";
+    }
 
     if (mail($to, $subject_contact, $message, $headers)) {
         echo json_encode(['status' => 'success']);

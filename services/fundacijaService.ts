@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-const FUNDACIJA_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1hlgkxrvN6aeni4zSQCw5WXQrPgVyrt-DwBdBHMbIVGk/export?format=csv';
+const FUNDACIJA_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1f-JWMi3cv-HwOSR2JKKGZbnL69AlIkLg/export?format=csv';
 
 export interface FundacijaItem {
   mainText: string;

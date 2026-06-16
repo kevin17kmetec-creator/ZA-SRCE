@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-const MINUTE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Ky5hG-9BXmygScZUBP1efBOt36gdCs083HZUYt821iM/export?format=csv';
+const MINUTE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Wa6EsUMFHBm5NuiS8yn4zL4GUSlLbswh/export?format=csv';
 
 export interface MinuteItem {
   title: string;

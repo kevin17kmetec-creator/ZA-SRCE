@@ -120,7 +120,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             </h1>
 
             <p className="mt-4 lg:mt-4 text-lg lg:text-xl text-gray-500 sm:text-2xl max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-              Pridružite se Društvu za zdravje srca in ožilja za Maribor in Podravje. Skupaj skrbimo za preventivo in spodbujamo aktiven življenjski slog.
+              Pridružite se Društvu za zdravje srca in ožilja za Maribor in Podravje. Skupaj skrbimo za preventivo srčno-žilnih bolezni in spodbujamo zdrav, aktiven življenjski slog.
             </p>
 
             <div className="mt-8 lg:mt-6 flex flex-col sm:flex-row justify-center lg:justify-start gap-4 lg:gap-6">

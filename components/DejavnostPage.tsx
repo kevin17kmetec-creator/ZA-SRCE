@@ -13,7 +13,7 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
       <div className="bg-[#6b2121] py-8 text-white border-b-4 border-cardio-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
           <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl mb-4">
-            Dejavnost društva
+            Dejavnosti društva
           </h1>
           <p className="text-xl text-gray-200 max-w-3xl">
             Naše poslanstvo uresničujemo s širokim naborom strokovnih aktivnosti in preventivnih programov.
@@ -28,22 +28,29 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
             
             {/* 1. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
-                S svojimi zdravstvenimi ekipami merimo krvni tlak, holesterol, trigliceride, sladkor v krvi in tudi{' '}
+                S svojimi zdravstvenimi ekipami merimo krvni tlak, nasičenost kisika v krvi, holesterol, trigliceride, sladkor v krvi ter ITM.
+              </span>
+            </li>
+
+            {/* GI Bullet */}
+            <li className="flex items-start">
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span>
                 <button 
                   onClick={() => onNavigate('glezenjski-indeks')}
                   className="text-cardio-600 underline font-medium hover:text-cardio-800 transition-colors cursor-pointer"
                 >
                   gleženjski indeks (GI)
                 </button>
-                {' '}ter ITM.
+                {' '}je hkratna meritev tlakov in pretokov na žilah okončin.
               </span>
             </li>
 
             {/* 2. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
                 Na stalnih merilnih mestih in akcijah na terenu merimo srčni utrip in{' '}
                 <button 
@@ -52,21 +59,21 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
                 >
                   odkrivamo aritmije z enokanalnim EKG monitorjem
                 </button>
-                . Meritve izvaja medicinska sestra z dolgoletnimi izkušnjami s kardiološkimi bolniki. V primeru nepravilnosti posnetek pregleda zdravnik in kratko obrazložitev prejmete na dom.
+                .
               </span>
             </li>
 
             {/* 3. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
-                S svojimi zdravniki, specialisti internisti vam svetujemo, kaj lahko storite za vaše dobro zdravstveno počutje.
+                S svojimi zdravniki, specialisti vam individualno svetujemo kako ohraniti zdravje in kako ukrepati ob zdravstvenih težavah.
               </span>
             </li>
 
             {/* 4. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
                 Prirejamo tečaje temeljnih postopkov oživljanja z uporabo defibrilatorja.
               </span>
@@ -74,7 +81,7 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
 
             {/* 5. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
                 Sodelujemo pri izvajanju preventivnega zdravstvenega programa na šolah.
               </span>
@@ -82,15 +89,15 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
 
             {/* 6. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
-                Prirejamo predavanja uglednih zdravnikov in drugih zdravstvenih delavcev ter drugih strokovnjakov o skrbi za zdravje.
+                Prirejamo predavanja uglednih zdravnikov, zdravstvenih delavcev ter drugih strokovnjakov o zdravju in boleznih.
               </span>
             </li>
 
             {/* 7. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
                 Pri uresničevanju nacionalnega in regionalnega programa gibanja za zdrav način življenja sodelujemo z občinami, mestnimi četrtmi, krajevnimi skupnostmi, organizacijo Rdečega križa, z društvi upokojencev ter drugimi društvi in organizacijami.
               </span>
@@ -98,7 +105,7 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
 
             {/* 8. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
                 Sodelujemo pri organizaciji rekreativnih prireditev, ki spodbujajo prebivalce, da bi bili telesno dejavni.
               </span>
@@ -106,15 +113,15 @@ const DejavnostPage: React.FC<DejavnostPageProps> = ({ onNavigate }) => {
 
             {/* 9. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
-                Na »srčnih poteh«, na katerih se izvaja hitra hoja na 2 km, vam izmerimo krvni pritisk in srčni utrip, ter na podlagi določnih osebnih podatkov /telesne teže, višine, starosti/ in časa hoje, po posebnem mednarodno priznanem programu izračunamo telesno zmogljivost. Izdamo vam tudi kartonček z ugotovljenim rezultatom, o katerem se lahko posvetujete s prisotnim zdravnikom.
+                Na »srčnih poteh«, na katerih se izvaja hitra hoja na 2 km, vam izmerimo krvni pritisk in srčni utrip, ter na podlagi vaše telesne teže, višine, starosti in časa hoje izračunamo telesno zmogljivost.
               </span>
             </li>
 
             {/* 10. Bullet */}
             <li className="flex items-start">
-              <span className="flex-shrink-0 h-3 w-3 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
+              <span className="flex-shrink-0 h-2 w-2 mt-2.5 rounded-full bg-cardio-600 mr-4"></span>
               <span>
                 <button 
                   onClick={() => onNavigate('cenik')}

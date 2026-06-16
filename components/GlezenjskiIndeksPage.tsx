@@ -17,7 +17,7 @@ const GlezenjskiIndeksPage: React.FC<GlezenjskiIndeksPageProps> = ({ onNavigate,
     }
   };
 
-  const backLabel = source === 'dejavnost' ? 'Nazaj na Dejavnost' : 'Nazaj na O društvu';
+  const backLabel = source === 'dejavnost' ? 'Nazaj na Dejavnosti' : 'Nazaj na O društvu';
 
   return (
     <div className="bg-stone-50 min-h-screen">

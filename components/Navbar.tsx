@@ -68,8 +68,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-base md:text-2xl text-white leading-tight whitespace-nowrap">Društvo za srce</span>
-              <span className="text-[10px] md:text-sm text-gray-200 uppercase tracking-wider whitespace-nowrap">Maribor in Podravje</span>
+              <span className="font-bold text-base md:text-2xl text-white leading-tight whitespace-nowrap">Društvo za zdravje srca in ožilja</span>
+              <span className="text-[10px] md:text-sm text-gray-200 uppercase tracking-wider whitespace-nowrap">za Maribor in Podravje</span>
             </div>
           </div>
 

@@ -17,7 +17,7 @@ const CenikPage: React.FC<CenikPageProps> = ({ onNavigate }) => {
             className="flex items-center text-gray-300 hover:text-white mb-6 transition-colors font-medium cursor-pointer"
           >
             <ArrowLeft className="h-5 w-5 mr-2" />
-            Nazaj na Dejavnost
+            Nazaj na Dejavnosti
           </button>
           <div className="flex items-center mb-4">
              <div className="bg-white/10 p-3 rounded-full mr-4">

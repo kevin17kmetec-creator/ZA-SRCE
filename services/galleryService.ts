@@ -1,10 +1,16 @@
 import Papa from 'papaparse';
 
-const GALLERY_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1aXcE-X2NpNrA1j8n4UcUqtj_Kh8Vtd8fUb9tAyuTB1M/export?format=csv';
+const GALLERY_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1-omuD7mmerr68gXtMhyPQx4aQdaT4Tpa/export?format=csv';
 
 export interface GalleryImage {
   src: string;
   caption: string;
+}
+
+export interface GalleryAlbum {
+  id: string;
+  title: string;
+  images: GalleryImage[];
 }
 
 const convertDriveLinkToDirectLink = (url: string): string | null => {
@@ -21,7 +27,7 @@ const convertDriveLinkToDirectLink = (url: string): string | null => {
   return url;
 };
 
-export const fetchGalleryFromSheet = async (): Promise<GalleryImage[]> => {
+export const fetchGalleryFromSheet = async (): Promise<GalleryAlbum[]> => {
   try {
     const response = await fetch(GALLERY_SHEET_URL);
     const csvText = await response.text();
@@ -33,22 +39,37 @@ export const fetchGalleryFromSheet = async (): Promise<GalleryImage[]> => {
         complete: (results) => {
           const rows = (results.data as string[][]).slice(1); // skip header row
           
-          // Assuming Column A is the image link and Column B (index 1) is the caption
-          // If no caption, we can use a generic one or empty
-          const images = rows
-            .filter(row => row[0] && row[0].trim()) // Filter rows without a link
-            .map((row) => {
-              const src = convertDriveLinkToDirectLink(row[0].trim());
-              const caption = row[1] ? row[1].trim() : "";
-              
-              return {
-                src: src || "",
-                caption: caption
-              };
-            })
-            .filter(img => img.src !== "");
+          const albumsMap = new Map<string, GalleryAlbum>();
 
-          resolve(images);
+          rows.forEach(row => {
+            const albumTitle = row[0] ? row[0].trim() : 'Ostalo';
+            const imageCaption = row[1] ? row[1].trim() : '';
+            const imageLink = row[2] ? row[2].trim() : '';
+
+            if (!imageLink) return;
+
+            const src = convertDriveLinkToDirectLink(imageLink);
+            if (!src) return;
+
+            const image: GalleryImage = {
+              src,
+              caption: imageCaption
+            };
+
+            if (albumsMap.has(albumTitle)) {
+              albumsMap.get(albumTitle)!.images.push(image);
+            } else {
+              albumsMap.set(albumTitle, {
+                id: albumTitle.replace(/\s+/g, '-').toLowerCase(),
+                title: albumTitle,
+                images: [image]
+              });
+            }
+          });
+
+          // Convert map to array
+          const albums = Array.from(albumsMap.values());
+          resolve(albums);
         },
         error: (error: Error) => {
           console.error('Error parsing gallery CSV:', error);

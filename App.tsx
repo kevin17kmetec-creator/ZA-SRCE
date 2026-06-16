@@ -79,7 +79,7 @@ function App() {
   };
 
   // Helper to get PageType from URL
-  const getViewFromUrl = (pathname: string): { view: PageType, id?: number } => {
+  const getViewFromUrl = (pathname: string): { view: PageType, id?: number, targetUrl?: string } => {
     if (pathname === '/' || pathname === '') return { view: 'home' };
     if (pathname === '/clanstvo') return { view: 'clanstvo' };
     if (pathname === '/o-drustvu') return { view: 'o-drustvu' };

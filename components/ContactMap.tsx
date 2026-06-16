@@ -88,9 +88,17 @@ const ContactMap: React.FC = () => {
                     <div>
                       <button
                         type="submit"
-                        className="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-bold text-white bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500 transition-colors"
+                        disabled={formStatus === 'submitting' || formStatus === 'success'}
+                        className={`w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-bold text-white transition-colors ${
+                          formStatus === 'success' ? 'bg-green-600' :
+                          formStatus === 'error' ? 'bg-red-600 hover:bg-red-700' :
+                          'bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500'
+                        }`}
                       >
-                        Pošlji sporočilo
+                        {formStatus === 'submitting' ? 'Pošiljam...' : 
+                         formStatus === 'success' ? 'Sporočilo poslano!' : 
+                         formStatus === 'error' ? 'Napaka pri pošiljanju. Poskusi znova' : 
+                         'Pošlji sporočilo'}
                       </button>
                     </div>
                   </form>

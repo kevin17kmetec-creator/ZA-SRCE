@@ -48,7 +48,10 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                    decoding="async"
                  />
                </div>
-               <span className="font-bold text-xl">Društvo za zdravje srca</span>
+               <div className="flex flex-col">
+                 <span className="font-bold text-xl">Društvo za zdravje srca in ožilja</span>
+                 <span className="text-sm text-gray-300">za Maribor in Podravje</span>
+               </div>
             </div>
             <p className="text-gray-400 text-sm max-w-sm">
               Naše poslanstvo je izobraževanje ljudi o boleznih srca in ožilja, spodbujanje zdravega načina življenja ter organizacija preventivnih meritev v Mariboru in okolici.
@@ -59,8 +62,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <h3 className="text-sm font-semibold text-gray-300 tracking-wider uppercase mb-4">Povezave</h3>
             <ul className="space-y-3">
               <li><a href="/o-drustvu" onClick={(e) => handleLinkClick(e, '/o-drustvu')} className="text-base text-gray-400 hover:text-white transition-colors">O društvu</a></li>
-              <li><a href="/dejavnost" onClick={(e) => handleLinkClick(e, '/dejavnost')} className="text-base text-gray-400 hover:text-white transition-colors">Dejavnost</a></li>
-              <li><a href="/projekti" onClick={(e) => handleLinkClick(e, '/projekti')} className="text-base text-gray-400 hover:text-white transition-colors">Projekti</a></li>
+              <li><a href="/dejavnost" onClick={(e) => handleLinkClick(e, '/dejavnost')} className="text-base text-gray-400 hover:text-white transition-colors">Dejavnosti</a></li>
+              <li><a href="/projekti" onClick={(e) => handleLinkClick(e, '/projekti')} className="text-base text-gray-400 hover:text-white transition-colors">Projekti - Programi</a></li>
               <li><a href="/fundacija" onClick={(e) => handleLinkClick(e, '/fundacija')} className="text-base text-gray-400 hover:text-white transition-colors">Fundacija</a></li>
               <li><a href="/publikacije" onClick={(e) => handleLinkClick(e, '/publikacije')} className="text-base text-gray-400 hover:text-white transition-colors">Publikacije</a></li>
             </ul>

@@ -1,6 +1,6 @@
 import Papa from 'papaparse';
 
-const SPONSORS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1oaudN4olV7S5FlmKZ-S2VTC10Y6cz-zoVhMI5Oi5yc4/export?format=csv';
+const SPONSORS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1NBdMi2vwuBwgvpbEZK0oxw2NxMYwbhr_/export?format=csv';
 
 const convertDriveLinkToDirectLink = (url: string): string | null => {
   if (!url) return null;

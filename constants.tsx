@@ -7,14 +7,14 @@ import { Activity, Heart, Calendar, Users, FileText, Phone } from 'lucide-react'
 export const NAVIGATION_ITEMS: NavItem[] = [
   { label: 'Domov', href: '/' },
   { label: 'O društvu', href: '/o-drustvu' },
-  { label: 'Dejavnost', href: '/dejavnost' },
+  { label: 'Dejavnosti', href: '/dejavnost' },
   { label: 'Članstvo', href: '/clanstvo' },
-  { label: 'Projekti', href: '/projekti' },
+  { label: 'Projekti - Programi', href: '/projekti' },
   { label: 'Fundacija', href: '/fundacija' },
   { label: 'Publikacije', href: '/publikacije' },
   { label: 'Minute za srce', href: '/minute-za-srce' },
   { label: 'Galerija', href: '/galerija' },
-  { label: 'Novice', href: '/novice' },
+  { label: 'Novice - Dogodki', href: '/novice' },
   { label: 'Kontakt', href: '/kontakt' },
 ];
 
@@ -78,21 +78,21 @@ export const LATEST_NEWS: NewsArticle[] = [
 export const PROGRAMS: ProgramService[] = [
   {
     title: "Preventivne Meritve",
-    description: "Redno merjenje krvnega tlaka, holesterola in sladkorja v krvi je ključno za zgodnje odkrivanje bolezni.",
+    description: "Izvajanje rednih meritev holesterola, trigliceridov, krvnega sladkorja in krvnega tlaka, gleženjskega indeksa ter EKG monitorja. Svetovanje specialista.",
     icon: "Activity",
     action: "Urnik meritev"
   },
   {
-    title: "Svetovalna Pisarna",
-    description: "Individualni posveti s strokovnjaki o zdravem življenjskem slogu in obvladovanju tveganj.",
+    title: "Posvetovalnica za srce",
+    description: "Individualni posveti z zdravniki specialisti z razlago bolezni, njihovem obvladovanju ter postopkov zdravljenja.",
     icon: "Heart",
-    action: "Naročite se"
+    action: "Več informacij"
   },
   {
-    title: "Organizirana Rekreacija",
-    description: "Tedenski pohodi in vadbe pod strokovnim vodstvom za krepitev srca in ožilja.",
+    title: "Predavanja in dogodki",
+    description: "Organizacija strokovnih predavanj različnih strokovnjakov z možnostjo razprave. Različni kulturni in športni dogodki.",
     icon: "Users",
-    action: "Koledar vadb"
+    action: "Urnik predavanj"
   }
 ];
 

@@ -19,7 +19,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
     agreed: false
   });
 
-  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -62,12 +62,10 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
         setFormStatus('success');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        alert("Pojavila se je napaka pri pošiljanju. Poskusite znova.");
-        setFormStatus('idle');
+        setFormStatus('error');
       }
     } catch (error) {
-      alert("Pojavila se je napaka pri pošiljanju. Preverite povezavo in poskusite znova.");
-      setFormStatus('idle');
+      setFormStatus('error');
     }
   };
 
@@ -438,12 +436,19 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
                     <button
                       type="submit"
                       disabled={formStatus === 'submitting'}
-                      className="w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-full shadow-lg text-base font-bold text-white bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500 transition-all transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
+                      className={`w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-full shadow-lg text-base font-bold text-white transition-all transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed ${
+                        formStatus === 'error' ? 'bg-red-600 hover:bg-red-700' : 'bg-cardio-600 hover:bg-cardio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cardio-500'
+                      }`}
                     >
                       {formStatus === 'submitting' ? (
                         <>
                           <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
                           Pošiljanje...
+                        </>
+                      ) : formStatus === 'error' ? (
+                        <>
+                          Napaka pri pošiljanju. Poskusite znova
+                          <ArrowRight className="ml-2 h-5 w-5" />
                         </>
                       ) : (
                         <>

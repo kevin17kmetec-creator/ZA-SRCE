@@ -1,8 +1,7 @@
 import Papa from 'papaparse';
 import { NewsArticle } from '../types';
-import { LATEST_NEWS } from '../constants';
 
-const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/18qxZe-tBsfro4piom_iYK-yYZgVWsGq5GZ7Q2VdX44I/export?format=csv';
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1PuTgAMYGhzaC50l7Ktw_R-Crt2rRKjZt/export?format=csv';
 
 interface SheetRow {
   Avtor: string;
@@ -158,7 +157,5 @@ export const fetchNewsFromSheet = async (): Promise<NewsArticle[]> => {
 
 export const getCombinedNews = async (): Promise<NewsArticle[]> => {
   const sheetNews = await fetchNewsFromSheet();
-  // Combine sheet news with static news
-  // Sheet news come first (assuming they are newer or prioritized)
-  return [...sheetNews, ...LATEST_NEWS];
+  return sheetNews;
 };

@@ -49,8 +49,10 @@ const Programs: React.FC<ProgramsProps> = ({ onNavigate }) => {
                     e.preventDefault();
                     if (program.action === 'Urnik meritev') {
                       onNavigate?.('urnik-meritev');
-                    } else if (program.action === 'Koledar vadb') {
-                      onNavigate?.('koledar-vadb');
+                    } else if (program.action === 'Urnik predavanj') {
+                      onNavigate?.('predavanja_urnik');
+                    } else if (program.action === 'Več informacij') {
+                      onNavigate?.('posvetovalnica');
                     } else {
                       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                     }

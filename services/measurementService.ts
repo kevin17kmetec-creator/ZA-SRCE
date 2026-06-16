@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import { Measurement } from '../types';
 import { MEASUREMENTS as STATIC_MEASUREMENTS } from '../constants';
 
-const MEASUREMENTS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/18qxZe-tBsfro4piom_iYK-yYZgVWsGq5GZ7Q2VdX44I/gviz/tq?tqx=out:csv&sheet=Meritve';
+const MEASUREMENTS_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1PuTgAMYGhzaC50l7Ktw_R-Crt2rRKjZt/gviz/tq?tqx=out:csv&sheet=Meritve';
 
 export const fetchMeasurementsFromSheet = async (): Promise<Measurement[]> => {
   try {

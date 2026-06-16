@@ -1,7 +1,7 @@
 import Papa from 'papaparse';
 import { Lecture } from '../types';
 
-const LECTURES_SHEET_URL_BASE = 'https://docs.google.com/spreadsheets/d/18qxZe-tBsfro4piom_iYK-yYZgVWsGq5GZ7Q2VdX44I/gviz/tq?tqx=out:csv&sheet=';
+const LECTURES_SHEET_URL_BASE = 'https://docs.google.com/spreadsheets/d/1PuTgAMYGhzaC50l7Ktw_R-Crt2rRKjZt/gviz/tq?tqx=out:csv&sheet=';
 
 const STATIC_LECTURES: Lecture[] = []; // Privzeti statični podatki zaenkrat
 
