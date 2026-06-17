@@ -116,7 +116,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                Kontakt in informacije
              </h3>
              <p className="text-gray-300">
-               Pokličete nas lahko na <strong>02/228-22-63</strong> v času uradnih ur (pon 8-10, sre 9-14).
+               Pokličete nas lahko na <strong>02/228-22-63</strong> v času uradnih ur (ponedeljek od 9 do 12 ure in sredo od 9 do 14 ure).
              </p>
              <p className="text-gray-300 mt-1">
                Ali na elektronsko pošto: <a href="mailto:tajnistvo@zasrce-mb.si" className="text-cardio-400 underline hover:text-cardio-300 font-medium transition-colors">tajnistvo@zasrce-mb.si</a>
@@ -133,7 +133,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
              <div className="p-2 bg-cardio-50 rounded-lg mr-3">
                <Users className="h-6 w-6 text-cardio-600" />
              </div>
-             <h2 className="text-2xl font-bold text-trust-900">Vodstvo in organi društva (2022–2026)</h2>
+             <h2 className="text-2xl font-bold text-trust-900">Vodstvo in organi društva (2026)</h2>
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

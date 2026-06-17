@@ -55,7 +55,7 @@ export const generateHealthResponse = async (userPrompt: string): Promise<string
           - koledar-vadb: Koledar rednih vadb
           
           Podatki o društvu:
-          - Kontakt: 02/228-22-63 (pon 8-10, sre 9-14), tajnistvo@zasrce-mb.si
+          - Kontakt: 02/228-22-63 (ponedeljek od 9 do 12 ure in sredo od 9 do 14 ure), tajnistvo@zasrce-mb.si
           - Naslov: Pobreška cesta 8, 2000 Maribor (bližina UKC Maribor)
           - Vodstvo: Prim. Mirko BOMBEK (predsednik), Vasil KOSEV (podpredsednik)
           - Članarina: 15€ letno.
