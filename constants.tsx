@@ -122,5 +122,6 @@ export const CONTACT_INFO = {
   phone: "02 228 22 63",
   fax: "02 228 22 64",
   email: "tajnistvo@zasrce-mb.si",
-  hours: "ponedeljek od 9 do 12 ure in sredo od 9 do 14 ure"
+  hours: "ponedeljek od 9 do 12 ure in sredo od 9 do 14 ure",
+  website: "https://www.zasrce-mb.si/"
 };

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Printer } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Printer, Globe } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
 
 const ContactMap: React.FC = () => {
@@ -146,6 +146,22 @@ const ContactMap: React.FC = () => {
                       <p>{CONTACT_INFO.hours}</p>
                     </div>
                   </div>
+
+                  {CONTACT_INFO.website && (
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 mt-1">
+                        <Globe className="h-6 w-6 text-cardio-600" />
+                      </div>
+                      <div className="ml-4 text-base text-gray-600">
+                        <p className="font-medium text-trust-900">Spletna stran</p>
+                        <p>
+                          <a href={CONTACT_INFO.website} target="_blank" rel="noopener noreferrer" className="text-cardio-600 hover:underline">
+                            www.zasrce-mb.si
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

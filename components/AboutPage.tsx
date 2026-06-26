@@ -101,7 +101,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                  Naše društvo sodeluje z Društvom za zdravje srca in ožilja Slovenije, s Koronarnim klubom Maribor, z Društvom živilskih in prehranskih strokovnih delavcev SV Slovenije, z Društvom bolnikov po možganski kapi in Društvom diabetikov Maribor ter Društvom Glog iz Miklavža na Dravskem polju.
                </p>
                <p>
-                 Pomembno je sodelovanje z Medicinsko fakulteto Univerze v Mariboru in UKC Maribor.
+                 Pomembno je sodelovanje z Medicinsko fakulteto Univerze v Mariboru in UKC Maribor in Zdravstveni dom dr. Adolfa Drolca Maribor.
                </p>
              </div>
           </div>
@@ -151,9 +151,9 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
              <div className="bg-white p-6 rounded-xl shadow-md border-t-4 border-gray-400">
                <h4 className="text-lg font-bold text-trust-900 mb-4 border-b pb-2">Nadzorni odbor</h4>
                <ul className="space-y-2 text-sm text-gray-700">
-                 <li>1. Romana FIŠER, predsednica</li>
-                 <li>2. Boris FATUR, član</li>
-                 <li>3. Alojz KOVAČIČ, član</li>
+                 <li>1. Romana FIŠER - predsednik</li>
+                 <li>2. Zdenka PAŠIČ - član</li>
+                 <li>3. Boris FATUR - član</li>
                </ul>
              </div>
 

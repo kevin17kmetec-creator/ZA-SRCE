@@ -52,7 +52,7 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
                 <div>
                   <h3 className="text-lg font-bold text-trust-900 mb-2">Projekt temeljnih postopkov oživljanja</h3>
                   <p className="text-gray-600">
-                    <span className="font-semibold text-cardio-700">Nosilec:</span> prim. Marko BOMBEK, dr. med., spec. int. med.
+                    <span className="font-semibold text-cardio-700">Nosilec:</span> Tilen Majer, študent medicine- štipendist Fundacije
                   </p>
                 </div>
               </div>
@@ -67,7 +67,7 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
                 <div>
                   <h3 className="text-lg font-bold text-trust-900 mb-2">Projekt za zdravje mladih</h3>
                   <p className="text-gray-600">
-                    <span className="font-semibold text-cardio-700">Nosilec:</span> prof. dr. Jernej ZAVRŠNIK, dr. med., spec. ped., prim.
+                    <span className="font-semibold text-cardio-700">Nosilec:</span> Izr. prof. dr prim. Jernej ZAVRŠNIK, dr. med., spec. ped.
                   </p>
                 </div>
               </div>
@@ -81,6 +81,9 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-trust-900 mb-2">Projekt možganskožilne bolezni</h3>
+                  <p className="text-gray-600">
+                    <span className="font-semibold text-cardio-700">Nosilec:</span> Aleš Kodela, dr. med. spec. nev.
+                  </p>
                 </div>
               </div>
 
@@ -124,7 +127,7 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
                 <div>
                   <h3 className="text-lg font-bold text-trust-900 mb-2">Projekt ugotavljanja zdravstvenega stanja prebivalstva in meritev dejavnikov tveganja</h3>
                   <p className="text-gray-600">
-                    <span className="font-semibold text-cardio-700">Nosilka:</span> Ljudmila ŠTEGER, inž. kem. tehnol.
+                    <span className="font-semibold text-cardio-700">Nosilka:</span> Bojana Zornik, dipl. m.s
                   </p>
                 </div>
               </div>
@@ -138,6 +141,9 @@ const ProjektiPage: React.FC<ProjektiPageProps> = ({ onNavigate }) => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-trust-900 mb-2">Informacijsko publicistična dejavnost</h3>
+                  <p className="text-gray-600">
+                    <span className="font-semibold text-cardio-700">Nosilec:</span> Kornelija Golob, novinarka in urednica.
+                  </p>
                 </div>
               </div>
 

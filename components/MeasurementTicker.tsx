@@ -5,6 +5,15 @@ import { Measurement } from '../types';
 
 const MeasurementTicker: React.FC = () => {
   const [measurements, setMeasurements] = useState<Measurement[]>([]);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleMenuState = (e: any) => setIsMobileMenuOpen(e.detail);
+    window.addEventListener('mobileMenuState', handleMenuState);
+    return () => window.removeEventListener('mobileMenuState', handleMenuState);
+  }, []);
 
   useEffect(() => {
     const loadMeasurements = async () => {
@@ -13,6 +22,29 @@ const MeasurementTicker: React.FC = () => {
     };
     loadMeasurements();
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      setIsNavVisible(true);
+      return;
+    }
+    
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Hide on scroll down, show on scroll up. Only applies when not at the very top.
+      if (currentScrollY > lastScrollY && currentScrollY > 60) {
+        setIsNavVisible(false);
+      } else {
+        setIsNavVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY, isMobileMenuOpen]);
 
   if (measurements.length === 0) return null;
 
@@ -39,7 +71,9 @@ const MeasurementTicker: React.FC = () => {
   );
 
   return (
-    <div className="fixed top-16 md:top-20 left-0 md:left-64 right-0 z-[60] bg-white backdrop-blur-md text-gray-800 overflow-hidden h-10 md:h-12 flex items-center shadow-md border-b border-cardio-100 touch-pan-y">
+    <div className={`fixed top-16 md:top-20 left-0 md:left-64 right-0 z-[60] bg-white backdrop-blur-md text-gray-800 overflow-hidden h-10 md:h-12 flex items-center shadow-md border-b border-cardio-100 touch-pan-y transition-transform duration-300 ease-in-out ${
+      isNavVisible ? 'translate-y-0' : '-translate-y-16 md:translate-y-0'
+    }`}>
       {/* Container for the sliding content */}
       <div 
         className="flex animate-marquee-seamless hover:[animation-play-state:paused] active:[animation-play-state:paused] w-max will-change-transform"

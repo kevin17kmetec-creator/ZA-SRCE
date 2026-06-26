@@ -221,7 +221,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
                 <div className="ml-4">
                   <h3 className="text-lg font-medium text-gray-900">Članska izkaznica</h3>
                   <p className="mt-1 text-gray-600">
-                    Po opravljenem plačilu prejmete člansko izkaznico na vaš domači naslov, s katero uveljavljate ugodnosti v Mariboru in okolici.
+                    Po opravljenem plačilu, boste lahko začeli koristiti vse ugodnosti za člane.
                   </p>
                 </div>
               </div>
