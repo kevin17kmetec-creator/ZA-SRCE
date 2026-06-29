@@ -162,18 +162,18 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                <h4 className="text-lg font-bold text-trust-900 mb-4 border-b pb-2">Upravni odbor</h4>
                <ul className="space-y-1 text-sm text-gray-700 grid grid-cols-1 gap-x-4">
                  <li>1. Mirko BOMBEK</li>
-                 <li>3. Jana DRAGAR</li>
-                 <li>4. Petra HOJNIK</li>
-                 <li>5. Ljudmila KOLENC</li>
-                 <li>6. Vasil KOSEV</li>
-                 <li>7. Franc KRIŠTOFELC</li>
-                 <li>8. Matej LUBEJ</li>
-                 <li>9. Marjan MAKARI</li>
-                 <li>10. Blanka VOMBERGAR</li>
-                 <li>11. Jernej ZAVRŠNIK</li>
-                 <li>12. Bojana ZORNIK</li>
-                 <li>13. 2. podpredsednik (NEDOLOČEN)</li>
-                 <li>14. direktor – strokovni sodel. (NEDOLOČEN)</li>
+                 <li>2. Jana DRAGAR</li>
+                 <li>3. Petra HOJNIK</li>
+                 <li>4. Ljudmila KOLENC</li>
+                 <li>5. Vasil KOSEV</li>
+                 <li>6. Franc KRIŠTOFELC</li>
+                 <li>7. Matej LUBEJ</li>
+                 <li>8. Marjan MAKARI</li>
+                 <li>9. Blanka VOMBERGAR</li>
+                 <li>10. Jernej ZAVRŠNIK</li>
+                 <li>11. Bojana ZORNIK</li>
+                 <li>12. 2. podpredsednik (NEDOLOČEN)</li>
+                 <li>13. direktor – strokovni sodel. (NEDOLOČEN)</li>
                </ul>
              </div>
 
