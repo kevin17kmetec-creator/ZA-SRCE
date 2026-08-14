@@ -5,8 +5,11 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
-// Nastavitev workerja za react-pdf
-pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+// Nastavitev workerja za react-pdf, priporočen način za Vite (lokalni asset namesto unpkg, kar prepreči CORS in file:/// napake)
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 interface ObjaveVecerPageProps {
   onNavigate: (view: PageType) => void;
