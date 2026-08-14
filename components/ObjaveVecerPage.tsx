@@ -17,17 +17,17 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
   const defaultUrl = "https://zxwy5mkhvcay6fpb.public.blob.vercel-storage.com/Mariborski%20sr%C4%8Dni%20utrip.pdf";
   const pdfUrl = publicationUrl || defaultUrl;
   
-  // Decide what to render based on URL
+  // Determine if it's a Google Drive link
   const isGoogleDriveLink = pdfUrl.includes('drive.google.com') || pdfUrl.includes('docs.google.com');
-  const isDirectPdf = pdfUrl.toLowerCase().split('?')[0].endsWith('.pdf') && !isGoogleDriveLink;
 
-  const getEmbedUrl = (url: string) => {
+  const getPdfRenderUrl = (url: string) => {
     try {
-      const urlObj = new URL(url);
-      if (urlObj.hostname === 'drive.google.com') {
+      if (url.includes('drive.google.com')) {
         const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match) {
-          return `https://drive.google.com/file/d/${match[1]}/preview`;
+          const fileId = match[1];
+          // Use our own backend proxy for Google Drive PDFs to avoid CORS and 403 errors
+          return `/api/pdf?id=${fileId}`;
         }
       }
     } catch (e) {
@@ -36,7 +36,9 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
     return url;
   };
 
-  const embedUrl = getEmbedUrl(pdfUrl);
+  const finalPdfUrl = getPdfRenderUrl(pdfUrl);
+  // Smo odstranili pogoj za isDirectPdf in iframe - sedaj vse poskusimo odpreti kot PDF
+  const isDirectPdf = true;
 
   const getTitle = () => {
     if (isGoogleDriveLink) return "Dokument";
@@ -73,7 +75,7 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
     setStartX(e.clientX);
     setStartY(e.clientY);
     setScrollLeft(containerRef.current.scrollLeft);
-    setScrollTop(containerRef.current.scrollTop);
+    setScrollTop(window.scrollY);
   };
 
   const handleMouseLeave = () => {
@@ -90,13 +92,13 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
     const walkX = (e.clientX - startX) * 1.5; // Hitrost premikanja
     const walkY = (e.clientY - startY) * 1.5;
     containerRef.current.scrollLeft = scrollLeft - walkX;
-    containerRef.current.scrollTop = scrollTop - walkY;
+    window.scrollTo(window.scrollX, scrollTop - walkY);
   };
 
   return (
     <div className="bg-stone-200 min-h-screen flex flex-col">
       {/* Header */}
-      <div className="bg-[#1a1a1a] py-4 md:py-6 text-white shadow-lg z-20 border-b border-white/10 flex-shrink-0">
+      <div className="bg-[#1a1a1a] py-4 md:py-6 text-white shadow-lg z-20 border-b border-white/10 flex-shrink-0 sticky top-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4">
             <button 
@@ -124,13 +126,13 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
       </div>
 
       {/* Glavno območje - ENA VELIKA KARTICA */}
-      <div className="flex-grow overflow-y-auto p-4 md:p-8 flex justify-center items-start">
+      <div className="flex-grow p-4 md:p-8 flex justify-center items-start">
          
          {/* ENA KARTICA, KI DELUJE KOT PDF PREGLEDOVALNIK */}
-         <div className="w-full max-w-5xl h-[200vh] bg-stone-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-stone-400 relative">
+         <div className="w-full max-w-5xl bg-stone-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-stone-400 relative">
             
             {/* Glava kartice (SVETLO ZELEN KVADRATEK) */}
-            <div className="bg-white p-4 border-b border-stone-300 flex justify-between items-center flex-shrink-0 z-10 shadow-sm">
+            <div className="bg-white p-4 border-b border-stone-300 flex justify-between items-center flex-shrink-0 z-10 shadow-sm sticky top-[72px] md:top-[88px]">
                <div className="flex items-center gap-3">
                   <BookOpen className="h-5 w-5 text-cardio-600" />
                   {/* Dinamičen naslov iz URL-ja */}
@@ -163,15 +165,15 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
             {/* Notranje območje */}
             <div 
               ref={containerRef}
-              className={`flex-grow overflow-auto bg-[#323639] ${isDirectPdf ? 'p-4 md:p-8' : ''} ${scale > 1.0 && isDirectPdf ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-auto'}`}
+              className={`flex-grow overflow-x-auto bg-[#323639] ${isDirectPdf ? 'p-4 md:p-8' : ''} ${scale > 1.0 && isDirectPdf ? (isDragging ? 'cursor-grabbing' : 'cursor-grab') : 'cursor-auto'}`}
               onMouseDown={isDirectPdf ? handleMouseDown : undefined}
               onMouseLeave={isDirectPdf ? handleMouseLeave : undefined}
               onMouseUp={isDirectPdf ? handleMouseUp : undefined}
               onMouseMove={isDirectPdf ? handleMouseMove : undefined}
             >
-              {isDirectPdf ? (
+              {isDirectPdf && (
                 <Document
-                  file={pdfUrl}
+                  file={finalPdfUrl}
                   onLoadSuccess={onDocumentLoadSuccess}
                   className="flex flex-col gap-8"
                   loading={
@@ -203,13 +205,6 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
                     </div>
                   ))}
                 </Document>
-              ) : (
-                <iframe 
-                   src={embedUrl}
-                   className="w-full h-full min-h-[80vh] border-0"
-                   allow="autoplay"
-                   title={title}
-                />
               )}
             </div>
          </div>
