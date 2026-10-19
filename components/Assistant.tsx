@@ -3,6 +3,7 @@ import { MessageCircle, X, Send, HeartPulse, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { ChatMessage, PageType } from '../types';
 import { generateHealthResponse } from '../services/geminiService';
+import { sledi } from '../services/analyticsService';
 
 interface AssistantProps {
   onNavigate: (view: PageType, param?: string | number) => void;
@@ -65,6 +66,8 @@ const Assistant: React.FC<AssistantProps> = ({ onNavigate, currentView }) => {
     setInputText('');
     setIsLoading(true);
 
+    // Nur zählen, dass eine Frage gestellt wurde – nie den Inhalt
+    sledi('asistent', 'vprašanje');
     const responseText = await generateHealthResponse(inputText);
 
     const botMessage: ChatMessage = {

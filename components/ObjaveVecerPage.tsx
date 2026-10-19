@@ -29,8 +29,8 @@ const ObjaveVecerPage: React.FC<ObjaveVecerPageProps> = ({ onNavigate, publicati
         const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match) {
           const fileId = match[1];
-          // Use our own backend proxy for Google Drive PDFs to avoid CORS and 403 errors
-          return `/api/pdf?id=${fileId}`;
+          // Eigener PHP-Proxy auf dem A1-Server (der Node-Endpunkt /api/pdf läuft dort nicht)
+          return `/api/pdf.php?id=${fileId}`;
         }
       }
     } catch (e) {

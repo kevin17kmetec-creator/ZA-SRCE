@@ -1,0 +1,10 @@
+# Dashboard: nicht von Suchmaschinen indexieren, kein Verzeichnislisting
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow"
+    Header set X-Frame-Options "DENY"
+    Header set Referrer-Policy "no-referrer"
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>

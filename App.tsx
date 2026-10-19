@@ -34,6 +34,7 @@ import LegalNotice from './components/LegalNotice'; // New
 import AccessibilityStatement from './components/AccessibilityStatement'; // New
 import ContactPage from './components/ContactPage';
 import { PageType } from './types';
+import { beleziOgled } from './services/analyticsService';
 
 function App() {
   // 1. State Management for Navigation
@@ -138,6 +139,13 @@ function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Besucherstatistik: bei jedem Seitenwechsel einen Seitenaufruf melden.
+  // Es wird der tatsächliche Pfad aus der Adresszeile verwendet; doppelte
+  // Meldungen desselben Pfads werden im Service ignoriert.
+  useEffect(() => {
+    beleziOgled(window.location.pathname);
+  }, [currentView, selectedArticleId, selectedPublicationUrl]);
 
   // 2. Navigation Handler
   const handleNavigate = (view: PageType, param?: string | number) => {

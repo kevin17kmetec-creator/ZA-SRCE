@@ -3,6 +3,7 @@ import React from 'react';
 import { Heart, Facebook } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
 import { PageType } from '../types';
+import { odpriNastavitvePiskotkov } from '../services/consentService';
 
 interface FooterProps {
   onNavigate: (view: PageType, sectionId?: string) => void;
@@ -76,6 +77,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li><button onClick={() => onNavigate('terms-conditions')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Splošni pogoji</button></li>
               <li><button onClick={() => onNavigate('legal-notice')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Pravno obvestilo</button></li>
               <li><button onClick={() => onNavigate('accessibility')} className="text-base text-gray-400 hover:text-white transition-colors text-left">Dostopnost</button></li>
+              <li><button onClick={odpriNastavitvePiskotkov} className="text-base text-gray-400 hover:text-white transition-colors text-left">Nastavitve piškotkov</button></li>
             </ul>
           </div>
 

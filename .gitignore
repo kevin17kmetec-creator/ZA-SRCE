@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Server-Konfiguration mit Datenbankzugang und Gemini-Schlüssel
+public/zasebno/config.php
+.env

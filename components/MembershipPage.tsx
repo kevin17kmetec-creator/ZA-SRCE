@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Download, CheckCircle, Users, Heart, ArrowRight, Loader2, FileText, Briefcase, MapPin, Calendar, Phone, Mail, Gift } from 'lucide-react';
 import { PageType } from '../types';
+import { sledi } from '../services/analyticsService';
 
 interface MembershipPageProps {
   onNavigate?: (view: PageType, sectionId?: string) => void;
@@ -60,6 +61,7 @@ const MembershipPage: React.FC<MembershipPageProps> = ({ onNavigate }) => {
       
       if (response.ok) {
         setFormStatus('success');
+        sledi('obrazec', 'članstvo');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         setFormStatus('error');

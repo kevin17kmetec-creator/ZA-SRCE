@@ -2,6 +2,8 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock, Printer, Globe } from 'lucide-react';
 import { CONTACT_INFO } from '../constants';
+import ZunanjaVsebina from './ZunanjaVsebina';
+import { sledi } from '../services/analyticsService';
 
 const ContactMap: React.FC = () => {
   const [formStatus, setFormStatus] = React.useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -27,6 +29,7 @@ const ContactMap: React.FC = () => {
       
       if (response.ok) {
         setFormStatus('success');
+        sledi('obrazec', 'kontakt');
         (e.target as HTMLFormElement).reset();
       } else {
         setFormStatus('error');
@@ -168,17 +171,23 @@ const ContactMap: React.FC = () => {
 
             {/* Bottom: Embed Google Map */}
             <div className="relative w-full h-[450px] bg-gray-100 border-t border-stone-100">
-               <iframe 
-                 src="https://maps.google.com/maps?q=Pobre%C5%A1ka%20cesta%208,%202000%20Maribor&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                 width="100%" 
-                 height="100%" 
-                 style={{border:0}} 
-                 allowFullScreen={true} 
-                 loading="lazy" 
-                 title="Lokacija Društva"
-                 referrerPolicy="no-referrer-when-downgrade"
-                 className="absolute inset-0"
-               ></iframe>
+               <ZunanjaVsebina
+                 ponudnik="Google"
+                 opis="Zemljevid lokacije društva (Pobreška cesta 8, Maribor)"
+                 povezava={{ besedilo: 'Odpri v Google Zemljevidih', url: 'https://www.google.com/maps/search/?api=1&query=Pobre%C5%A1ka+cesta+8%2C+2000+Maribor' }}
+               >
+                 <iframe 
+                   src="https://maps.google.com/maps?q=Pobre%C5%A1ka%20cesta%208,%202000%20Maribor&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                   width="100%" 
+                   height="100%" 
+                   style={{border:0}} 
+                   allowFullScreen={true} 
+                   loading="lazy" 
+                   title="Lokacija Društva"
+                   referrerPolicy="no-referrer-when-downgrade"
+                   className="absolute inset-0"
+                 ></iframe>
+               </ZunanjaVsebina>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { PageType } from '../types';
+import ZunanjaVsebina from './ZunanjaVsebina';
 
 interface VideoPlayerPageProps {
   onNavigate: (view: PageType) => void;
@@ -46,15 +47,22 @@ const VideoPlayerPage: React.FC<VideoPlayerPageProps> = ({ onNavigate, videoUrl,
           </div>
           
           <div className="relative w-full bg-black overflow-hidden h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px]">
-            <iframe 
-              src={currentUrl}
-              className="absolute top-0 left-0 w-full border-0"
-              style={{ height: 'calc(100% + 80px)' }}
-              allowFullScreen
-              title={currentTitle}
-              allow="autoplay; fullscreen; picture-in-picture"
-              scrolling="no"
-            ></iframe>
+            <ZunanjaVsebina
+              ponudnik="RTV Slovenija"
+              opis={currentTitle}
+              povezava={{ besedilo: 'Odpri posnetek na RTV 365', url: videoUrl || 'https://365.rtvslo.si/arhiv/omizje/174860854' }}
+              temno
+            >
+              <iframe 
+                src={currentUrl}
+                className="absolute top-0 left-0 w-full border-0"
+                style={{ height: 'calc(100% + 80px)' }}
+                allowFullScreen
+                title={currentTitle}
+                allow="autoplay; fullscreen; picture-in-picture"
+                scrolling="no"
+              ></iframe>
+            </ZunanjaVsebina>
           </div>
           
           <div className="p-4 md:p-6 bg-stone-50 text-stone-600 text-xs md:text-sm italic">

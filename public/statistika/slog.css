@@ -1,0 +1,152 @@
+/* Darstellung des Statistik-Dashboards (bewusst ohne externe Schriften/CDNs) */
+:root {
+    color-scheme: light;
+    --ozadje: #f6f5f3;
+    --povrsina: #ffffff;
+    --crta: #e7e5e1;
+    --crta-mocna: #d6d3cd;
+    --besedilo: #0f172a;
+    --besedilo-2: #475569;
+    --besedilo-3: #64748b;
+    --rdeca: #c14141;
+    --rdeca-temna: #a03131;
+    --rdeca-svetla: #fae8e8;
+    --modra: #2f6db5;
+    --zelena: #1f7a4d;
+    --senca: 0 1px 2px rgba(15, 23, 42, .05), 0 4px 16px rgba(15, 23, 42, .04);
+    --zaobljenost: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--ozadje);
+    color: var(--besedilo);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.25; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.05rem; margin-bottom: 14px; }
+h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--besedilo-3); margin: 22px 0 8px; font-weight: 600; }
+
+.znak {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: grid; place-items: center;
+    background: var(--rdeca); color: #fff; font-size: 26px;
+    margin-bottom: 18px;
+}
+.znak.majhen { width: 36px; height: 36px; border-radius: 10px; font-size: 18px; margin: 0; }
+
+.kartica {
+    background: var(--povrsina);
+    border: 1px solid var(--crta);
+    border-radius: var(--zaobljenost);
+    box-shadow: var(--senca);
+    padding: 22px;
+    min-width: 0;
+}
+
+.podnaslov { color: var(--besedilo-2); margin: 6px 0 20px; }
+.opis { color: var(--besedilo-3); font-size: .85rem; margin: -6px 0 12px; }
+
+label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: 14px; }
+input[type=text], input[type=password], input[type=date] {
+    display: block; width: 100%; margin-top: 6px;
+    padding: 10px 12px; font: inherit;
+    border: 1px solid var(--crta-mocna); border-radius: 10px; background: #fff; color: var(--besedilo);
+}
+input:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid rgba(193, 65, 65, .35); outline-offset: 2px; }
+
+.gumb {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 9px 14px; border-radius: 10px; border: 1px solid var(--crta-mocna);
+    background: #fff; color: var(--besedilo); font: inherit; font-weight: 600; font-size: .9rem;
+    cursor: pointer; text-decoration: none; white-space: nowrap;
+}
+.gumb:hover { border-color: var(--besedilo-3); }
+.gumb.glavni { background: var(--rdeca); border-color: var(--rdeca); color: #fff; width: 100%; padding: 12px; }
+.gumb.glavni:hover { background: var(--rdeca-temna); }
+.povezava { background: none; border: 0; padding: 0; font: inherit; color: var(--besedilo-2); cursor: pointer; }
+.povezava:hover { color: var(--rdeca); }
+
+.obvestilo { padding: 10px 12px; border-radius: 10px; font-size: .9rem; margin: 0 0 16px; }
+.obvestilo.napaka { background: var(--rdeca-svetla); color: var(--rdeca-temna); }
+.obvestilo.uspeh { background: #e6f4ec; color: var(--zelena); }
+
+/* Anmeldung */
+.prijava { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.prijava-obrazec { width: 100%; max-width: 380px; padding: 32px; }
+
+/* Kopfzeile */
+.glava { background: var(--povrsina); border-bottom: 1px solid var(--crta); position: sticky; top: 0; z-index: 5; }
+.glava-notranja { max-width: 1240px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.blagovna { display: flex; align-items: center; gap: 12px; }
+.blagovna strong { display: block; }
+.blagovna span { display: block; font-size: .8rem; color: var(--besedilo-3); }
+.meni { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; font-size: .9rem; }
+.meni a { color: var(--besedilo-2); text-decoration: none; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; }
+.meni a.aktivno, .meni a:hover { color: var(--besedilo); border-bottom-color: var(--rdeca); }
+.odjava { margin: 0; }
+
+/* Inhalt */
+.vsebina { max-width: 1240px; margin: 0 auto; padding: 20px 16px 48px; display: flex; flex-direction: column; gap: 18px; }
+.vsebina.ozka { max-width: 480px; padding-top: 40px; }
+.mreza { display: grid; gap: 18px; }
+.mreza.dve { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mreza.tri { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .mreza.dve, .mreza.tri { grid-template-columns: minmax(0, 1fr); } }
+
+/* Zeitraum-Filter */
+.orodja { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.obdobja { display: inline-flex; background: var(--povrsina); border: 1px solid var(--crta); border-radius: 12px; padding: 4px; gap: 2px; flex-wrap: wrap; }
+.obdobja button { border: 0; background: none; padding: 7px 12px; border-radius: 9px; font: inherit; font-size: .88rem; font-weight: 600; color: var(--besedilo-2); cursor: pointer; }
+.obdobja button.aktivno { background: var(--besedilo); color: #fff; }
+.poljubno { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+.poljubno label { margin: 0; font-size: .8rem; color: var(--besedilo-3); }
+.poljubno input { padding: 7px 10px; margin-top: 4px; }
+
+.stanje { margin: 0; font-size: .85rem; color: var(--besedilo-3); min-height: 1.3em; }
+
+/* Kennzahlen */
+.kpi { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1100px) { .kpi { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .kpi { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kpi .kartica { padding: 16px; }
+.kpi .oznaka { font-size: .78rem; color: var(--besedilo-3); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.kpi .vrednost { font-size: 1.7rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 4px 0 2px; letter-spacing: -.01em; }
+.kpi .sprememba { font-size: .8rem; color: var(--besedilo-3); }
+.kpi .sprememba.gor { color: var(--zelena); }
+.kpi .sprememba.dol { color: var(--rdeca-temna); }
+
+/* Diagramme */
+.naslov-vrstica { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.naslov-vrstica h2 { margin: 0; }
+.legenda { display: flex; gap: 14px; font-size: .82rem; color: var(--besedilo-2); }
+.legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.graf { position: relative; height: 300px; }
+.graf.nizek { height: 220px; }
+
+/* Ranglisten mit Balken */
+.seznam { display: flex; flex-direction: column; gap: 6px; }
+.vrstica { position: relative; display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 8px; font-size: .88rem; overflow: hidden; }
+.vrstica .trak { position: absolute; inset: 0 auto 0 0; background: var(--rdeca-svetla); border-radius: 8px; z-index: 0; }
+.vrstica span { position: relative; z-index: 1; }
+.vrstica .ime { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vrstica .st { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--besedilo); }
+.vrstica .st small { color: var(--besedilo-3); font-weight: 500; margin-left: 6px; }
+.prazno { color: var(--besedilo-3); font-size: .88rem; padding: 6px 0; }
+
+/* Tabelle */
+.tabela-ovoj { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+th { text-align: left; font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: var(--besedilo-3); font-weight: 600; padding: 0 8px 8px; border-bottom: 1px solid var(--crta); }
+td { padding: 8px; border-bottom: 1px solid var(--crta); vertical-align: top; }
+td.st, th.st { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td .pot { display: block; color: var(--besedilo-3); font-size: .78rem; word-break: break-all; }
+tr:last-child td { border-bottom: 0; }
+
+.koraki { padding-left: 18px; line-height: 1.9; }
+.noga { color: var(--besedilo-3); font-size: .8rem; text-align: center; max-width: 760px; margin: 8px auto 0; }
