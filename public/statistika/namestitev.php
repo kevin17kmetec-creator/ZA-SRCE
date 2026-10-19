@@ -46,6 +46,7 @@ try {
     $vrstice[] = ($kljuc === '' || strpos($kljuc, 'TVOJ_') === 0)
         ? '⚠ Gemini ključ v config.php še ni vpisan – AI asistent ne bo deloval.'
         : '✓ Gemini ključ je vpisan.';
+    $vrstice[] = '• Različica PHP na strežniku: ' . zs_h(PHP_VERSION);
     $vrstice[] = function_exists('curl_init') ? '✓ PHP cURL je na voljo.' : '✗ PHP cURL ni na voljo – AI asistent in PDF-ji ne bodo delovali.';
     $uspeh = true;
 } catch (Throwable $e) {

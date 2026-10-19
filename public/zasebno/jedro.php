@@ -5,6 +5,10 @@
 define('ZS_JEDRO', true);
 date_default_timezone_set('Europe/Ljubljana');
 
+// Fehler nur ins Server-Log schreiben, nie im Browser anzeigen (verrät sonst Pfade)
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+
 const ZS_SEJA_MINUT = 30;          // Inaktivität, nach der ein neuer Besuch beginnt
 const ZS_MAX_TRAJANJE = 1800;      // max. gezählte Verweildauer pro Messung (Sekunden)
 const ZS_PRIJAVA_MAX_POSKUSOV = 5; // Fehlversuche, bevor die Anmeldung gesperrt wird
@@ -532,6 +536,26 @@ function zs_obdobje(PDO $pdo, $od, $do)
 }
 
 // ---------------------------------------------------------------------------
+// Cookies – kompatibel mit älteren PHP-Versionen (vor 7.3 kein Options-Array)
+// ---------------------------------------------------------------------------
+
+function zs_piskotek($ime, $vrednost, $potek, $pot, $samesite)
+{
+    $varno = zs_je_https();
+    if (PHP_VERSION_ID >= 70300) {
+        return setcookie($ime, $vrednost, [
+            'expires' => $potek,
+            'path' => $pot,
+            'secure' => $varno,
+            'httponly' => true,
+            'samesite' => $samesite,
+        ]);
+    }
+    // Alter Trick: SameSite über den Pfad anhängen
+    return setcookie($ime, $vrednost, $potek, $pot . '; samesite=' . $samesite, '', $varno, true);
+}
+
+// ---------------------------------------------------------------------------
 // Anmeldung für das Dashboard
 // ---------------------------------------------------------------------------
 
@@ -541,13 +565,18 @@ function zs_zacni_sejo()
         return;
     }
     session_name('zs_statistika');
-    session_set_cookie_params([
-        'lifetime' => 0,
-        'path' => '/statistika/',
-        'secure' => zs_je_https(),
-        'httponly' => true,
-        'samesite' => 'Strict',
-    ]);
+    if (PHP_VERSION_ID >= 70300) {
+        session_set_cookie_params([
+            'lifetime' => 0,
+            'path' => '/statistika/',
+            'secure' => zs_je_https(),
+            'httponly' => true,
+            'samesite' => 'Strict',
+        ]);
+    } else {
+        session_set_cookie_params(0, '/statistika/; samesite=Strict', '', zs_je_https(), true);
+    }
+    ini_set('session.use_strict_mode', '1');
     session_start();
 
     if (!empty($_SESSION['uporabnik_id']) && (time() - ($_SESSION['zadnja_aktivnost'] ?? 0)) > ZS_SEJA_POTEK) {
@@ -593,14 +622,7 @@ function zs_odjava()
 {
     $_SESSION = [];
     if (session_status() === PHP_SESSION_ACTIVE) {
-        $p = session_get_cookie_params();
-        setcookie(session_name(), '', [
-            'expires' => time() - 3600,
-            'path' => $p['path'],
-            'secure' => $p['secure'],
-            'httponly' => true,
-            'samesite' => 'Strict',
-        ]);
+        zs_piskotek(session_name(), '', time() - 3600, '/statistika/', 'Strict');
         session_destroy();
     }
 }
@@ -608,13 +630,7 @@ function zs_odjava()
 // Markiert das eigene Gerät, damit Besuche von Verein/Admin nicht gezählt werden
 function zs_oznaci_skrbnika()
 {
-    setcookie('zs_brez_statistike', '1', [
-        'expires' => time() + 365 * 86400,
-        'path' => '/',
-        'secure' => zs_je_https(),
-        'httponly' => true,
-        'samesite' => 'Lax',
-    ]);
+    zs_piskotek('zs_brez_statistike', '1', time() + 365 * 86400, '/', 'Lax');
 }
 
 // Gemeinsames Fehlerverhalten: keine Details an Besucher ausgeben
