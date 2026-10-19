@@ -5,14 +5,7 @@
 defined('ZS_JEDRO') || exit;
 
 return [
-    // MySQL-Datenbank (in der A1-Hosting-Verwaltung anlegen)
-    'baza' => [
-        'gostitelj' => 'localhost',
-        'vrata'     => 3306,
-        'ime'       => 'IME_BAZE',
-        'uporabnik' => 'UPORABNIK_BAZE',
-        'geslo'     => 'GESLO_BAZE',
-    ],
+    // Datenbank: keine Einstellung nötig – SQLite-Datei wird automatisch in zasebno/podatki/ angelegt.
 
     // Google Gemini (Schlüssel aus Google AI Studio)
     'gemini' => [

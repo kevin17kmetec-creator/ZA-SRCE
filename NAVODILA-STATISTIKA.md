@@ -16,11 +16,12 @@
 
 `poslji_podatke.php` ni spremenjen in **ni** del builda – na strežniku ostane tvoja obstoječa verzija (z Brevo ključem).
 
-## 1. Pripravi bazo, ključ in config.php (samo enkrat)
+## 1. Pripravi ključ in config.php (samo enkrat)
 
-1. V nadzorni plošči A1 gostovanja ustvari **MySQL bazo** in uporabnika. Zapiši si: ime baze, uporabnika, geslo, strežnik (običajno `localhost`).
-2. V [Google AI Studio](https://aistudio.google.com/apikey) ustvari **nov** Gemini API ključ in **izbriši starega** (stari je bil viden v JavaScript datoteki na spletni strani).
-3. `config.php` **ni v repozitoriju** (repozitorij je javen). Vzemi datoteko, ki ti jo je poslal razvijalec, ali kopijo `public/zasebno/config.primer.php`, vpiši podatke baze in Gemini ključ ter jo s FileZillo naloži na strežnik v mapo **`zasebno/`** (poleg `jedro.php`). Ker je ni v buildu, je kasnejši prenosi nikoli ne prepišejo.
+Baze ni treba ustvarjati: statistika uporablja **SQLite** (ena datoteka), ki jo PHP sam ustvari v zaščiteni mapi `zasebno/podatki/` ob prvem obisku.
+
+1. V [Google AI Studio](https://aistudio.google.com/apikey) ustvari **nov** Gemini API ključ in **izbriši starega** (stari je bil viden v JavaScript datoteki na spletni strani).
+2. `config.php` **ni v repozitoriju** (repozitorij je javen). Vzemi datoteko, ki ti jo je poslal razvijalec, ali kopijo `public/zasebno/config.primer.php`, vpiši Gemini ključ in jo s FileZillo naloži na strežnik v mapo **`zasebno/`** (poleg `jedro.php`). Ker je ni v buildu, je kasnejši prenosi nikoli ne prepišejo.
 
 ## 2. Build v Cursorju
 
@@ -56,7 +57,9 @@ Gesli spremenite v nadzorni plošči pod **Spremeni geslo**.
 - AI asistent: zastavi vprašanje na spletni strani.
 - Kontakt: zemljevid mora biti skrit, dokler ne klikneš »Prikaži vsebino« ali v pasici »Sprejmi«.
 
-## Varnost
+## Varnost in varnostna kopija
+
+- Vsi statistični podatki in uporabniki so v datoteki `zasebno/podatki/statistika.sqlite` na strežniku. Mape `zasebno/podatki/` **nikoli ne briši** pri nalaganju nove verzije. Za varnostno kopijo jo občasno prenesi s FileZillo na računalnik.
 
 - `public/zasebno/config.php` je v `.gitignore` – nikoli ga ne objavi na GitHub (repozitorij je javen).
 - Mapa `zasebno` je s strežnika nedostopna (vrne 403).

@@ -14,11 +14,10 @@ $uspeh = false;
 
 try {
     $pdo = zs_baza();
-    $vrstice[] = '✓ Povezava z bazo deluje.';
+    $vrstice[] = '✓ Baza (SQLite) je pripravljena v mapi zasebno/podatki/.';
 
     // Nach der Ersteinrichtung nur noch für angemeldete Benutzer
-    $obstaja = $pdo->query("SHOW TABLES LIKE 'zs_uporabniki'")->fetchColumn();
-    if ($obstaja && (int)$pdo->query('SELECT COUNT(*) FROM zs_uporabniki')->fetchColumn() > 0 && !zs_prijavljen()) {
+    if ((int)$pdo->query('SELECT COUNT(*) FROM zs_uporabniki')->fetchColumn() > 0 && !zs_prijavljen()) {
         http_response_code(403);
         echo '<p style="font-family:sans-serif">Namestitev je že izvedena. Za ponovni zagon se najprej prijavite v <a href="./">nadzorno ploščo</a>.</p>';
         exit;
@@ -27,9 +26,8 @@ try {
     foreach (zs_shema() as $sql) {
         $pdo->exec($sql);
     }
-    $vrstice[] = '✓ Tabele so pripravljene.';
 
-    $st = $pdo->prepare('INSERT IGNORE INTO zs_uporabniki (uporabnisko_ime, geslo_hash) VALUES (?, ?)');
+    $st = $pdo->prepare('INSERT OR IGNORE INTO zs_uporabniki (uporabnisko_ime, geslo_hash) VALUES (?, ?)');
     foreach ((zs_config()['zacetni_uporabniki'] ?? []) as $ime => $hash) {
         if (strpos((string)$hash, '$2y$') !== 0 && strpos((string)$hash, '$argon') !== 0) {
             $vrstice[] = '✗ Uporabnik ' . zs_h($ime) . ': v config.php ni veljavnega hasha gesla – preskočeno.';
@@ -53,7 +51,7 @@ try {
 } catch (Throwable $e) {
     error_log('[zasrce] namestitev: ' . $e->getMessage());
     $vrstice[] = '✗ Napaka: ' . zs_h($e->getMessage());
-    $vrstice[] = 'Preverite podatke za bazo v datoteki zasebno/config.php.';
+    $vrstice[] = 'Preverite, ali je datoteka zasebno/config.php naložena in ali lahko PHP piše v mapo zasebno/.';
 }
 ?><!DOCTYPE html>
 <html lang="sl">

@@ -52,7 +52,7 @@ zs_varno(function () use (&$napaka, &$sporocilo, &$stran) {
         $_SESSION['uporabnik_id'] = (int)$uporabnik['id'];
         $_SESSION['uporabnik_ime'] = $uporabnik['uporabnisko_ime'];
         $_SESSION['csrf'] = bin2hex(random_bytes(32));
-        $pdo->prepare('UPDATE zs_uporabniki SET zadnja_prijava = NOW() WHERE id = ?')->execute([$uporabnik['id']]);
+        $pdo->prepare('UPDATE zs_uporabniki SET zadnja_prijava = ? WHERE id = ?')->execute([date('Y-m-d H:i:s'), $uporabnik['id']]);
         if (password_needs_rehash($uporabnik['geslo_hash'], PASSWORD_DEFAULT)) {
             $pdo->prepare('UPDATE zs_uporabniki SET geslo_hash = ? WHERE id = ?')->execute([password_hash($geslo, PASSWORD_DEFAULT), $uporabnik['id']]);
         }
@@ -88,8 +88,8 @@ zs_varno(function () use (&$napaka, &$sporocilo, &$stran) {
         } elseif ($novo === $staro) {
             $napaka = 'Novo geslo mora biti drugačno od trenutnega.';
         } else {
-            $pdo->prepare('UPDATE zs_uporabniki SET geslo_hash = ?, geslo_spremenjeno = NOW() WHERE id = ?')
-                ->execute([password_hash($novo, PASSWORD_DEFAULT), $_SESSION['uporabnik_id']]);
+            $pdo->prepare('UPDATE zs_uporabniki SET geslo_hash = ?, geslo_spremenjeno = ? WHERE id = ?')
+                ->execute([password_hash($novo, PASSWORD_DEFAULT), date('Y-m-d H:i:s'), $_SESSION['uporabnik_id']]);
             session_regenerate_id(true);
             $sporocilo = 'Geslo je bilo uspešno spremenjeno.';
         }

@@ -28,97 +28,124 @@ function zs_config()
     return $config;
 }
 
+// SQLite-Datenbank als einzelne Datei im gesperrten Ordner zasebno/podatki/.
+// Es muss beim Hoster nichts eingerichtet werden – die Datei wird automatisch angelegt.
+function zs_pot_baze()
+{
+    return __DIR__ . '/podatki/statistika.sqlite';
+}
+
 function zs_baza()
 {
     static $pdo = null;
     if ($pdo === null) {
-        $b = zs_config()['baza'];
-        $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $b['gostitelj'], (int)($b['vrata'] ?? 3306), $b['ime']);
-        $pdo = new PDO($dsn, $b['uporabnik'], $b['geslo'], [
+        if (!in_array('sqlite', PDO::getAvailableDrivers(), true)) {
+            throw new RuntimeException('PHP-Erweiterung pdo_sqlite ist auf dem Server nicht verfügbar.');
+        }
+        $mapa = dirname(zs_pot_baze());
+        if (!is_dir($mapa) && !mkdir($mapa, 0750, true) && !is_dir($mapa)) {
+            throw new RuntimeException('Ordner zasebno/podatki konnte nicht angelegt werden (Schreibrechte prüfen).');
+        }
+        // Zusätzlicher Schutz, falls die übergeordnete .htaccess fehlt
+        $zascita = $mapa . '/.htaccess';
+        if (!is_file($zascita)) {
+            @file_put_contents($zascita, "<IfModule mod_authz_core.c>\n    Require all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\n    Order allow,deny\n    Deny from all\n</IfModule>\n");
+        }
+
+        $pdo = new PDO('sqlite:' . zs_pot_baze(), null, null, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_TIMEOUT => 5,
         ]);
+        $pdo->exec('PRAGMA busy_timeout = 5000');
+        $pdo->exec('PRAGMA journal_mode = WAL');
+        $pdo->exec('PRAGMA synchronous = NORMAL');
+
+        // Schema beim ersten Zugriff automatisch anlegen
+        if ((int)$pdo->query('PRAGMA user_version')->fetchColumn() < 1) {
+            foreach (zs_shema() as $sql) {
+                $pdo->exec($sql);
+            }
+            $pdo->exec('PRAGMA user_version = 1');
+        }
     }
     return $pdo;
 }
 
 function zs_shema()
 {
-    $mozn = 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC';
     return [
         // Rohereignisse (werden nach "hramba_dni" Tagen gelöscht)
         "CREATE TABLE IF NOT EXISTS zs_dogodki (
-            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            cas DATETIME NOT NULL,
-            dan DATE NOT NULL,
-            tip VARCHAR(12) NOT NULL,
-            pot VARCHAR(190) NOT NULL,
-            oznaka VARCHAR(60) NULL,
-            vrednost VARCHAR(200) NULL,
-            napotitelj VARCHAR(100) NULL,
-            utm_vir VARCHAR(100) NULL,
-            utm_kampanja VARCHAR(100) NULL,
-            naprava VARCHAR(12) NULL,
-            brskalnik VARCHAR(20) NULL,
-            os VARCHAR(20) NULL,
-            jezik VARCHAR(5) NULL,
-            obiskovalec CHAR(16) NOT NULL,
-            seja CHAR(16) NOT NULL,
-            vstop TINYINT(1) NOT NULL DEFAULT 0,
-            trajanje INT UNSIGNED NULL,
-            pomik TINYINT UNSIGNED NULL,
-            KEY idx_dan_obiskovalec (dan, obiskovalec),
-            KEY idx_dan_tip (dan, tip)
-        ) $mozn",
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            cas TEXT NOT NULL,
+            dan TEXT NOT NULL,
+            tip TEXT NOT NULL,
+            pot TEXT NOT NULL,
+            oznaka TEXT NULL,
+            vrednost TEXT NULL,
+            napotitelj TEXT NULL,
+            utm_vir TEXT NULL,
+            utm_kampanja TEXT NULL,
+            naprava TEXT NULL,
+            brskalnik TEXT NULL,
+            os TEXT NULL,
+            jezik TEXT NULL,
+            obiskovalec TEXT NOT NULL,
+            seja TEXT NOT NULL,
+            vstop INTEGER NOT NULL DEFAULT 0,
+            trajanje INTEGER NULL,
+            pomik INTEGER NULL
+        )",
+        'CREATE INDEX IF NOT EXISTS idx_dogodki_dan_obiskovalec ON zs_dogodki (dan, obiskovalec)',
+        'CREATE INDEX IF NOT EXISTS idx_dogodki_dan_tip ON zs_dogodki (dan, tip)',
         // Tägliches Salz für den anonymen Besucher-Hash (wird täglich gelöscht)
-        "CREATE TABLE IF NOT EXISTS zs_sol (
-            dan DATE NOT NULL PRIMARY KEY,
-            vrednost CHAR(64) NOT NULL
-        ) $mozn",
+        'CREATE TABLE IF NOT EXISTS zs_sol (
+            dan TEXT NOT NULL PRIMARY KEY,
+            vrednost TEXT NOT NULL
+        )',
         // Dauerhafte Tageszusammenfassungen (ohne Personenbezug)
-        "CREATE TABLE IF NOT EXISTS zs_povzetek_dan (
-            dan DATE NOT NULL PRIMARY KEY,
-            obiskovalci INT UNSIGNED NOT NULL DEFAULT 0,
-            seje INT UNSIGNED NOT NULL DEFAULT 0,
-            ogledi INT UNSIGNED NOT NULL DEFAULT 0,
-            odboji INT UNSIGNED NOT NULL DEFAULT 0,
-            cas_skupaj INT UNSIGNED NOT NULL DEFAULT 0
-        ) $mozn",
-        "CREATE TABLE IF NOT EXISTS zs_povzetek_strani (
-            dan DATE NOT NULL,
-            pot VARCHAR(190) NOT NULL,
-            ogledi INT UNSIGNED NOT NULL DEFAULT 0,
-            obiskovalci INT UNSIGNED NOT NULL DEFAULT 0,
-            cas_skupaj INT UNSIGNED NOT NULL DEFAULT 0,
-            pomik_vsota INT UNSIGNED NOT NULL DEFAULT 0,
-            pomik_n INT UNSIGNED NOT NULL DEFAULT 0,
+        'CREATE TABLE IF NOT EXISTS zs_povzetek_dan (
+            dan TEXT NOT NULL PRIMARY KEY,
+            obiskovalci INTEGER NOT NULL DEFAULT 0,
+            seje INTEGER NOT NULL DEFAULT 0,
+            ogledi INTEGER NOT NULL DEFAULT 0,
+            odboji INTEGER NOT NULL DEFAULT 0,
+            cas_skupaj INTEGER NOT NULL DEFAULT 0
+        )',
+        'CREATE TABLE IF NOT EXISTS zs_povzetek_strani (
+            dan TEXT NOT NULL,
+            pot TEXT NOT NULL,
+            ogledi INTEGER NOT NULL DEFAULT 0,
+            obiskovalci INTEGER NOT NULL DEFAULT 0,
+            cas_skupaj INTEGER NOT NULL DEFAULT 0,
+            pomik_vsota INTEGER NOT NULL DEFAULT 0,
+            pomik_n INTEGER NOT NULL DEFAULT 0,
             PRIMARY KEY (dan, pot)
-        ) $mozn",
-        "CREATE TABLE IF NOT EXISTS zs_povzetek_dimenzij (
-            dan DATE NOT NULL,
-            dimenzija VARCHAR(20) NOT NULL,
-            vrednost VARCHAR(150) NOT NULL,
-            stevilo INT UNSIGNED NOT NULL DEFAULT 0,
+        )',
+        'CREATE TABLE IF NOT EXISTS zs_povzetek_dimenzij (
+            dan TEXT NOT NULL,
+            dimenzija TEXT NOT NULL,
+            vrednost TEXT NOT NULL,
+            stevilo INTEGER NOT NULL DEFAULT 0,
             PRIMARY KEY (dan, dimenzija, vrednost)
-        ) $mozn",
+        )',
         // Dashboard-Benutzer
-        "CREATE TABLE IF NOT EXISTS zs_uporabniki (
-            id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            uporabnisko_ime VARCHAR(50) NOT NULL,
-            geslo_hash VARCHAR(255) NOT NULL,
-            zadnja_prijava DATETIME NULL,
-            geslo_spremenjeno DATETIME NULL,
-            UNIQUE KEY uq_ime (uporabnisko_ime)
-        ) $mozn",
+        'CREATE TABLE IF NOT EXISTS zs_uporabniki (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            uporabnisko_ime TEXT NOT NULL UNIQUE,
+            geslo_hash TEXT NOT NULL,
+            zadnja_prijava TEXT NULL,
+            geslo_spremenjeno TEXT NULL
+        )',
         // Ratenbegrenzung (Anmeldung, Gemini) – nur gehashte Schlüssel
-        "CREATE TABLE IF NOT EXISTS zs_omejitve (
-            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            vrsta VARCHAR(10) NOT NULL,
-            kljuc CHAR(64) NOT NULL,
-            cas INT UNSIGNED NOT NULL,
-            KEY idx_vrsta_kljuc (vrsta, kljuc, cas)
-        ) $mozn",
+        'CREATE TABLE IF NOT EXISTS zs_omejitve (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            vrsta TEXT NOT NULL,
+            kljuc TEXT NOT NULL,
+            cas INTEGER NOT NULL
+        )',
+        'CREATE INDEX IF NOT EXISTS idx_omejitve ON zs_omejitve (vrsta, kljuc, cas)',
     ];
 }
 
@@ -197,7 +224,7 @@ function zs_sol_danes(PDO $pdo)
     if ($sol) {
         return $sol;
     }
-    $pdo->prepare('INSERT IGNORE INTO zs_sol (dan, vrednost) VALUES (?, ?)')->execute([$danes, bin2hex(random_bytes(32))]);
+    $pdo->prepare('INSERT OR IGNORE INTO zs_sol (dan, vrednost) VALUES (?, ?)')->execute([$danes, bin2hex(random_bytes(32))]);
     // Salz der Vortage sofort löschen – damit sind alte Hashes nicht mehr zuordenbar
     $pdo->prepare('DELETE FROM zs_sol WHERE dan < ?')->execute([$danes]);
     $st->execute([$danes]);
@@ -341,7 +368,7 @@ function zs_izracunaj_dan(PDO $pdo, $dan)
     $st->execute([$dan]);
     $odboji = (int)$st->fetchColumn();
 
-    $st = $pdo->prepare("SELECT COALESCE(SUM(LEAST(trajanje, $max)), 0) FROM zs_dogodki WHERE dan = ? AND tip = 'odhod'");
+    $st = $pdo->prepare("SELECT COALESCE(SUM(MIN(trajanje, $max)), 0) FROM zs_dogodki WHERE dan = ? AND tip = 'odhod'");
     $st->execute([$dan]);
     $cas = (int)$st->fetchColumn();
 
@@ -361,7 +388,7 @@ function zs_izracunaj_dan(PDO $pdo, $dan)
     foreach ($st as $v) {
         $strani[$v['pot']] = ['ogledi' => (int)$v['ogledi'], 'obiskovalci' => (int)$v['obiskovalci'], 'cas_skupaj' => 0, 'pomik_vsota' => 0, 'pomik_n' => 0];
     }
-    $st = $pdo->prepare("SELECT pot, SUM(LEAST(trajanje, $max)) AS cas FROM zs_dogodki WHERE dan = ? AND tip = 'odhod' GROUP BY pot");
+    $st = $pdo->prepare("SELECT pot, SUM(MIN(trajanje, $max)) AS cas FROM zs_dogodki WHERE dan = ? AND tip = 'odhod' GROUP BY pot");
     $st->execute([$dan]);
     foreach ($st as $v) {
         if (!isset($strani[$v['pot']])) {
@@ -386,14 +413,14 @@ function zs_izracunaj_dan(PDO $pdo, $dan)
     $poizvedbe = [
         'vir' => "SELECT COALESCE(napotitelj, '(neposredno)') AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 GROUP BY v",
         'vstop' => "SELECT pot AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 GROUP BY v",
-        'utm' => "SELECT CONCAT(utm_vir, IF(utm_kampanja IS NULL, '', CONCAT(' / ', utm_kampanja))) AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 AND utm_vir IS NOT NULL GROUP BY v",
+        'utm' => "SELECT utm_vir || COALESCE(' / ' || utm_kampanja, '') AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 AND utm_vir IS NOT NULL GROUP BY v",
         'naprava' => "SELECT naprava AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 GROUP BY v",
         'brskalnik' => "SELECT brskalnik AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 GROUP BY v",
         'os' => "SELECT os AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 GROUP BY v",
         'jezik' => "SELECT COALESCE(jezik, '?') AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' AND vstop = 1 GROUP BY v",
-        'ura' => "SELECT LPAD(HOUR(cas), 2, '0') AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' GROUP BY v",
+        'ura' => "SELECT substr(cas, 12, 2) AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'ogled' GROUP BY v",
         'klik' => "SELECT oznaka AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'klik' GROUP BY v",
-        'klik_cilj' => "SELECT CONCAT(oznaka, ': ', vrednost) AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'klik' AND vrednost IS NOT NULL GROUP BY v",
+        'klik_cilj' => "SELECT oznaka || ': ' || vrednost AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'klik' AND vrednost IS NOT NULL GROUP BY v",
         'obrazec' => "SELECT oznaka AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'obrazec' GROUP BY v",
         'asistent' => "SELECT oznaka AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'asistent' GROUP BY v",
         'soglasje' => "SELECT oznaka AS v, COUNT(*) AS n FROM zs_dogodki WHERE dan = ? AND tip = 'soglasje' GROUP BY v",
