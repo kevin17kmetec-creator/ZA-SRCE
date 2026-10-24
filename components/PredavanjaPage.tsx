@@ -55,7 +55,7 @@ const PredavanjaPage: React.FC<PredavanjaPageProps> = ({ onNavigate }) => {
       </div>
 
       {/* Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
         
         {/* City Toggle Buttons */}
         <div className="flex justify-center mb-8 space-x-4">
@@ -85,82 +85,118 @@ const PredavanjaPage: React.FC<PredavanjaPageProps> = ({ onNavigate }) => {
           <div className="flex justify-center items-center py-20">
             <Loader2 className="h-10 w-10 text-cardio-600 animate-spin" />
           </div>
+        ) : lectures.length === 0 ? (
+          <div className="bg-white rounded-2xl shadow-lg border border-stone-100 px-6 py-12 text-center text-gray-500">
+            Trenutno ni razpisanih predavanj.
+          </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-stone-100">
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
+          <>
+            {/* Große Bildschirme: Tabelle mit festen Spaltenbreiten – alle Spalten sichtbar, kein seitliches Scrollen */}
+            <div className="hidden xl:block bg-white rounded-2xl shadow-lg overflow-hidden border border-stone-100">
+              <table className="w-full table-fixed divide-y divide-gray-200">
+                <colgroup>
+                  <col className="w-[9.5rem]" />
+                  <col className="w-[6.5rem]" />
+                  <col className="w-[15%]" />
+                  <col />
+                  <col className="w-[13%]" />
+                  <col className="w-[14%]" />
+                </colgroup>
                 <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Datum
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Ura
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Lokacija
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Tema / Naslov
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Predavatelj
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Komentar
-                    </th>
+                    {['Datum', 'Ura', 'Lokacija', 'Tema / Naslov', 'Predavatelj', 'Komentar'].map((naslov) => (
+                      <th
+                        key={naslov}
+                        scope="col"
+                        className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                      >
+                        {naslov}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {lectures.length > 0 ? (
-                    lectures.map((item, index) => (
-                      <tr key={index} className="hover:bg-stone-50 transition-colors">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center text-sm font-medium text-gray-900">
-                            <Calendar className="h-4 w-4 mr-2 text-cardio-600" />
-                            {item.date}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center text-sm text-gray-500">
-                            <Clock className="h-4 w-4 mr-2 text-gray-400" />
-                            {item.time}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center text-sm text-gray-500">
-                            <MapPin className="h-4 w-4 mr-2 text-gray-400" />
-                            {item.location}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          <div className="flex items-center">
-                            <BookOpen className="h-4 w-4 mr-2 text-gray-400" />
-                            {item.topic || '-'}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-500">
-                          <div className="flex items-center">
-                            <User className="h-4 w-4 mr-2 text-gray-400" />
-                            {item.lecturer || '-'}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-cardio-600 italic">
+                  {lectures.map((item, index) => (
+                    <tr key={index} className="align-top hover:bg-stone-50 transition-colors">
+                      <td className="px-4 py-5">
+                        <div className="flex items-center text-sm font-semibold text-gray-900 whitespace-nowrap">
+                          <Calendar className="h-4 w-4 mr-2 flex-shrink-0 text-cardio-600" />
+                          {item.date}
+                        </div>
+                      </td>
+                      <td className="px-4 py-5">
+                        <div className="flex items-center text-sm text-gray-600 whitespace-nowrap">
+                          <Clock className="h-4 w-4 mr-2 flex-shrink-0 text-gray-400" />
+                          {item.time}
+                        </div>
+                      </td>
+                      <td className="px-4 py-5">
+                        <div className="flex items-start text-sm text-gray-600 break-words">
+                          <MapPin className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-gray-400" />
+                          <span className="min-w-0">{item.location}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-5">
+                        <p className="text-sm text-gray-800 leading-relaxed whitespace-pre-line break-words">
+                          {item.topic || '-'}
+                        </p>
+                      </td>
+                      <td className="px-4 py-5">
+                        <div className="flex items-start text-sm text-gray-600 break-words">
+                          <User className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-gray-400" />
+                          <span className="min-w-0">{item.lecturer || '-'}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-5">
+                        <p className="text-sm text-cardio-600 italic whitespace-pre-line break-words">
                           {item.comment}
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
-                        Trenutno ni razpisanih predavanj. Ko dodate tabelo na vrhu aplikacije, se bodo tukaj prikazala predavanja.
+                        </p>
                       </td>
                     </tr>
-                  )}
+                  ))}
                 </tbody>
               </table>
             </div>
-          </div>
+
+            {/* Kleinere Bildschirme: jede Vorlesung als Karte, damit nichts gequetscht wird */}
+            <div className="xl:hidden space-y-4">
+              {lectures.map((item, index) => (
+                <article key={index} className="bg-white rounded-2xl shadow-md border border-stone-100 overflow-hidden">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 bg-stone-50 border-b border-stone-100 px-5 py-3 text-sm">
+                    <span className="flex items-center font-semibold text-gray-900">
+                      <Calendar className="h-4 w-4 mr-2 text-cardio-600" />
+                      {item.date}
+                    </span>
+                    <span className="flex items-center text-gray-600">
+                      <Clock className="h-4 w-4 mr-2 text-gray-400" />
+                      {item.time}
+                    </span>
+                  </div>
+                  <div className="px-5 py-4 space-y-3">
+                    <div className="flex items-start">
+                      <BookOpen className="h-4 w-4 mr-2 mt-1 flex-shrink-0 text-cardio-600" />
+                      <p className="text-gray-800 leading-relaxed whitespace-pre-line break-words">{item.topic || '-'}</p>
+                    </div>
+                    <div className="flex items-start text-sm text-gray-600">
+                      <MapPin className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-gray-400" />
+                      <span className="break-words">{item.location}</span>
+                    </div>
+                    {item.lecturer && (
+                      <div className="flex items-start text-sm text-gray-600">
+                        <User className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-gray-400" />
+                        <span className="break-words">{item.lecturer}</span>
+                      </div>
+                    )}
+                    {item.comment && (
+                      <p className="text-sm text-cardio-600 italic whitespace-pre-line break-words border-t border-stone-100 pt-3">
+                        {item.comment}
+                      </p>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </>
         )}
         
         <div className="mt-8 bg-cardio-50 border-l-4 border-cardio-500 p-4 rounded-r-lg">
